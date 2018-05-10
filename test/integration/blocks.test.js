@@ -33,7 +33,7 @@ describe('Working with the blocks', () => {
         await clickText('Operators', scope.blocksTab);
         await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for scroll animation
         await clickText('join', scope.blocksTab); // Click "join <hello> <world>" block
-        await findByText('helloworld', scope.reportedValue); // Tooltip with result
+        await findByText('applebanana', scope.reportedValue); // Tooltip with result
         const logs = await getLogs();
         await expect(logs).toEqual([]);
     });
@@ -99,6 +99,20 @@ describe('Working with the blocks', () => {
 
         // Make sure a "define" block has been added to the workspace
         await findByText('define', scope.blocksTab);
+
+        const logs = await getLogs();
+        await expect(logs).toEqual([]);
+    });
+
+    test('Adding an extension', async () => {
+        await loadUri(uri);
+        await clickXpath('//button[@title="tryit"]');
+        await clickXpath('//button[@title="Add Extension"]');
+
+        await clickText('Pen');
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for scroll animation
+        // Make sure toolbox has been scrolled to the pen extension
+        await findByText('stamp', scope.blocksTab);
 
         const logs = await getLogs();
         await expect(logs).toEqual([]);

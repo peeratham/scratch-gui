@@ -31,6 +31,8 @@ import {
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
 
+import {handleVarScopeEvent} from '../reducers/enhanced-scope-indicator';
+
 const addFunctionListener = (object, property, callback) => {
     const oldFn = object[property];
     object[property] = function () {
@@ -222,6 +224,16 @@ class Blocks extends React.Component {
             .getFlyout()
             .getWorkspace();
         this.flyoutWorkspace.addChangeListener(this.props.vm.flyoutBlockListener);
+        // enhance
+        this.flyoutWorkspace.addChangeListener((e)=>{
+            if(e.type==='ui'){
+                switch(e.element){
+                    case 'var_scope_option': handleVarScopeEvent(e);
+                    break;
+                }
+            }
+        });
+
         this.flyoutWorkspace.addChangeListener(this.props.vm.monitorBlockListener);
         this.props.vm.addListener('SCRIPT_GLOW_ON', this.onScriptGlowOn);
         this.props.vm.addListener('SCRIPT_GLOW_OFF', this.onScriptGlowOff);

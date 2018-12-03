@@ -27,6 +27,7 @@ import PreviewModal from '../../containers/preview-modal.jsx';
 import ImportModal from '../../containers/import-modal.jsx';
 import WebGlModal from '../../containers/webgl-modal.jsx';
 import TipsLibrary from '../../containers/tips-library.jsx';
+import ImproveTipsLibrary from '../../containers/improve-tips-library.jsx';
 import Cards from '../../containers/cards.jsx';
 import Alerts from '../../containers/alerts.jsx';
 import DragLayer from '../../containers/drag-layer.jsx';
@@ -106,6 +107,7 @@ const GUIComponent = props => {
         stageSizeMode,
         targetIsStage,
         tipsLibraryVisible,
+        improveTipsLibraryVisible,
         vm,
         ...componentProps
     } = omit(props, 'dispatch');
@@ -159,6 +161,9 @@ const GUIComponent = props => {
                 )}
                 {tipsLibraryVisible ? (
                     <TipsLibrary />
+                ) : null}
+                {improveTipsLibraryVisible ? (
+                    <ImproveTipsLibrary />
                 ) : null}
                 {cardsVisible ? (
                     <Cards />
@@ -382,6 +387,7 @@ GUIComponent.propTypes = {
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
+    improveTipsLibraryVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {

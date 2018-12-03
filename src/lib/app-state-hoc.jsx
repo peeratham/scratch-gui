@@ -91,7 +91,7 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
                 enhancer = composeEnhancers(guiMiddleware);
             }
             const reducer = combineReducers(reducers);
-            this.store = createStore(
+            window.store = this.store = createStore(
                 reducer,
                 initialState,
                 enhancer

@@ -36,6 +36,8 @@ import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 
+import {openImproveTipsLibrary} from '../reducers/modals';
+
 import GUIComponent from '../components/gui/gui.jsx';
 
 const messages = defineMessages({
@@ -51,6 +53,9 @@ class GUI extends React.Component {
         this.setReduxTitle(this.props.projectTitle);
         this.props.onStorageInit(storage);
         this.setActiveCards(detectTutorialId());
+        
+        console.log('TODO: Remove onOpenReduxImproveTipsLibrary after done testing, in the future use path params to decide to show?');
+        this.props.onOpenReduxImproveTipsLibrary();
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
@@ -129,6 +134,7 @@ GUI.propTypes = {
     onUpdateProjectTitle: PropTypes.func,
     onUpdateReduxDeck: PropTypes.func,
     onUpdateReduxProjectTitle: PropTypes.func,
+    onOpenReduxImproveTipsLibrary: PropTypes.func,
     previewInfoVisible: PropTypes.bool,
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -180,7 +186,8 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
     onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
     onUpdateReduxDeck: tutorialId => dispatch(activateDeck(tutorialId)),
-    onUpdateReduxProjectTitle: title => dispatch(setProjectTitle(title))
+    onUpdateReduxProjectTitle: title => dispatch(setProjectTitle(title)),
+    onOpenReduxImproveTipsLibrary: () => dispatch(openImproveTipsLibrary())
 });
 
 const ConnectedGUI = injectIntl(connect(

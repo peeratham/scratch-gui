@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {injectIntl, intlShape, defineMessages} from 'react-intl';
 
-import decksLibraryContent from '../lib/libraries/decks/index.jsx';
+import decksLibraryContent from '../lib/libraries/improve-decks/index.jsx';
 import tutorialTags from '../lib/libraries/tutorial-tags';
 
 import analytics from '../lib/analytics';
@@ -17,13 +17,13 @@ import {
 
 import {
     activateDeck
-} from '../reducers/cards';
+} from '../reducers/improve-cards';
 
 const messages = defineMessages({
     tipsLibraryTitle: {
         defaultMessage: 'Choose a Tutorial',
         description: 'Heading for the help/tutorials library',
-        id: 'gui.tipsLibrary.tutorials'
+        id: 'gui.improveTipsLibrary.tutorials'
     }
 });
 
@@ -66,11 +66,13 @@ class ImproveTipsLibrary extends React.PureComponent {
             requiredProjectId: decksLibraryContent[id].requiredProjectId
         }));
 
+        const testData = [decksLibraryThumbnailData[0]];
+
         if (!this.props.visible) return null;
         return (
             <LibraryComponent
                 filterable
-                data={decksLibraryThumbnailData}
+                data={testData}
                 id="tipsLibrary"
                 tags={tutorialTags}
                 title={this.props.intl.formatMessage(messages.tipsLibraryTitle)}

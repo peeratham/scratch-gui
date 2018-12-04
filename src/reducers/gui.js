@@ -2,6 +2,7 @@ import {applyMiddleware, compose, combineReducers} from 'redux';
 import alertsReducer, {alertsInitialState} from './alerts';
 import assetDragReducer, {assetDragInitialState} from './asset-drag';
 import cardsReducer, {cardsInitialState} from './cards';
+import improveCardsReducer, {improveCardsInitialState} from './improve-cards';
 import colorPickerReducer, {colorPickerInitialState} from './color-picker';
 import connectionModalReducer, {connectionModalInitialState} from './connection-modal';
 import customProceduresReducer, {customProceduresInitialState} from './custom-procedures';
@@ -25,6 +26,7 @@ import vmStatusReducer, {vmStatusInitialState} from './vm-status';
 import throttle from 'redux-throttle';
 
 import decks from '../lib/libraries/decks/index.jsx';
+import improveDecks from '../lib/libraries/improve-decks/index.jsx';
 
 const guiMiddleware = compose(applyMiddleware(throttle(300, {leading: true, trailing: true})));
 
@@ -33,6 +35,7 @@ const guiInitialState = {
     assetDrag: assetDragInitialState,
     blockDrag: blockDragInitialState,
     cards: cardsInitialState,
+    improveCards: improveCardsInitialState,
     colorPicker: colorPickerInitialState,
     connectionModal: connectionModalInitialState,
     customProcedures: customProceduresInitialState,
@@ -93,6 +96,24 @@ const initTutorialCard = function (currentState, deckId) {
     );
 };
 
+const initImproveTutorialCard = function (currentState, deckId) {
+    return Object.assign(
+        {},
+        currentState,
+        {
+            improveCards: {
+                visible: true,
+                content: improveDecks,
+                activeDeckId: deckId,
+                step: 0,
+                x: 0,
+                y: 0,
+                dragging: false
+            }
+        }
+    );
+};
+
 const initTutorialLibrary = function (currentState) {
     return Object.assign(
         {},
@@ -122,6 +143,7 @@ const guiReducer = combineReducers({
     assetDrag: assetDragReducer,
     blockDrag: blockDragReducer,
     cards: cardsReducer,
+    improveCards: improveCardsReducer,
     colorPicker: colorPickerReducer,
     connectionModal: connectionModalReducer,
     customProcedures: customProceduresReducer,
@@ -151,5 +173,6 @@ export {
     initPlayer,
     initPreviewInfo,
     initTutorialCard,
+    initImproveTutorialCard,
     initTutorialLibrary
 };

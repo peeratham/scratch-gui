@@ -66,7 +66,7 @@ const VideoStep = ({video, dragging}) => (
         ) : null}
         <iframe
             allowFullScreen
-            allowTransparency="true"
+            allowtransparency="true"
             frameBorder="0"
             height="338"
             scrolling="no"

@@ -23,7 +23,7 @@
         a) for the blocks + workspace panes, and
         b) for combined stage menu + stage + sprite/stage selectors
     */
-    flex-direction: row;
+    flex-direction: column-reverse;
     height: 100%;
 
     /*
@@ -38,9 +38,10 @@
     flex-grow: 1;
     flex-shrink: 0;
     position: relative;
-
+    
     display: flex;
     flex-direction: column;
+    min-height: 100px;
 }
 
 .tab-list {
@@ -207,6 +208,7 @@
 .stage-and-target-wrapper.large-constrained {
     /* Fix the max width to max largeConstrained stage size (defined in layout_constants.js) + gutter size */
     max-width: calc(408px + calc($space * 2));
+    min-height: 200px;
 }
 
 .stage-and-target-wrapper.small {

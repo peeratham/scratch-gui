@@ -554,6 +554,7 @@ Blocks.defaultOptions = {
         fieldShadow: 'rgba(255, 255, 255, 0.3)',
         dragShadowOpacity: 0.6
     },
+    // toolbox: '<xml id="toolbox" style="display: none"></xml>',
     comments: true,
     collapse: false,
     sounds: false

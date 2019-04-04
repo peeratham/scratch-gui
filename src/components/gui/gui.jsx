@@ -159,7 +159,15 @@ const GUIComponent = props => {
                 >
 
                     <Box className={styles.bodyWrapper}>
-                        <Box className={styles.flexWrapper}>
+                            <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>
+                                <StageWrapper
+                                    isRendererSupported={isRendererSupported}
+                                    isRtl={isRtl}
+                                    stageSize={stageSize}
+                                    vm={vm}
+                                />
+                            </Box>
+                        
                             <Box className={styles.editorWrapper}>
                                 <Box className={styles.blocksWrapper}>
                                     <Blocks
@@ -174,16 +182,6 @@ const GUIComponent = props => {
                                     />
                                 </Box>
                             </Box>
-
-                            <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>
-                                <StageWrapper
-                                    isRendererSupported={isRendererSupported}
-                                    isRtl={isRtl}
-                                    stageSize={stageSize}
-                                    vm={vm}
-                                />
-                            </Box>
-                        </Box>
                     </Box>
                     <DragLayer />
                 </Box>

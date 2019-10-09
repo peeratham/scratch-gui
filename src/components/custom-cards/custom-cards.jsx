@@ -25,7 +25,7 @@ import analytics from "../../lib/custom-analytics";
 import Reference from './reference.jsx';
 
 const enableCloseCard = false;
-const bypassCheck = false;
+const bypassCheck = true;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view }) => (
     <div className={styles.headerButtons}>
@@ -223,7 +223,7 @@ const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, c
     });
 
 
-    isComplete ? onCompleteStep() : onShowReminderMessage("Please follow the instruction and try again");
+    isComplete ? onCompleteStep(currentInstructionId) : onShowReminderMessage("Please follow the instruction and try again");
 }
 
 const populateWorkspace = (setupCode) => {
@@ -440,6 +440,11 @@ class CustomCards extends React.Component {
         }, 2000);
     }
 
+    componentDidMount(){
+        // activateDeck
+        this.props.onActivateDeckFactory(this.props.activeDeckId)();
+    }
+
     render() {
         const {
             activeDeckId,
@@ -538,7 +543,8 @@ class CustomCards extends React.Component {
                                         <div className={styles.checkButton} 
                                             onClick={checkStepCompletion({
                                                 onCompleteStep, vm, expected: steps[step].expected, customCheck: steps[step].customCheck,
-                                                onShowReminderMessage:this.onShowReminderMessage
+                                                onShowReminderMessage:this.onShowReminderMessage,
+                                                currentInstructionId:steps[step].id
                                         })}>Check</div>
                                     </Floater>
                                 }

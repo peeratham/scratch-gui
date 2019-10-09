@@ -83,7 +83,7 @@ const reducer = function (state, action) {
     case COMPLETE_STEP:
         return Object.assign({}, state, {
             stepCompleted: true,
-            completed: Array.from(new Set(state.completed.concat(state.content[state.activeDeckId].steps[state.step].id)))
+            completed: Array.from(new Set(state.completed.concat(action.id||state.content[state.activeDeckId].steps[state.step].id)))
         });
     default:
         return state;
@@ -129,8 +129,8 @@ const endDrag = function () {
     return {type: END_DRAG};
 };
 
-const completeStep = function () {
-    return {type: COMPLETE_STEP};
+const completeStep = function (id) {
+    return {type: COMPLETE_STEP, id};
 };
 
 export {

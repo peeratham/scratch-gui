@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => ({
     onDrag: (e_, data) => dispatch(dragCard(data.x, data.y)),
     onStartDrag: () => dispatch(startDrag()),
     onEndDrag: () => dispatch(endDrag()),
-    onCompleteStep: () => dispatch(completeStep())
+    onCompleteStep: (id) => dispatch(completeStep(id))
 });
 
 export default connect(

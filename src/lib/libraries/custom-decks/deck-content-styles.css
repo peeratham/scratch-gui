@@ -5,3 +5,48 @@
     padding: 0.3rem;
     border-radius: 0.5rem;
 }
+
+.right-arrow {
+    width: 20px;
+    vertical-align: text-bottom;
+}
+
+.left-arrow {
+    width: 20px;
+    vertical-align: text-bottom;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.check-button{
+    height:  25px;
+    vertical-align: text-bottom;
+}
+
+.need-help{
+    height: 30px;
+    vertical-align: text-bottom;
+}
+
+.block{
+    height: 40px;
+    vertical-align: bottom;
+}
+
+.small-inline-pic{
+    height: 20px;
+    vertical-align: bottom;
+}
+
+.medium-inline-pic{
+    height: 30px;
+    vertical-align: bottom;
+}
+
+.abstract-fig{
+    width: 400px;
+}
+
+.img-inline{
+    vertical-align: middle;
+}

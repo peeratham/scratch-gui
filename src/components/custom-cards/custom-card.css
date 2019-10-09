@@ -145,7 +145,7 @@
     font-size: 0.9rem;
     margin: 0.9rem;
     text-align: center;
-    font-weight: bold;
+    /* font-weight: bold; */
     color: $text-primary;
     max-width: 450px;
 }

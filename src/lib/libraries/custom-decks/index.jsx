@@ -392,13 +392,12 @@ export default {
                         <p>
                             These program parts continuously radiate red followed by blue particle clones repeatedly.
                             Each part creates 10 particle clones, slightly turns each one by 36 degree and set the color's value to red and blue respectively.
-
-                    <b>You do not need to modify these parts!</b>
+                            <b>You do <em>NOT</em> need to modify these parts!</b>
                         </p>
+                            <img src={createCloneSeq} className={styles.imgPreview} />
                     </div>
                 ),
-                id: 'preview-clone-attribute-setting',
-                image: createCloneSeq
+                id: 'preview-clone-attribute-setting'
             },
             {
                 title: (
@@ -413,8 +412,7 @@ export default {
                         <img src={cloneAction} className={styles.imgPreview} />
                     </div>
                 ),
-                id: 'preview-clone-action',
-                // image: cloneAction
+                id: 'preview-clone-action'
             },
             {
                 id: 'modify-repeat',
@@ -424,14 +422,14 @@ export default {
                     </p>
                     <p>
                         <b>Hint</b>: Perhaps you can try to change the number of times the repeat block
-                        repeats <img src={moveBlock} className={styles.block} /> . Try increase the value to 12, 15 and 20. &nbsp;
+                        repeats <img src={moveBlock} className={styles.block} /> . Try increase the value to 10, 12 and 18. &nbsp;
                         <em>There is one value that move each particle just about the edge!</em>
                     </p>
                 </div>),
                 image: studyTask1,
                 customCheck:
-                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='20').length === 2)||" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='20').length === 1) &&" +
+                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 2)||" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 1) &&" +
                     "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {

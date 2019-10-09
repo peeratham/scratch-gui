@@ -68,7 +68,6 @@ class RenamableElement extends React.Component {
         const RefactoringComponent = props => (
             <div className={styles.hintControlStepGuide}>
                 <CloseButton onClose={this.createOnClose()} />
-                <h3>Example : Renaming a Custom Block</h3>
                 <div>
                     <img className={styles.stepByStepImage} src={renameCustomBlockGif}/>
                 </div>

@@ -25,7 +25,7 @@ import analytics from "../../lib/custom-analytics";
 import Reference from './reference.jsx';
 
 const enableCloseCard = false;
-const bypassCheck = false;
+const bypassCheck = true;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view }) => (
     <div className={styles.headerButtons}>
@@ -200,7 +200,7 @@ const workspaceContainsScript = ({ workspace, expected, shouldExcludeShadow = tr
     return !!found;
 }
 
-const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage }) => () => {
+const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer }) => () => {
     let isComplete = null;
     if (!expected) {
         isComplete = true;//not specified => auto complete
@@ -222,6 +222,9 @@ const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, c
         label: currentInstructionId
     });
 
+    if (isComplete) {
+        endStepTimer(currentInstructionId);
+    }
 
     isComplete ? onCompleteStep(currentInstructionId) : onShowReminderMessage("Please follow the instruction and try again");
 }
@@ -294,8 +297,10 @@ class ImageStep extends React.Component {
     }
 
     render() {
-        const {
-            title, image, completionCode } = this.props;
+        const { title, image, completionCode } = this.props;
+        if(completionCode&&!this.state.copied){
+            this.props.endDeckTimer();
+        }
         return (
             <Fragment>
                 <div className={styles.stepTitle}>
@@ -310,7 +315,7 @@ class ImageStep extends React.Component {
                     </CopyToClipboard>
                 </div>
                 }
-                {completionCode&& this.state.copied &&<h4>After pasting the completion code to the main survey, <br/>you may close this Scratch editor!</h4>}
+                {completionCode && this.state.copied && <h4>After pasting the completion code to the main survey, <br />you may close this Scratch editor!</h4>}
                 <div className={styles.stepImageContainer}>
                     <img
                         className={styles.stepImage}
@@ -341,9 +346,8 @@ const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepComplete
                                 action: "view",
                                 label: currentInstructionId
                             });
-
                             onNextStep();
-                        })() : ()=>{onShowReminderMessage("Please check your work to continue.");}}
+                        })() : () => { onShowReminderMessage("Please check your work to continue."); }}
                     >
                         <img
                             draggable={false}
@@ -373,7 +377,7 @@ const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepComplete
     )
 };
 
-const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm }) => {
+const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer }) => {
     return (
         <div className={expanded ? styles.stepBody : styles.hidden}>
             {
@@ -394,6 +398,7 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                             isAlreadySetup={isAlreadySetup}
                             setUpdateCodeStatus={setUpdateCodeStatus}
                             vm={vm}
+                            endDeckTimer={endDeckTimer}
                         />
                     )
             }
@@ -416,6 +421,10 @@ class CustomCards extends React.Component {
         this.setUpdateCodeStatus = this.setUpdateCodeStatus.bind(this);
         this.onViewSelected = this.onViewSelected.bind(this);
         this.onShowReminderMessage = this.onShowReminderMessage.bind(this);
+        this.startStepTimer = this.startStepTimer.bind(this);
+        this.endStepTimer = this.endStepTimer.bind(this);
+        this.startDeckTimer = this.startDeckTimer.bind(this);
+        this.endDeckTimer = this.endDeckTimer.bind(this);
     }
 
     setUpdateCodeStatus(alreadySetup) {
@@ -442,9 +451,74 @@ class CustomCards extends React.Component {
         }, 2000);
     }
 
-    componentDidMount(){
+    startDeckTimer(){
+        const startDeckTime = new Date();
+        this.setState({ startDeckTime: startDeckTime });
+        console.log('start deck', startDeckTime);
+    }
+
+    endDeckTimer() {
+        const endTime = new Date();
+        let timeDiff = endTime - this.state.startDeckTime; //in ms
+        // strip the ms
+        timeDiff /= 1000;
+
+        // get seconds 
+        const seconds = Math.round(timeDiff);
+        console.log(this.props.activeDeckId, seconds + " seconds");
+        saveDataToMongo('completion', this.props.activeDeckId+'_time-spent', seconds);
+    }
+
+    startStepTimer() {
+        const startStepTime = new Date();
+        this.setState({ startStepTime: startStepTime });
+        console.log('start', startStepTime);
+    }
+
+    endStepTimer(stepId) {
+        const endTime = new Date();
+        console.log('end', endTime);
+        let timeDiff = endTime - this.state.startStepTime; //in ms
+        // strip the ms
+        timeDiff /= 1000;
+
+        // get seconds 
+        const seconds = Math.round(timeDiff);
+        console.log(this.props.activeDeckId, stepId, seconds + " seconds");
+        saveDataToMongo('completion', this.props.activeDeckId+'_'+ stepId, seconds);
+        this.setState({ startStepTime: null });
+    }
+
+    componentDidMount() {
+        const {
+            content, activeDeckId,
+            step,
+            qualityHintToggleVisible, stepCompleted
+        } = this.props;
+
+
+        if (qualityHintToggleVisible) {
+            this.steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'automated')
+        } else {
+            this.steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'manual')
+        }
+
         // activateDeck
         this.props.onActivateDeckFactory(this.props.activeDeckId)();
+        this.startDeckTimer();
+    }
+
+    componentDidUpdate() {
+
+        const {
+            step,
+            completed
+        } = this.props;
+
+        if ((!!this.steps[step].expected || !!this.steps[step].customCheck)
+            && !!!this.state.startStepTime && !completed.includes(this.steps[step].id)) {
+            this.startStepTimer();
+        }
     }
 
     render() {
@@ -526,28 +600,30 @@ class CustomCards extends React.Component {
                                 isAlreadySetup={this.state.isAlreadySetup}
                                 setUpdateCodeStatus={this.setUpdateCodeStatus}
                                 vm={vm}
+                                endDeckTimer={this.endDeckTimer}
                             />}
 
-                        {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId}/>}
+                        {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId} />}
 
 
                         {this.state.selectedView === 'instructions' && expanded &&
                             !!(steps[step].expected || steps[step].customCheck) &&
                             <div className={styles.footer}>
                                 {completed.includes(steps[step].id) ? <div className={styles.completedStatus}>Completed</div> :
-                                    <Floater content={this.state.reminderMessage||"Click to check your work!"}
+                                    <Floater content={this.state.reminderMessage || "Click to check your work!"}
                                         open={!!this.state.reminderMessage}
                                         styles={{
                                             floater: {
                                                 zIndex: 9999
                                             }
                                         }}>
-                                        <div className={styles.checkButton} 
+                                        <div className={styles.checkButton}
                                             onClick={checkStepCompletion({
                                                 onCompleteStep, vm, expected: steps[step].expected, customCheck: steps[step].customCheck,
-                                                onShowReminderMessage:this.onShowReminderMessage,
-                                                currentInstructionId:steps[step].id
-                                        })}>Check</div>
+                                                onShowReminderMessage: this.onShowReminderMessage,
+                                                currentInstructionId: steps[step].id,
+                                                endStepTimer: this.endStepTimer
+                                            })}>Check</div>
                                     </Floater>
                                 }
                             </div>}

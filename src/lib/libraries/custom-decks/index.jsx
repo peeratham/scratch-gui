@@ -246,7 +246,7 @@ export default {
                 shouldCleanup: true,
                 expected: [
                     ["event_whenflagclicked", "looks_hide", "control_repeat", "control_create_clone_of"],
-                    ["control_start_as_clone", "looks_show", "motion_goto", "looks_say", "looks_seteffectto"]
+                    ["control_start_as_clone", "looks_show", "motion_goto", "looks_say", "looks_seteffectto", "operator_random", "operator_random"]
                 ]
             },
             {

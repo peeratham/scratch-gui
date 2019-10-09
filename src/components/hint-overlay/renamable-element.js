@@ -9,6 +9,7 @@ import hintIconSvg from "./light-bulb-icon.svg";
 import { CloseButton } from './common-component.jsx';
 
 import renameCustomBlockGif from './rename-custom-block.gif';
+import cbNaming from './cb-naming.png';
 
 class RenamableElement extends React.Component {
     constructor(props) {
@@ -61,15 +62,22 @@ class RenamableElement extends React.Component {
             <div className={styles.hintMessage}>
                 <h3>Renamable Custom Block!</h3>
                 <p>Consider giving this custom block a more descriptive name.
-                Click <img className={styles.msgHintIcon} src={hintIconSvg} /> to see an example.</p>
+                Click <img className={styles.msgHintIcon} src={hintIconSvg} /> to see how.</p>
             </div>
         );
 
         const RefactoringComponent = props => (
-            <div className={styles.hintControlStepGuide}>
+            <div>
                 <CloseButton onClose={this.createOnClose()} />
-                <div>
-                    <img className={styles.stepByStepImage} src={renameCustomBlockGif}/>
+                <div className={styles.demoHowto}>
+                    <div>
+                        <p>Right click on the <em>define</em> block and select "Edit"</p>
+                        <img src={renameCustomBlockGif} className={styles.editDemoGif} />
+                    </div>
+                    <div>
+                        <p>A descriptive name that tells what your custom block does make code easier to understand. For example:</p>
+                        <img src={cbNaming} className={styles.exampleNaming} />
+                    </div>
                 </div>
             </div>
         );
@@ -83,8 +91,8 @@ class RenamableElement extends React.Component {
         }
     }
 
-    componentDidUpdate(){
-        this.popper&&this.popper.instance.scheduleUpdate();
+    componentDidUpdate() {
+        this.popper && this.popper.instance.scheduleUpdate();
     }
 
 

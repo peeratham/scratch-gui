@@ -157,3 +157,21 @@ $action-button-size: 2.75rem;
     padding: 0.75rem;
     text-align: center;
 }
+
+.example-naming{
+    width: 300px;
+}
+
+.edit-demo-gif{
+    width: 280px;
+}
+
+.demo-howto{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 5px;
+    width: 320px;
+    padding: 0.75rem;
+    text-align: center;
+}

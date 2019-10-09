@@ -108,5 +108,11 @@ div::-webkit-scrollbar-thumb {
 }
 
 
-  
+.medium-img{
+    width: 300px;
+}
  
+.card-content {
+    width: 400px;
+    color: #4a5568;
+}

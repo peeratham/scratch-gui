@@ -46,6 +46,7 @@ import changeSizeByImg from './study-tasks/change-size-by.png';
 import changeGhostEffect from './study-tasks/change-ghost-effect.png';
 import moveBlock from './study-tasks/move-block.png';
 import saveFeature from './study-tasks/save-feature.png';
+import referenceGuide from './study-tasks/reference-guide.png';
 
 // navigation guide
 import rightArrow from './intro/right-arrow.png';
@@ -415,6 +416,20 @@ export default {
                 id: 'preview-clone-action'
             },
             {
+                title: (
+                    <div>
+                        <p>
+                            <TipsLabel/> To complete the remaining of this programming task, you might find a <em>reference</em> guide  helpful.
+                            You can always switch between the <em>Instruction</em> and <em>Reference</em> tab. 
+                        </p> 
+                        <img src={referenceGuide} className={styles.imgInline} />
+                        {/* <img src={cloneAction} className={styles.imgPreview} /> */}
+                    </div>
+                ),
+                onlyVisibleToGroup: 'manual',
+                id: 'reference-guid-tips'
+            },
+            {
                 id: 'modify-repeat',
                 title: (<div>
                     <p>
@@ -471,7 +486,7 @@ export default {
                             Download your completed work file to your computer and <em>upload it to the main survey</em>.
                             To download your completed work, click File and then select "Save to your computer".
                         </p>
-                        <img src={saveFeature}/>
+                        <img src={saveFeature} />
                     </div>
                 )
             },

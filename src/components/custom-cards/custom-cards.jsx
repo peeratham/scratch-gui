@@ -528,7 +528,7 @@ class CustomCards extends React.Component {
                                 vm={vm}
                             />}
 
-                        {this.state.selectedView === 'reference' && <Reference expanded={expanded} />}
+                        {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId}/>}
 
 
                         {this.state.selectedView === 'instructions' && expanded &&

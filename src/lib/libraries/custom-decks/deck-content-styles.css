@@ -30,7 +30,7 @@
 
 .block{
     height: 40px;
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 .small-inline-pic{
@@ -49,4 +49,9 @@
 
 .img-inline{
     vertical-align: middle;
+}
+
+.img-preview{
+    width:100px;
+    align-self: center;
 }

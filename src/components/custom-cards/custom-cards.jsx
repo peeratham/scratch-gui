@@ -25,7 +25,7 @@ import analytics from "../../lib/custom-analytics";
 import Reference from './reference.jsx';
 
 const enableCloseCard = false;
-const bypassCheck = true;
+const bypassCheck = false;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view }) => (
     <div className={styles.headerButtons}>
@@ -305,10 +305,12 @@ class ImageStep extends React.Component {
                     <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold' }}>{completionCode}</div>
                     <CopyToClipboard text={completionCode}>
                         <div className={styles.copyCompletionCodeButton} onClick={() => { this.setState({ copied: true }) }}>
-                            Click me to copy the completion code {this.state.copied && <span style={{ color: "#718096" }}>COPIED!</span>}</div>
+                            Click me to copy the completion code {this.state.copied && <span style={{ color: "#718096" }}>COPIED!</span>
+                            }</div>
                     </CopyToClipboard>
                 </div>
                 }
+                {completionCode&& this.state.copied &&<h4>After pasting the completion code to the main survey, <br/>you may close this Scratch editor!</h4>}
                 <div className={styles.stepImageContainer}>
                     <img
                         className={styles.stepImage}

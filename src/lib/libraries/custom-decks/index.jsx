@@ -42,6 +42,10 @@ import createCloneSeq from './study-tasks/create-clone-seq.png';
 import studyTask1 from './study-tasks/study-task-1.gif';
 import studyTask2 from './study-tasks/study-task-2.gif';
 import studyTask3 from './study-tasks/study-task-3.gif';
+import changeSizeByImg from './study-tasks/change-size-by.png';
+import changeGhostEffect from './study-tasks/change-ghost-effect.png';
+import moveBlock from './study-tasks/move-block.png';
+import saveFeature from './study-tasks/save-feature.png';
 
 // navigation guide
 import rightArrow from './intro/right-arrow.png';
@@ -57,7 +61,7 @@ const TipsLabel = () => <Label text="Tips" />;
 const ConceptLabel = () => <Label text="Concept" />;
 
 const GreenFlagButton = () => <img src={greenFlagButton} className={styles.smallInlinePic} />;
-const CheckButtonImg = ()=><img src={checkButton} className={styles.checkButton} />;
+const CheckButtonImg = () => <img src={checkButton} className={styles.checkButton} />;
 
 
 export default {
@@ -87,7 +91,7 @@ export default {
                         Click <img src={rightArrow} className={styles.rightArrow} /> to go to the next card and <img src={rightArrow} className={styles.leftArrow} /> to the previous card.
                         </p>
 
-                        <p>The cards with <PracticeLabel /> label require you to complete some simple programming tasks. For these cards, you will need to check your work by clicking <CheckButtonImg/> before you can go to the next card.</p>
+                        <p>The cards with <PracticeLabel /> label require you to complete some simple programming tasks. For these cards, you will need to check your work by clicking <CheckButtonImg /> before you can go to the next card.</p>
 
                         <p>Other card types (e.g., <TipsLabel />, <ConceptLabel />) are for you to learn and require no work from your part.</p>
 
@@ -247,8 +251,7 @@ export default {
             {
                 id: 'copy-completion-code',
                 title: (
-                    <div><h3>Please copy and paste the completion code below to the main survey.</h3>
-                        <h4 style={{ fontStyle: "italic" }}>You may close this browser tab.</h4></div>
+                    <div><h3>Please copy and paste the completion code below to the main survey.</h3></div>
                 ),
                 shouldCleanup: true,
                 completionCode: 'scratch101',
@@ -322,10 +325,10 @@ export default {
             },
             {
                 id: 'intro-QIS',
-                title: (<p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline}/> 
-                to see improvement hints and follow its suggestion! 
-                The improved code should look like the one below.
-                Click <CheckButtonImg/> when you are done.</p>),
+                title: (<p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
+                    to see improvement hints and follow its suggestion!
+                    The improved code should look like the one below.
+                Click <CheckButtonImg /> when you are done.</p>),
                 onlyVisibleToGroup: 'automated',
                 image: expectedImprovement,
                 customCheck: "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
@@ -347,8 +350,7 @@ export default {
             {
                 id: 'copy-completion-code',
                 title: (
-                    <div><h3>Please copy and paste the completion code below to the main survey.</h3>
-                        <h4 style={{ fontStyle: "italic" }}>You may close this Scratch editor.</h4></div>
+                    <div><h3>Please copy and paste the completion code below to the main survey.</h3></div>
                 ),
                 completionCode: 'abstraction',
                 recordCompletion: true
@@ -360,51 +362,125 @@ export default {
             {
                 id: 'study-task-intro',
                 title: (
-                    <div><h2>Particle Radiator</h2>
+                    <div>
+                        <h3>Welcome to Part 3 of the study</h3>
+                        <p>
+                            This is the last programming part of the study.
+                            You will remix a project called <b>"The Particle Radiator"</b>.
+                            Click <GreenFlagButton /> to see it in action!
+                        </p>
+
                         <p>
                             The next two cards provide an overview of what each program part does.
-                            The remain instructions ask you to modify the program to match the expected animation.
-                    </p></div>
+                            The remaining cards ask you to modify the code so it produces the expected animation.
+                            The last card will provide you with the completion code that you can copy and paste into the main survey page.
+                        </p>
+
+                        <p>
+                            <em>Your completed work will be shared with others.
+                            As you work, please consider making your code easy to understand and modify!
+                            </em>
+                        </p>
+
+                    </div>
                 )
             },
+
             {
-                id: 'preview-clone-action',
-                image: cloneAction
-            },
-            {
+                title: (
+                    <div>
+                        <p>
+                            These program parts continuously radiate red followed by blue particle clones repeatedly.
+                            Each part creates 10 particle clones, slightly turns each one by 36 degree and set the color's value to red and blue respectively.
+
+                    <b>You do not need to modify these parts!</b>
+                        </p>
+                    </div>
+                ),
                 id: 'preview-clone-attribute-setting',
                 image: createCloneSeq
             },
             {
+                title: (
+                    <div>
+                        <p>
+                            This program parts animate particle clones.
+                            First it make the clone visible with the "show" action.
+                            When the clone's variable color is set to "red", it set the color effect's value to 185
+                            and when the clone's variable color is set to "blue" it set the color effect's value to 80.<br/>
+                            Then it animates each particle clone: repeating the <img src={moveBlock} className={styles.block} /> steps block 8 times to make the particle clone moves away from the center.
+                            </p>
+                        <img src={cloneAction} className={styles.imgPreview} />
+                    </div>
+                ),
+                id: 'preview-clone-action',
+                // image: cloneAction
+            },
+            {
                 id: 'modify-repeat',
-                title: (<p><QuizLabel /> Make particles move farther.<br />
-                    Hint: change repeat 8 to 20 when move 10 steps</p>),
-                image: studyTask1
+                title: (<div>
+                    <p>
+                        <PracticeLabel /> Make both red and blue particles move farther to the edge of the stage.
+                    </p>
+                    <p>
+                        <b>Hint</b>: Perhaps you can try to change the number of times the repeat block
+                        repeats <img src={moveBlock} className={styles.block} /> . Try increase the value to 12, 15 and 20. &nbsp;
+                        <em>There is one value that move each particle just about the edge!</em>
+                    </p>
+                </div>),
+                image: studyTask1,
+                customCheck:
+                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='20').length === 2)||" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='20').length === 1) &&" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {
                 id: 'modify-size',
-                title: (<p><QuizLabel /> Make particles grow in size as they move.<br />
-                    Hint: Add a block "change size by" and use 5 as its input</p>),
-                image: studyTask2
+                title: (
+                    <div>
+                        <p>
+                            <PracticeLabel />Make both red and blue particles slightly grow in size as they move like the picture below on the right.<br />
+                            <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} /> and experiment with the effect values (50, 30 5, 1).
+                        </p>
+                    </div>
+                ),
+                image: studyTask2,
+                customCheck:
+                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {
                 id: 'modify-ghost',
-                title: (<p><QuizLabel /> Make particles gradually fade as they move.<br />
-                    Hint: Add change ghost effect and experiment with effect values (20, 15, 10, 5)</p>),
-                image: studyTask3
+                title: (
+                    <div>
+                        <p><PracticeLabel /> Make particles gradually fade as they move.<br />
+                            <b>Hint</b>: Add <img src={changeGhostEffect} className={styles.block} /> after <img src={changeSizeByImg} className={styles.block} /> and experiment with effect values (20, 15, 10, 5)
+                        </p>
+                    </div>
+                ),
+                image: studyTask3,
+                customCheck:
+                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
+                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {
                 id: 'download-work',
-                title: (<p>
-                    Download your completed work file to your computer and upload it to the main survey.
-                    To download your completed work, click File and then select "Save to your computer".
-                </p>)
+                title: (
+                    <div>
+                        <p>
+                            Download your completed work file to your computer and <em>upload it to the main survey</em>.
+                            To download your completed work, click File and then select "Save to your computer".
+                        </p>
+                        <img src={saveFeature}/>
+                    </div>
+                )
             },
             {
                 id: 'copy-completion-code',
                 title: (
-                    <div><h3>Please copy and paste the completion code below to the main survey.</h3>
-                        <h4 style={{ fontStyle: "italic" }}>You may close this Scratch editor.</h4></div>
+                    <div><h3>Please copy and paste the completion code below to the main survey.</h3></div>
                 ),
                 completionCode: 'happy-scratching',
                 recordCompletion: true

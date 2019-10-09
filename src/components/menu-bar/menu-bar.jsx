@@ -96,6 +96,14 @@ const FeatureToggle = props => {
     )
 };
 
+const StatusIndicator = ({className, isUpdating}) => {
+    return (
+      <div className={classNames(className, customStyles.featureItemWrapper)}>
+        {isUpdating?"is analyzing...":null}
+      </div>
+    )
+  }
+
 
 const messages = defineMessages({
     confirmNav: {
@@ -529,6 +537,7 @@ class MenuBar extends React.Component {
                                 }
                             }}
                         />
+                        {this.props.qualityHintToggleVisible ?<StatusIndicator className='hint-status' isUpdating={this.props.qualityHintStatus}/>:null}
 
                     </div>}
                     {/* END-customized gui: quality hints*/}
@@ -851,7 +860,8 @@ const mapStateToProps = state => {
         username: user ? user.username : null,
         showQualityHint: showQualityHint,
         hintManager: state.scratchGui.hintState.hintManager,
-        deckId: state.scratchGui.customCards.activeDeckId
+        deckId: state.scratchGui.customCards.activeDeckId,
+        qualityHintStatus: state.scratchGui.hintState.isUpdating
     };
 };
 

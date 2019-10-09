@@ -25,7 +25,7 @@ import analytics from "../../lib/custom-analytics";
 import Reference from './reference.jsx';
 
 const enableCloseCard = false;
-const bypassCheck = true;
+const bypassCheck = false;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view }) => (
     <div className={styles.headerButtons}>
@@ -454,7 +454,6 @@ class CustomCards extends React.Component {
     startDeckTimer(){
         const startDeckTime = new Date();
         this.setState({ startDeckTime: startDeckTime });
-        console.log('start deck', startDeckTime);
     }
 
     endDeckTimer() {
@@ -465,26 +464,22 @@ class CustomCards extends React.Component {
 
         // get seconds 
         const seconds = Math.round(timeDiff);
-        console.log(this.props.activeDeckId, seconds + " seconds");
         saveDataToMongo('completion', this.props.activeDeckId+'_time-spent', seconds);
     }
 
     startStepTimer() {
         const startStepTime = new Date();
         this.setState({ startStepTime: startStepTime });
-        console.log('start', startStepTime);
     }
 
     endStepTimer(stepId) {
         const endTime = new Date();
-        console.log('end', endTime);
         let timeDiff = endTime - this.state.startStepTime; //in ms
         // strip the ms
         timeDiff /= 1000;
 
         // get seconds 
         const seconds = Math.round(timeDiff);
-        console.log(this.props.activeDeckId, stepId, seconds + " seconds");
         saveDataToMongo('completion', this.props.activeDeckId+'_'+ stepId, seconds);
         this.setState({ startStepTime: null });
     }

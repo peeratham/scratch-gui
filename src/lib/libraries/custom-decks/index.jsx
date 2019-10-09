@@ -107,10 +107,11 @@ export default {
             {
                 id: 'move-say',
                 title: (
-                    <p><PracticeLabel /> Experiment with the command blocks shown below.</p>
+                    <p><PracticeLabel /> Experiment with some command blocks. To go to the next card, create a sequence of blocks shown below and click "Check".</p>
                 ),
                 image: stepMove,
                 expected: [["motion_movesteps", "looks_sayforsecs"]],
+                shouldCleanup: true
             }, {
                 id: 'gf-move-say',
                 title: (

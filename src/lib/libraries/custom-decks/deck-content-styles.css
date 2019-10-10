@@ -51,6 +51,14 @@
     vertical-align: middle;
 }
 
+.img-float{
+    float: left;
+}
+
 .img-preview{
     width:100px;
+}
+
+.highlighted-preview{
+    width:200px;
 }

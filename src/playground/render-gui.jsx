@@ -85,28 +85,30 @@ export default appTarget => {
                 showCustomMenuBar={true}
                 userStudyMode={true}
                 hintMode={true}    //to set from user study site
-                qualityHintToggleVisible={true} //  to set user study site (true: hnrf, false: rfg)
                 showTutorial={false}
                 showCustomGuiDevPanel={false}
                 procedureShareToggleVisible={true}
                 tutorialDevMode={false}
                 showQualityHint={false}
                 showSurveyCallBack={(origin) => { console.log(`open the modal survey! origin: ${origin}`) }}
+                //////////////////////
+                qualityHintToggleVisible={true} //  to set user study site (true: hnrf, false: rfg)
+                ////////////////////
                 qisServiceEndpoint={
                     // 'https://quality-tutor-engine.appspot.com'
                     'http://localhost:8080'
                 }
                 customCardsVisible={true}
                 customDeckId={
-                    'scratch-basics'
-                    // 'color-shade-generator'
+                    // 'scratch-basics'
+                    'color-shade-generator'
                     // 'particle-radiator'
                 }
                 projectId={
                     // scratch-basics
                     // "326026661"
                     // color-shade-generator
-                    // "326637227"
+                    "326637227"
                     // particle-radiator
                     // "328143397"
                     //test-custom-selection // duplicated code populated
@@ -119,7 +121,7 @@ export default appTarget => {
                     // test extract constant
                     // 326142227
                     // empty
-                    330600515
+                    // 330600515
                 }
             />,
         appTarget);

@@ -55,6 +55,10 @@ class HintManager {
         this.computeQualityHintsDebounced = debounce(this.computeQualityHints, 100);
     }
 
+    getWorkspace(){
+        return this.workspace;
+    }
+
 
     setUpdateTrackingCallback(hintId, cb) {
         this.updateTrackingCallBackMap[hintId] = cb;
@@ -123,6 +127,10 @@ class HintManager {
 
     updateOptions(options) {
         this.options = Object.assign({}, this.options, options);
+    }
+
+    getServiceEndpoint(){
+        return this.options.serviceEndpoint;
     }
 
     getAnalysisInfo() {

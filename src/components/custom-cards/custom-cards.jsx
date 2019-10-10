@@ -27,7 +27,7 @@ import Reference from './reference.jsx';
 const enableCloseCard = false;
 const bypassCheck = false;
 
-const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view }) => (
+const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
         {/* <div classnames={styles.viewButtonGroup}> */}
         {/* <div className={styles.allButton}>
@@ -43,9 +43,9 @@ const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, ex
             <div className={view === 'instructions' ? styles.selectedViewSelectable : styles.viewSelectable}
                 onClick={() => { onViewSelected('instructions') }}
             >Instruction</div>
-            <div className={view === 'reference' ? styles.selectedViewSelectable : styles.viewSelectable}
+            {shouldShowReference && (<div className={view === 'reference' ? styles.selectedViewSelectable : styles.viewSelectable}
                 onClick={() => { onViewSelected('reference') }}
-            >Reference</div>
+            >Reference</div>)}
         </div>
         {/* </div> */}
         {view === 'instructions' && totalSteps > 1 ? (
@@ -200,12 +200,11 @@ const workspaceContainsScript = ({ workspace, expected, shouldExcludeShadow = tr
     return !!found;
 }
 
-const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer }) => () => {
+const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer, workspace }) => () => {
     let isComplete = null;
     if (!expected) {
         isComplete = true;//not specified => auto complete
     } else {
-        const workspace = ScratchBlocks.getMainWorkspace();
         isComplete = workspaceContainsScript({ workspace, expected });
     }
 
@@ -242,7 +241,7 @@ const populateWorkspace = (setupCode) => {
     }
 }
 
-const configureWorkspace = ({ shouldCleanup, dragging, setupCode, setUpdateCodeStatus, populateWorkspace }) => () => {
+const configureWorkspace = ({ shouldCleanup, dragging, setupCode, setUpdateCodeStatus, populateWorkspace}) => () => {
     const workspace = Blockly.getMainWorkspace();
     if (workspace && shouldCleanup && !dragging) {
         workspace.clear();
@@ -272,10 +271,8 @@ class ImageStep extends React.Component {
     }
 
     componentDidUpdate() {
-
-
         const {
-            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode
+            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace
         } = this.props;
 
 
@@ -283,7 +280,7 @@ class ImageStep extends React.Component {
 
         if ((setupCode || shouldCleanup) && !isAlreadySetup) {
             // clear
-            const workspace = Blockly.getMainWorkspace();
+            // const workspace = Blockly.getMainWorkspace();
             if (workspace && shouldCleanup && !dragging) {
                 workspace.clear();
             }
@@ -298,7 +295,7 @@ class ImageStep extends React.Component {
 
     render() {
         const { title, image, completionCode } = this.props;
-        if(completionCode&&!this.state.copied){
+        if (completionCode && !this.state.copied) {
             this.props.endDeckTimer();
         }
         return (
@@ -377,7 +374,7 @@ const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepComplete
     )
 };
 
-const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer }) => {
+const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace }) => {
     return (
         <div className={expanded ? styles.stepBody : styles.hidden}>
             {
@@ -399,6 +396,7 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                             setUpdateCodeStatus={setUpdateCodeStatus}
                             vm={vm}
                             endDeckTimer={endDeckTimer}
+                            workspace={workspace}
                         />
                     )
             }
@@ -451,7 +449,7 @@ class CustomCards extends React.Component {
         }, 2000);
     }
 
-    startDeckTimer(){
+    startDeckTimer() {
         const startDeckTime = new Date();
         this.setState({ startDeckTime: startDeckTime });
     }
@@ -464,7 +462,7 @@ class CustomCards extends React.Component {
 
         // get seconds 
         const seconds = Math.round(timeDiff);
-        saveDataToMongo('completion', this.props.activeDeckId+'_time-spent', seconds);
+        saveDataToMongo('completion', this.props.activeDeckId + '_time-spent', seconds);
     }
 
     startStepTimer() {
@@ -480,7 +478,7 @@ class CustomCards extends React.Component {
 
         // get seconds 
         const seconds = Math.round(timeDiff);
-        saveDataToMongo('completion', this.props.activeDeckId+'_'+ stepId, seconds);
+        saveDataToMongo('completion', this.props.activeDeckId + '_' + stepId, seconds);
         this.setState({ startStepTime: null });
     }
 
@@ -499,11 +497,16 @@ class CustomCards extends React.Component {
         }
 
         // activateDeck
+        saveDataToMongo('completion', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
+        saveDataToMongo('interact', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
         this.props.onActivateDeckFactory(this.props.activeDeckId)();
         this.startDeckTimer();
     }
 
     componentDidUpdate() {
+        if (!this.state.workspace) {
+            this.setState({workspace: ScratchBlocks.getMainWorkspace()});
+        }
 
         const {
             step,
@@ -583,6 +586,7 @@ class CustomCards extends React.Component {
                             onShrinkExpandCards={onShrinkExpandCards}
                             onViewSelected={this.onViewSelected}
                             view={this.state.selectedView}
+                            shouldShowReference={!qualityHintToggleVisible}
                         />
                         {this.state.selectedView === 'instructions' &&
                             <Instructions
@@ -596,6 +600,7 @@ class CustomCards extends React.Component {
                                 setUpdateCodeStatus={this.setUpdateCodeStatus}
                                 vm={vm}
                                 endDeckTimer={this.endDeckTimer}
+                                workspace={this.state.workspace}
                             />}
 
                         {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId} />}
@@ -617,7 +622,8 @@ class CustomCards extends React.Component {
                                                 onCompleteStep, vm, expected: steps[step].expected, customCheck: steps[step].customCheck,
                                                 onShowReminderMessage: this.onShowReminderMessage,
                                                 currentInstructionId: steps[step].id,
-                                                endStepTimer: this.endStepTimer
+                                                endStepTimer: this.endStepTimer,
+                                                workspace:this.state.workspace
                                             })}>Check</div>
                                     </Floater>
                                 }
@@ -630,7 +636,7 @@ class CustomCards extends React.Component {
                             onNextStep={step < steps.length - 1 ? onNextStep : null}
                             onPrevStep={step > 0 ? onPrevStep : null}
                             stepCompleted={bypassCheck || (!steps[step].expected && !steps[step].customCheck) || completed.includes(steps[step].id)}
-                            checkCompletion={checkStepCompletion({ onCompleteStep, vm, expected: steps[step].expected, currentInstructionId: steps[step].id })}
+                            checkCompletion={checkStepCompletion({ onCompleteStep, vm, expected: steps[step].expected, currentInstructionId: steps[step].id, workspace:this.state.workspace })}
                             isAlreadySetup={this.state.isAlreadySetup}
                             setUpdateCodeStatus={this.setUpdateCodeStatus}
                             currentInstructionId={steps[step].id}

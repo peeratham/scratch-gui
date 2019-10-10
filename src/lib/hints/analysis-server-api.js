@@ -24,8 +24,8 @@ const sendAnalysisReq = function ({projectId, analysisType, xml, serviceEndpoint
     }).then(res => res.json());
 }
 
-const sendRefactoringAnalysisReq = function({projectId, type, xml, isProductionMode, params}){
-    let url = isProductionMode ? remoteService : localService;
+const sendRefactoringAnalysisReq = function({projectId, type, xml, params, serviceEndpoint}){
+    let url = serviceEndpoint;
     url = url + '/transform';
     return fetch(url, {
         method: "POST",

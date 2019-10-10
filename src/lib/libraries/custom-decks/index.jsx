@@ -1,9 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styles from './deck-content-styles.css';
+import classnames from 'classnames';
 
 // Intro
 import greenFlagButton from './intro/greenflag.png';
+import stopButton from './intro/stop.png';
 import gfClickedBlock from './intro/gf-clicked.png';
 import libraryIntro from './intro/lib-getting-started.jpg';
 import stepMove from './intro/intro1.gif';
@@ -35,6 +37,7 @@ import enableHintRefactoring from './custom-block-deck/enable-hint-refactoring.g
 import modifyChangeXBy from './custom-block-deck/modify-change-x-by.png';
 
 import expectedImprovement from './custom-block-deck/expected-improvement.png';
+import highlightedPart from './custom-block-deck/highlighted-to-extract.png';
 
 //study tasks
 import cloneAction from './study-tasks/clone-action.png';
@@ -47,6 +50,8 @@ import changeGhostEffect from './study-tasks/change-ghost-effect.png';
 import moveBlock from './study-tasks/move-block.png';
 import saveFeature from './study-tasks/save-feature.png';
 import referenceGuide from './study-tasks/reference-guide.png';
+import changeRepeatInputHint from './study-tasks/change-repeat-input-hint.png';
+
 
 // navigation guide
 import rightArrow from './intro/right-arrow.png';
@@ -62,6 +67,7 @@ const TipsLabel = () => <Label text="Tips" />;
 const ConceptLabel = () => <Label text="Concept" />;
 
 const GreenFlagButton = () => <img src={greenFlagButton} className={styles.smallInlinePic} />;
+const StopButton = () => <img src={stopButton} className={styles.smallInlinePic} />;
 const CheckButtonImg = () => <img src={checkButton} className={styles.checkButton} />;
 
 
@@ -152,7 +158,7 @@ export default {
                 shouldCleanup: true,
                 expected: [[//140
                     "event_whenflagclicked", "looks_seteffectto", "control_wait", "looks_cleargraphiceffects"]],
-                customCheck: "Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_seteffectto').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='140').length === 1"
+                customCheck: "workspace.getAllBlocks().filter(b=>b.type==='looks_seteffectto').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='140').length === 1"
             },
             {
                 id: 'concept-sprite',
@@ -293,7 +299,8 @@ export default {
                 that generates the square row and make the following modifications to the duplicated part: <br />
                     1) switch the costume to "triangle"<br />
                     2) position it below the square row (set go to x, y  to -215 and 60 respectively)<br />
-                    3) set the color effect to 85 for blue.
+                    3) set the color effect to 85 for blue.<br />
+                    Click <GreenFlagButton /> as you make changes to see if you are on the right track!
                 </p>),
                 image: copyPasteReuse,
                 expected: [
@@ -305,49 +312,69 @@ export default {
                 id: 'modification-1',
                 title: (<p><PracticeLabel /> Let's change the input to the repeat blocks from 5 to 9.
                 Make sure to change the values in both repeat blocks!
+                Click <GreenFlagButton /> as you make changes to see if you are on the right track!
                 </p>),
                 image: modifyRepeat,
-                customCheck: "Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
+                customCheck: "workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
             },
             {
                 id: 'modification-2',
                 title: (<p><PracticeLabel /> The brightness increases too fast. Let's change it from 15 to 9.
-                Make sure to change the value in both places!</p>),
+                Make sure to change the value in both places!
+                Click <GreenFlagButton /> as you make changes to see if you are on the right track!
+                </p>),
                 image: modifyBrightness,
-                customCheck: "Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
+                customCheck: "workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
             },
             {
                 id: 'extract-cb-intro',
                 title: (<p>
                     <TipsLabel /> You can <b>extract a custom block</b> from common program parts that tend to be modified together.
                 Such common program parts perform a similar action and are often the result of copying and pasting code.
-                The next instruction will guide you how to improve your code.
                 <img src={abstractExtractCustomBlock} className={styles.abstractFig} />
                 </p>)
+            },
+            {
+                id: 'which-part',
+                title: (
+                    <div>
+                        <p>
+                            <img src={highlightedPart} className={classnames(styles.imgFloat, styles.highlightedPreview)} />
+                            Each highlighted part applies a given color effect to the shape
+                            and generates a row of shaded shapes in that color.
+                            There is only one difference in both parts (i.e. the color effect value: 35 vs. 85).
+                        </p>
+                        <p>
+                            Perhaps we can extract these parts as a custom block called "generateShades" with a "color" parameter.
+                            The next instruction will guide you to improve your code!
+                        </p>
+                    </div>
+                )
             },
             {
                 id: 'intro-QIS',
                 title: (<p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
                     to see improvement hints and follow its suggestion!
                     The improved code should look like the one below.
-                Click <CheckButtonImg /> when you are done.</p>),
+                    Click <GreenFlagButton /> to make sure your program still works like the same!
+                    Click <CheckButtonImg /> when you are done.</p>),
                 onlyVisibleToGroup: 'automated',
                 image: expectedImprovement,
-                customCheck: "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
+                customCheck: "(workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
             },
             {
                 id: 'intro-manual',
                 title: (<p>We can make use of a custom block that we learn previously! Let's do it!</p>),
                 onlyVisibleToGroup: 'manual',
                 video: 'apchqdve3p',
-                customCheck: "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
+                customCheck: "(workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
             },
             {
                 id: 'modification-final',
                 title: (<p><PracticeLabel /> For this last step, we need to increase the distance between each shape clone to make both rows span the width of the stage.<br />
                     Try each of the following values: 30, 40 and 50. After each change, click <GreenFlagButton /> to see the result.</p>),
                 image: modifyChangeXBy,
-                customCheck: "Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='motion_changexby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='40').length === 1"
+                customCheck: "workspace.getAllBlocks().filter(b=>b.type==='motion_changexby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='40').length === 1"
             },
             {
                 id: 'copy-completion-code',
@@ -396,7 +423,7 @@ export default {
                             Each part creates 10 particle clones, slightly turns each one by 36 degree and set the color's value to red and blue respectively.
                             <b>You do <em>NOT</em> need to modify these parts!</b>
                         </p>
-                            <img src={createCloneSeq} className={styles.imgPreview} />
+                        <img src={createCloneSeq} className={styles.imgPreview} />
                     </div>
                 ),
                 id: 'preview-clone-attribute-setting'
@@ -408,7 +435,7 @@ export default {
                             This program parts animate particle clones.
                             First it make the clone visible with the "show" action.
                             When the clone's variable color is set to "red", it set the color effect's value to 185
-                            and when the clone's variable color is set to "blue" it set the color effect's value to 80.<br/>
+                            and when the clone's variable color is set to "blue" it set the color effect's value to 80.<br />
                             Then it animates each particle clone: repeating the <img src={moveBlock} className={styles.block} /> steps block 8 times to make the particle clone moves away from the center.
                             </p>
                         <img src={cloneAction} className={styles.imgPreview} />
@@ -420,9 +447,9 @@ export default {
                 title: (
                     <div>
                         <p>
-                            <TipsLabel/> To complete the remaining of this programming task, you might find a <em>reference</em> guide  helpful.
-                            You can always switch between the <em>Instruction</em> and <em>Reference</em> tab. 
-                        </p> 
+                            <TipsLabel /> To complete the remaining of this programming task, you might find a <em>reference</em> guide  helpful.
+                            You can always switch between the <em>Instruction</em> and <em>Reference</em> tab.
+                        </p>
                         <img src={referenceGuide} className={styles.imgInline} />
                         {/* <img src={cloneAction} className={styles.imgPreview} /> */}
                     </div>
@@ -437,16 +464,21 @@ export default {
                         <PracticeLabel /> Make both red and blue particles move farther to the edge of the stage.
                     </p>
                     <p>
+                        <img src={changeRepeatInputHint} className={styles.imgFloat} />
                         <b>Hint</b>: Perhaps you can try to change the number of times the repeat block
-                        repeats <img src={moveBlock} className={styles.block} /> . Try increase the value to 10, 12 and 18. &nbsp;
+                        repeats. Try increase the value (currently 8) to 10, 12 and 18. &nbsp;
                         <em>There is one value that move each particle just about the edge!</em>
+                    </p>
+                    <p>
+                        You can change the value while the program is running.
+                    If the result starts to look strange, you might try to stop <StopButton /> the program first  and then click <GreenFlagButton /> again!<br />
                     </p>
                 </div>),
                 image: studyTask1,
                 customCheck:
-                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 2)||" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 1) &&" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
+                    "(workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 2)||" +
+                    "((workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 1) &&" +
+                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {
                 id: 'modify-size',
@@ -454,15 +486,16 @@ export default {
                     <div>
                         <p>
                             <PracticeLabel />Make both red and blue particles slightly grow in size as they move like the picture below on the right.<br />
-                            <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} /> and experiment with the effect values (50, 30 5, 1).
+                            <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} />
+                            and experiment with the input value to the <em>change size by</em> block. Try the following input values  (50, 30, 5).
                         </p>
                     </div>
                 ),
                 image: studyTask2,
                 customCheck:
-                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
+                    "(workspace.getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
+                    "((workspace.getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
+                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {
                 id: 'modify-ghost',
@@ -475,9 +508,9 @@ export default {
                 ),
                 image: studyTask3,
                 customCheck:
-                    "(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
-                    "((Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(Blockly.getMainWorkspace().getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
+                    "(workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
+                    "((workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
+                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
             },
             {
                 id: 'download-work',

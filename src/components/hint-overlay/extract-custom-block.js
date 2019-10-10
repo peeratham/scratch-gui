@@ -70,7 +70,7 @@ const ActionButton = ({ onActionClick, type, actionName, onMouseEnterAction, onM
                     maxWidth: 250,
                 }
             }}>
-            <img src={mapping[type]} className={styles.actionButton} />
+            <img src={mapping[type]} className={type==="ShowMe"?classNames(styles.actionButton,styles.highlight):styles.actionButton} />
         </Floater>
     </div>)
 }
@@ -261,7 +261,8 @@ class ExtractCustomBlockHint extends React.Component {
                         target: editingTarget.getName(),
                         fragments: Object.values(fragments).map(entry => entry.stmtIds)
                     }),
-                    isProductionMode: false
+                    isProductionMode: false,
+                    serviceEndpoint: this.props.hintManager.getServiceEndpoint()
                 }
                 // console.log(JSON.stringify(request));
                 return sendRefactoringAnalysisReq(request);

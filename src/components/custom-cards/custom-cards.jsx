@@ -25,7 +25,7 @@ import analytics from "../../lib/custom-analytics";
 import Reference from './reference.jsx';
 
 const enableCloseCard = false;
-const bypassCheck = false;
+const bypassCheck = true;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
@@ -241,7 +241,7 @@ const populateWorkspace = (setupCode) => {
     }
 }
 
-const configureWorkspace = ({ shouldCleanup, dragging, setupCode, setUpdateCodeStatus, populateWorkspace}) => () => {
+const configureWorkspace = ({ shouldCleanup, dragging, setupCode, setUpdateCodeStatus, populateWorkspace }) => () => {
     const workspace = Blockly.getMainWorkspace();
     if (workspace && shouldCleanup && !dragging) {
         workspace.clear();
@@ -304,22 +304,22 @@ class ImageStep extends React.Component {
                     {title}
                 </div>
                 {completionCode && <div>
-                    <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold' }}>{completionCode}</div>
+                    <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold', fontSize:'1.25rem'}}>{completionCode}</div>
                     <CopyToClipboard text={completionCode}>
                         <div className={styles.copyCompletionCodeButton} onClick={() => { this.setState({ copied: true }) }}>
-                            Click me to copy the completion code {this.state.copied && <span style={{ color: "#718096" }}>COPIED!</span>
+                            Copy the Completion Code {this.state.copied && <span style={{ color: "white" }}>(COPIED!)</span>
                             }</div>
                     </CopyToClipboard>
                 </div>
                 }
-                {completionCode && this.state.copied && <h4>After pasting the completion code to the main survey, <br />you may close this Scratch editor!</h4>}
-                <div className={styles.stepImageContainer}>
+                {completionCode && this.state.copied && <p style={{fontSize:'1rem'}}>After pasting the completion code to the main survey, <br />you may close this Scratch editor</p>}
+                {image && (<div className={styles.stepImageContainer}>
                     <img
                         className={styles.stepImage}
                         draggable={false}
                         src={image}
                     />
-                </div>
+                </div>)}
             </Fragment>
         )
     }
@@ -505,7 +505,7 @@ class CustomCards extends React.Component {
 
     componentDidUpdate() {
         if (!this.state.workspace) {
-            this.setState({workspace: ScratchBlocks.getMainWorkspace()});
+            this.setState({ workspace: ScratchBlocks.getMainWorkspace() });
         }
 
         const {
@@ -574,7 +574,7 @@ class CustomCards extends React.Component {
         }
 
         return (
-            <Draggable bounds="parent" position={{ x: x, y: y }} onDrag={onDrag} >
+            <Draggable position={{ x: x, y: y }} onDrag={onDrag} >
                 <div className={styles.cardContainer}>
                     <div className={styles.card}>
                         <QISCardHeader
@@ -623,7 +623,7 @@ class CustomCards extends React.Component {
                                                 onShowReminderMessage: this.onShowReminderMessage,
                                                 currentInstructionId: steps[step].id,
                                                 endStepTimer: this.endStepTimer,
-                                                workspace:this.state.workspace
+                                                workspace: this.state.workspace
                                             })}>Check</div>
                                     </Floater>
                                 }
@@ -636,7 +636,7 @@ class CustomCards extends React.Component {
                             onNextStep={step < steps.length - 1 ? onNextStep : null}
                             onPrevStep={step > 0 ? onPrevStep : null}
                             stepCompleted={bypassCheck || (!steps[step].expected && !steps[step].customCheck) || completed.includes(steps[step].id)}
-                            checkCompletion={checkStepCompletion({ onCompleteStep, vm, expected: steps[step].expected, currentInstructionId: steps[step].id, workspace:this.state.workspace })}
+                            checkCompletion={checkStepCompletion({ onCompleteStep, vm, expected: steps[step].expected, currentInstructionId: steps[step].id, workspace: this.state.workspace })}
                             isAlreadySetup={this.state.isAlreadySetup}
                             setUpdateCodeStatus={this.setUpdateCodeStatus}
                             currentInstructionId={steps[step].id}

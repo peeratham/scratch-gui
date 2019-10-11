@@ -39,6 +39,8 @@ import modifyChangeXBy from './custom-block-deck/modify-change-x-by.png';
 import expectedImprovement from './custom-block-deck/expected-improvement.png';
 import highlightedPart from './custom-block-deck/highlighted-to-extract.png';
 
+import tipsIcon from './custom-block-deck/tips-icon.png';
+
 //study tasks
 import cloneAction from './study-tasks/clone-action.png';
 import createCloneSeq from './study-tasks/create-clone-seq.png';
@@ -274,35 +276,47 @@ export default {
             {
                 id: 'intro',
                 title: (
-                    <div>
-                        <h3>Welcome to Part 2 of the study!</h3>
-                        <p>
-                            This is the project created and shared by a novice Scratch programmer.
-                            It generates a row of green squares with decreasingly lighter shades (left picture below).
-                            Click <GreenFlagButton /> to see it in action. <br />
-                            The remaining cards will guide you to modify this project to add a blue triangles row and
-                            make it looks better by making both rows span the width of the stage (right picture below).
-                        </p>
-                        <p>
-                            Similar to Part 1, you will go through a sequence of cards in this deck.
-                        The last card will provide you with the completion code that you can copy and paste into the main survey page.
-                    </p>
-
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Part 2: Your First Remix</p>
+                        <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
+                            <img src={originalVsGoal} className={styles.contentImage} />
+                            <p>
+                                This project, titled "Shapes and Shades", was created and shared by a Scratch programmer.
+                                It generates a row of green squares with decreasingly lighter shades (left side).
+                                Click <GreenFlagButton /> to see it in action.
+                            </p>
+                            <p>
+                                We will use this project as a starting point and modify this project so it looks like the right side of the picture above 
+                                (adding blue-shaded row of triangles and make both rows span the width of the stage)
+                                Modifying and extending someone else's project is called "remixing". 
+                                It's a fun and engaging way to learn programming.
+                            </p>
+                            <p>
+                                The last card will provide you with the completion code that you can copy and paste into the main survey page.
+                            </p>
+                        </div>
                     </div>
-                ),
-                image: originalVsGoal
+                )
             },
             {
                 id: 'copy-paste',
-                title: (<p>
-                    <PracticeLabel /> Follow the step-by-step guide that walks you to duplicate the program part
-                that generates the square row and make the following modifications to the duplicated part: <br />
-                    1) switch the costume to "triangle"<br />
-                    2) position it below the square row (set go to x, y  to -215 and 60 respectively)<br />
-                    3) set the color effect to 85 for blue.<br />
-                    Click <GreenFlagButton /> as you make changes to see if you are on the right track!
-                </p>),
-                image: copyPasteReuse,
+                title: (
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Adding a Row of Blue-Shaded Triangles</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>
+                                <PracticeLabel /> Follow the step-by-step guide animated picture below.
+                                The guide show how to add a triangle row by reusing the program part that generates the square row and 
+                                make the following changes to it:<br/>
+                                1) switch the costume to "triangle"<br />
+                                2) position it below the square row (set go to x, y  to -215 and 60 respectively)<br />
+                                3) set the color effect to 85 for blue.<br />
+                                Click <GreenFlagButton /> often as you make changes to see if you are on the right track!
+                            </p>
+                            <img src={copyPasteReuse} className={styles.contentImage} />
+                        </div>
+                    </div>
+                ),
                 expected: [
                     ["event_whenflagclicked", "looks_hide", "looks_cleargraphiceffects", "looks_switchcostumeto", "motion_gotoxy", "looks_seteffectto", "control_repeat", "looks_cleargraphiceffects", "looks_switchcostumeto", "motion_gotoxy", "looks_seteffectto", "control_repeat", "motion_changexby", "looks_changeeffectby", "control_create_clone_of", "motion_changexby", "looks_changeeffectby", "control_create_clone_of"],
                     ["control_start_as_clone", "looks_show", "control_wait", "control_delete_this_clone"]
@@ -310,76 +324,123 @@ export default {
             },
             {
                 id: 'modification-1',
-                title: (<p><PracticeLabel /> Let's change the input to the repeat blocks from 5 to 9.
-                Make sure to change the values in both repeat blocks!
-                Click <GreenFlagButton /> as you make changes to see if you are on the right track!
-                </p>),
-                image: modifyRepeat,
+                title: (
+                    <div className={styles.contentContainer}>
+                        <img src={modifyRepeat} className={styles.contentImage} style={{ width: '200px' }} />
+                        <p><PracticeLabel /> Let's change the input to the repeat blocks from 5 to 9.
+                        Make sure to change the values in both repeat blocks!
+                        Click <GreenFlagButton /> as you make changes to see if you are on the right track!
+                        </p>
+                    </div>
+                ),
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
             },
             {
                 id: 'modification-2',
-                title: (<p><PracticeLabel /> The brightness increases too fast. Let's change it from 15 to 9.
-                Make sure to change the value in both places!
-                Click <GreenFlagButton /> as you make changes to see if you are on the right track!
-                </p>),
-                image: modifyBrightness,
+                title: (
+                    <div className={styles.contentContainer}>
+                        <p>
+                            <img src={modifyBrightness} className={styles.contentImage} style={{ width: '250px' }} />
+                            <PracticeLabel /> The brightness increases too fast. Let's change it from 15 to 9.
+                            Make sure to change the value in both places!
+                            Click <GreenFlagButton /> as you make changes to see if you are on the right track!
+                        </p>
+                    </div>
+                ),
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
-            },
-            {
-                id: 'extract-cb-intro',
-                title: (<p>
-                    <TipsLabel /> You can <b>extract a custom block</b> from common program parts that tend to be modified together.
-                Such common program parts perform a similar action and are often the result of copying and pasting code.
-                <img src={abstractExtractCustomBlock} className={styles.abstractFig} />
-                </p>)
             },
             {
                 id: 'which-part',
                 title: (
-                    <div>
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Your Code Can Be Improved!</p>
+                        <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
+                            <p>
+                                <img src={highlightedPart} style={{ width: '200px', float: 'left' }} />
+                                Your current program should have these highlighted program parts on the left pic. These parts
+                                generate green and blue rows of shaded color shapes respectively.
+                                We are modifying these program parts quite often and almost for the exact same changes.
+                                These parts are <b>almost the same except the color effect value of the <em>set color effect</em> block</b>: the one in the top part has 35 for green effect value and the one in the bottom part has 85 for blue.
+                                This code duplication makes modifying code difficult.
+                            </p>
+                            <p>
+                                To make our code <b>easy to understand and modify</b>, we can <b>extract a custom block</b> from these parts called it <b>"generateShades"</b> block with a <b>"color"</b> parameter.
+                            </p>
+                        </div>
+                    </div>
+                )
+            },
+            {
+                id: 'extract-cb-intro',
+                title: (
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Extract Custom Block</p>
                         <p>
-                            <img src={highlightedPart} className={classnames(styles.imgFloat, styles.highlightedPreview)} />
-                            Each highlighted part applies a given color effect to the shape
-                            and generates a row of shaded shapes in that color.
-                            There is only one difference in both parts (i.e. the color effect value: 35 vs. 85).
-                        </p>
-                        <p>
-                            Perhaps we can extract these parts as a custom block called "generateShades" with a "color" parameter.
-                            The next instruction will guide you to improve your code!
+                            <img src={abstractExtractCustomBlock} className={styles.contentImage} style={{ width: '250px' }} />
+                            You can <b>extract a custom block</b> from <b>common program parts that tend to be modified together</b>.
+                        Such common program parts perform a similar action and are often the result of copying and pasting code.
                         </p>
                     </div>
                 )
             },
             {
                 id: 'intro-QIS',
-                title: (<p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
-                    to see improvement hints and follow its suggestion!
-                    The improved code should look like the one below.
-                    Click <GreenFlagButton /> to make sure your program still works like the same!
-                    Click <CheckButtonImg /> when you are done.</p>),
+                title: (
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Getting Help From Code Wizard</p>
+                        <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
+                            <p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
+                                to see improvement hints and follow its suggestion.
+                                The improved code should look like the one below.
+                                Click <GreenFlagButton /> to make sure your program still works like the same.
+                                Click <CheckButtonImg /> when you are done.
+                            </p>
+                            <img src={expectedImprovement} className={styles.contentImage} style={{ width: '400px' }} />
+                        </div>
+                    </div>
+                ),
                 onlyVisibleToGroup: 'automated',
-                image: expectedImprovement,
                 customCheck: "(workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
             },
             {
                 id: 'intro-manual',
-                title: (<p>We can make use of a custom block that we learn previously! Let's do it!</p>),
+                title: (<p>Let's create a "generateShape" custom block</p>),
                 onlyVisibleToGroup: 'manual',
                 video: 'apchqdve3p',
                 customCheck: "(workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
             },
             {
                 id: 'modification-final',
-                title: (<p><PracticeLabel /> For this last step, we need to increase the distance between each shape clone to make both rows span the width of the stage.<br />
-                    Try each of the following values: 30, 40 and 50. After each change, click <GreenFlagButton /> to see the result.</p>),
-                image: modifyChangeXBy,
+                title: (
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Modifying Once Within Custom Block's Definition</p>
+                        <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
+                            <p><PracticeLabel /> For this last step, we need to increase the distance between each shape clone to make both rows span the width of the stage.
+                                <span className={styles.highlightText}>Use the following values: 25,30, 35, 40 and 50.</span> Each time click <CheckButtonImg /> to see if you use the right value!
+                            </p>
+                            <img src={modifyChangeXBy} className={styles.contentImage} style={{ width: '400px' }} />
+                        </div>
+                    </div>),
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='motion_changexby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='40').length === 1"
+            },
+            {
+                id: 'takeaway',
+                title: (
+                    <div className={styles.contentContainer}>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <img src={tipsIcon} style={{ width: '5rem', margin: '0.5rem' }} /></div>
+                            <p style={{ fontSize: '1.25rem' }}>
+                                <b>Custom blocks</b> make code easy to understand and modify. Can you imaging how difficult it would be to modify this program if we have a 3 more rows of shaded shapes?
+                        </p>
+                        </div>
+                    </div>
+                )
             },
             {
                 id: 'copy-completion-code',
                 title: (
-                    <div><h3>Please copy and paste the completion code below to the main survey.</h3></div>
+                    <div><p style={{ fontSize: '1.25rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p></div>
                 ),
                 completionCode: 'abstraction',
                 recordCompletion: true

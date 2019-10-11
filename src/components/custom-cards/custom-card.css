@@ -143,7 +143,7 @@
 
 .step-title {
     font-size: 0.9rem;
-    margin: 0.9rem;
+    margin: 0.0rem;
     text-align: center;
     /* font-weight: bold; */
     color: $text-primary;
@@ -332,25 +332,26 @@
 
 .copy-completion-code-button {
     cursor: pointer;
-    color: #4A5568;
+    color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0.4rem;
     z-index: 20;
-    background: #C3DAFE;
+    background: #0fbd8c;
     transition: all 0.25s ease; 
-    box-shadow: 0 0 0 4px #A3BFFA;
+    box-shadow: 0 0 0 4px #9eecd6;
     border-radius: 0.75rem;
-    max-width: 150px;
+    max-width: 300px;
     font-weight: bold;
+    font-size: 1.125rem;
     margin-bottom: 0.5rem;
 }
 
 .copy-completion-code-button:hover {
-    box-shadow: 0 0 0 6px #A3BFFA;
-    transform: scale(1.125);
+    box-shadow: 0 0 0 6px #9eecd6;
+    transform: scale(1.1);
 }
 
 .view-selectable{

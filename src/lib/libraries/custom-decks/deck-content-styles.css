@@ -7,20 +7,13 @@
     border-radius: 0.5rem;
 }
 
-.right-arrow {
-    width: 20px;
-    vertical-align: text-bottom;
-}
-
-.left-arrow {
-    width: 20px;
-    vertical-align: text-bottom;
+.flip-horizontal {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
 
 .check-button{
-    height:  25px;
+    height:  30px;
     vertical-align: middle;
 }
 
@@ -85,7 +78,6 @@
 
 .content-image{
     cursor: default;
-    float: left;
     margin:0.5rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -108,9 +100,28 @@
 }
 
 .highlight-text{
-    background-color: #BEE3F8;
+    background-color: rgb(209, 238, 255);
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
 
-.takeaway-text {
+.yellow-mark {
     background-color: #FEFCBF;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+/* .{
+    color: #4299e1;
+} */
+.external-link{
+    text-decoration: none;
+    color: #21a39d;
+    /* margin-bottom: 0.25rem;
+    font-weight: 600; */
+}
+
+.external-link:hover{
+    text-decoration: none;
+    color: #0ddad6;
 }

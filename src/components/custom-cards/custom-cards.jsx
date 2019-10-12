@@ -91,15 +91,16 @@ const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, ex
 
 // // Video step needs to know if the card is being dragged to cover the video
 // // so that the mouseup is not swallowed by the iframe.
-const VideoStep = ({ video, dragging }) => (
+const VideoStep = ({ video, dragging, title }) => (
     <div className={styles.stepVideo}>
+        <div style={{margin:'0rem'}}>{title}</div>
         {dragging ? (
             <div className={styles.videoCover} />
         ) : null}
         <iframe
             allowFullScreen
             frameBorder="0"
-            height="338"
+            height="300"
             scrolling="no"
             src={`https://fast.wistia.net/embed/iframe/${video}?seo=false&videoFoam=true`}
             title="📹"
@@ -382,6 +383,7 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                     <VideoStep
                         dragging={dragging}
                         video={steps[step].video}
+                        title={steps[step].title}
                     />
                 ) : (
                         <ImageStep

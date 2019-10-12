@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styles from './deck-content-styles.css';
@@ -42,6 +43,14 @@ import highlightedPart from './custom-block-deck/highlighted-to-extract.png';
 import tipsIcon from './custom-block-deck/tips-icon.png';
 
 //study tasks
+import studyTaskPreview from './study-tasks/study-task-preview.gif';
+import programExplained from './study-tasks/original-program-explained.png';
+import programExplained1 from './study-tasks/original-program-explained-1-horizontal.png';
+import programExplained2 from './study-tasks/original-program-explained-2.png';
+import programExplained3 from './study-tasks/original-program-explained-3.png';
+import whenIStartAsCloneBlock from './study-tasks/when-i-start-as-clone.png';
+import modificationTarget from './study-tasks/highlighted-modification-target.png';
+
 import cloneAction from './study-tasks/clone-action.png';
 import createCloneSeq from './study-tasks/create-clone-seq.png';
 import studyTask1 from './study-tasks/study-task-1.gif';
@@ -88,44 +97,57 @@ export default {
             {
                 id: 'intro-instructions',
                 title: (
-                    <div>
-                        <h3>Welcome to Part 1 of the study!</h3>
-                        <p> Completing this part will prepare you for Part 2 and 3.<br />
-                            First, we want to provide you with a general guide to navigate the user study card deck.
-                            You will go through a sequence of cards in this deck. The last card will provide you with the completion code that you can copy and paste into the main survey page.
-                        </p>
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Part 1: The Basics of Scratch</p>
+                        <div className={styles.scrollable} style={{ height: '250px', float: 'left' }}>
+                            <p> Completing this part will prepare you for Parts 2 and 3.
+                                First, we want to provide you with a general guide to navigate the user study card deck.
+                                You will go through a sequence of cards in this deck.
+                                <span className={styles.yellowMark}> The last card will provide you with the completion code
+                                    to copy and paste into the main survey page.</span>
+                            </p>
 
-                        <p>
-                            You can drag this card deck around and place it wherever you like.
-                        Click <img src={rightArrow} className={styles.rightArrow} /> to go to the next card and <img src={rightArrow} className={styles.leftArrow} /> to the previous card.
-                        </p>
+                            <p>
+                                You can drag this card deck around and place it wherever you like.
+                                Click <img src={rightArrow} style={{ width: '2rem', verticalAlign: 'middle' }} /> to go to the next card and
+                                <img src={rightArrow} className={styles.flipHorizontal} style={{ width: '2rem', verticalAlign: 'middle' }} /> to the previous card.
+                            </p>
 
-                        <p>The cards with <PracticeLabel /> label require you to complete some simple programming tasks. For these cards, you will need to check your work by clicking <CheckButtonImg /> before you can go to the next card.</p>
+                            <p className={styles.yellowMark}> The cards with <PracticeLabel /> label require you to complete some simple programming tasks.
+                            For these cards, you will need to check your work by clicking <CheckButtonImg /> before you can go to the next card.
+                            Other card are for you to learn and require no work for you to perform.</p>
 
-                        <p>Other card types (e.g., <TipsLabel />, <ConceptLabel />) are for you to learn and require no work from your part.</p>
-
-                        <p>Please feel free to use live chat by clicking <img src={needHelpButton} className={styles.needHelp} /> appeared at the bottom of the page
-                        if you have difficulties completing any cards due to instructions being unclear, bugs or other technical issues.</p>
-                    </div>)
+                            <p className={styles.yellowMark}>Please feel free to use live chat by
+                            clicking <img src={needHelpButton} className={styles.needHelp} /> at the bottom of the page
+                            if you have difficulties completing any cards due to instructions being unclear, bugs or other technical issues.</p>
+                        </div>
+                    </div>
+                )
             },
             {
                 id: 'intro-vid',
+                title: (<span style={{ fontSize: '1rem' }}>Watch a Preview of Scratch (1 min)</span>),
                 video: 'rpjvs3v9gj'
             },
             {
                 id: 'move-say',
                 title: (
-                    <p><PracticeLabel /> Experiment with some command blocks. To go to the next card, create a sequence of blocks shown below and click "Check".</p>
+                    <div className={styles.contentContainer}>
+                        <p><PracticeLabel /> Experiment with some command blocks. To go to the next card, create a sequence of blocks shown below and click "Check".</p>
+                    </div>
                 ),
                 image: stepMove,
                 expected: [["motion_movesteps", "looks_sayforsecs"]],
                 shouldCleanup: true
-            }, {
+            },
+            {
                 id: 'gf-move-say',
                 title: (
-                    <p><PracticeLabel /> Place <img src={gfClickedBlock} className={styles.block} /> block
-                    at the top of the block sequence called a script,
+                    <div className={styles.contentContainer}>
+                        <p><PracticeLabel /> Place <img src={gfClickedBlock} className={styles.block} /> block
+                        at the top of the block sequence called a script,
                     then click the <GreenFlagButton /> button to run your first program!</p>
+                    </div>
                 ),
                 image: stepMoveSayHello,
                 expected: [["event_whenflagclicked", "motion_movesteps", "looks_sayforsecs"]],
@@ -133,7 +155,9 @@ export default {
             {
                 id: 'tip-inspect',
                 title: (
-                    <p><TipsLabel /> You can separate each program part and click each part to see what it does.</p>
+                    <div className={styles.contentContainer}>
+                        <p><TipsLabel /> You can separate program parts and click each of them to see what it does.</p>
+                    </div>
                 ),
                 // setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><block type='event_whenflagclicked' id='K+6DxCUq`c$nW]J9917d' x='91' y='88'><next><block type='control_forever' id='8p.EClpJ`2=QZ#0+`Swp'><statement name='SUBSTACK'><block type='control_repeat' id='Cq.ael%UMOJyNHB9[+e+'><value name='TIMES'><shadow type='math_whole_number' id='nY?;B3?TpUvh0@n=e4xV'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='looks_changeeffectby' id='`Ls7^xrYZxm65wm}ko(p'><field name='EFFECT'>GHOST</field><value name='CHANGE'><shadow type='math_number' id='p!5VpWaX*0;%yQSTTlq|'><field name='NUM'>10</field></shadow></value></block></statement><next><block type='control_repeat' id='O@oN3W-R38.oSeZtr[62'><value name='TIMES'><shadow type='math_whole_number' id='WsHP7W,iMf{P~%4kc-00'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='looks_changeeffectby' id='Ctd7:vUTr0p$Va9K7f:l'><field name='EFFECT'>GHOST</field><value name='CHANGE'><shadow type='math_number' id='V`x.64iC*N]4jU,bD/Ln'><field name='NUM'>-10</field></shadow></value></block></statement></block></next></block></statement></block></next></block></xml>",
                 image: inspectCode,
@@ -142,10 +166,12 @@ export default {
             {
                 id: 'tip-delete',
                 title: (
-                    <p><TipsLabel /> Right click a block then select "Delete Block" to delete it.
-                    When a block is dragged, the block sequence connected below it will also move along.
-                    Placing a block or a sequence of blocks to the block palette area to delete.
+                    <div className={styles.contentContainer}>
+                        <p><TipsLabel /> Right click a block then select "Delete Block" to delete it.
+                        When a block is dragged, the block sequence connected below it will also move along.
+                        To delete, place a block or a sequence of blocks to the block palette area.
                     </p>
+                    </div>
                 ),
                 image: deleteCode,
                 shouldCleanup: true
@@ -153,10 +179,17 @@ export default {
             {
                 id: 'color-random',
                 title: (
-                    <p><PracticeLabel /> Create a program that makes the cat turns purple 1 second when the green flag is clicked.
-                        Try with the following color effect values (50,100,140,180). Click "check" when you found the right value!</p>
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Let's Change the Color of the Cat</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p><PracticeLabel />
+                                Create a program that makes the cat turns purple for 1 second when the green flag is clicked.
+                                Use the following color effect values of 50,100,140,180.
+                                Click "check" to see whether you use the right value!</p>
+                            <img src={coloringTheCat} style={{ width: '400px' }} />
+                        </div>
+                    </div>
                 ),
-                image: coloringTheCat,
                 shouldCleanup: true,
                 expected: [[//140
                     "event_whenflagclicked", "looks_seteffectto", "control_wait", "looks_cleargraphiceffects"]],
@@ -165,18 +198,32 @@ export default {
             {
                 id: 'concept-sprite',
                 title: (
-                    <p><ConceptLabel /> A Scratch program can contain many sprites.
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>What Is A Sprite?</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>A Scratch program can contain many graphical characters or known as a <b>"sprite"</b>.
                     Each sprite has Code, Costumes and Sounds associated with it.</p>
+                            <img src={spriteAndMedia} style={{ width: '400px' }} />
+                        </div>
+                    </div>
                 ),
-                image: spriteAndMedia,
                 shouldCleanup: true
             },
             {
                 id: 'walking-anim',
                 title: (
-                    <p><PracticeLabel /> Create a basic walking animation.</p>
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>A Forever Walking Cat</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p><PracticeLabel /> Create a basic walking animation.
+                    You will learn to make the Cat switch its <b>costume</b> and how a <b>Forever</b> block
+                                                                                                                                                                                            can be used to repeat the sequence of blocks inside it forever
+                    unless you stop the program by clicking <StopButton />.
+                            </p>
+                            <img src={walkingMovement} style={{ width: '400px' }} />
+                        </div>
+                    </div>
                 ),
-                image: walkingMovement,
                 expected: [
                     ["event_whenflagclicked", "control_forever", "looks_switchcostumeto", "control_wait", "looks_switchcostumeto", "control_wait"]
                 ],
@@ -185,19 +232,22 @@ export default {
             {
                 id: 'exercise-custom-block',
                 title: (
-                    <div>
-                        <p>
-                            The program (already created for you) animates cat jumping continuously.
-                        Click <GreenFlagButton /> to see the jumping animation.
-                        We can make a "jump" custom block out of the program part that performs the jumping action. <br />
-                        </p>
-                        <p>
-                            <PracticeLabel /> Follow the steps below to make a jump block and use it in the code.
-                            Click <GreenFlagButton /> to check whether the "jump" custom block indeed makes the cat jump.
-                        </p>
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Making Your Own Block: A Jump Block</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>
+                                The program (already created for you) animates cat jumping continuously.
+                                Click <GreenFlagButton /> to see the jumping animation.
+                                We can make a "jump" custom block out of the program part that performs the jumping action. <br />
+                            </p>
+                            <p>
+                                <PracticeLabel /> Follow the steps below to make a jump block and use it in the code.
+                                Click <GreenFlagButton /> to check whether the "jump" custom block indeed makes the cat jump.
+                            </p>
+                            <img src={jump0} style={{ width: '400px' }} />
+                        </div>
                     </div>
                 ),
-                image: jump0,
                 setupCode:
                     "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='XG3B]7tQO?9{fcPe${Ek' x='200' y='329'><next><block type='control_forever' id='r6NRa`6c|S6Q?:^orT2C'><statement name='SUBSTACK'><block type='control_repeat' id='NLH?/iZ2KT4gTJ`G]t!v'><value name='TIMES'><shadow type='math_whole_number' id='Qa-pGAX@}=-#K*YsMl.r'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='w9@CehxUS_72Tcx4_z;S'><value name='DY'><shadow type='math_number' id='Mc`LlV3LKet:yE308yP8'><field name='NUM'>2</field></shadow></value></block></statement><next><block type='control_wait' id='{r=;7@mSu*cOh|.*Npz('><value name='DURATION'><shadow type='math_positive_number' id='9,7lBs/r~PiI,Utq_-3T'><field name='NUM'>0.1</field></shadow></value><next><block type='control_repeat' id=']$L98xB}[blm)*2@8^$D'><value name='TIMES'><shadow type='math_whole_number' id='cCSAEMik`Xh*V9E$;JK,'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='U^cvx=fq1}V(B{iy5NgV'><value name='DY'><shadow type='math_number' id='Vr6HQ/R6dmfQg/^?x)!b'><field name='NUM'>-2</field></shadow></value></block></statement></block></next></block></next></block></statement></block></next></block></xml>",
                 // "<xml xmlns='http://www.w3.org/1999/xhtml'><block type='event_whenflagclicked' id='*2_U~)FT}hV}IOw`WpgI' x='85' y='-257'><next><block type='procedures_call' id='g=H`Y5OO:g%1*FQZ6|?`'><mutation proccode='jump' argumentids='[]' warp='false'></mutation><next><block type='looks_sayforsecs' id='Z#w){$DU+bEc%yC6C~{9'><value name='MESSAGE'><shadow type='text' id='O|Bgc[[|w0V`3Gz6;13J'><field name='TEXT'>Hello!</field></shadow></value><value name='SECS'><shadow type='math_number' id='3E)nusFZxU6MrHR/[N0k'><field name='NUM'>2</field></shadow></value><next><block type='procedures_call' id='t!lUpD{h{:qsfvVIIxHC'><mutation proccode='jump' argumentids='[]' warp='false'></mutation></block></next></block></next></block></next></block><block type='procedures_definition' id='+T)h:,DF~eAw@DD)7Q#-' x='442' y='-254'><statement name='custom_block'><shadow type='procedures_prototype' id='rz~]Ha`+;%uQvVA|qn%C'><mutation proccode='jump' argumentids='[]' argumentnames='[]' argumentdefaults='[]' warp='false'></mutation></shadow></statement><next><block type='motion_changeyby' id='k(AUhXY}Q][D%L;Q+a|#'><value name='DY'><shadow type='math_number' id='U@zOSWEJ1Gc|kVcEiT61'><field name='NUM'>10</field></shadow></value><next><block type='control_wait' id='e7n0whD12mI*HElF-01A'><value name='DURATION'><shadow type='math_positive_number' id='[ss53aQ(PuYF}3SI?m9g'><field name='NUM'>0.5</field></shadow></value><next><block type='motion_changeyby' id='ru7G};a,FsP~}VE/9CkB'><value name='DY'><shadow type='math_number' id='9FHdK6P-J.{];3Qj=**S'><field name='NUM'>-10</field></shadow></value></block></next></block></next></block></next></block></xml>",
@@ -210,13 +260,18 @@ export default {
             {
                 id: 'exercise-custom-block-param',
                 title: (
-                    <p> We want to make the cat jump with different heights.<br />
-                        <PracticeLabel /> Follow the steps below to introduce a height parameter to the "jump" custom block.
-                        Modify the program so the cat alternates between high jump (jump 15) and low jump (jump 5).
-                        Click <GreenFlagButton /> to see whether the change to "jump" custom block indeed makes the cat jump with different heights.
-                    </p>
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}> Jump With A Different Height</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p> We want to make the cat jump with 2 different heights.<br />
+                                <PracticeLabel /> Follow the steps below to introduce a height parameter to the "jump" custom block.
+                                Modify the program so the cat alternates between a high jump (jump 15) and a low jump (jump 5).
+                                Click <GreenFlagButton /> to see whether the change to the "jump" custom block indeed makes the cat jump with different heights.
+                            </p>
+                            <img src={jump1} style={{ width: '400px' }} />
+                        </div>
+                    </div>
                 ),
-                image: jump1,
                 // setupCode:
                 // "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='XG3B]7tQO?9{fcPe${Ek' x='213' y='80'><next><block type='control_forever' id='r6NRa`6c|S6Q?:^orT2C'><statement name='SUBSTACK'><block type='procedures_call' id='8lsqu%un%`2q{0%*Wqm#'><mutation proccode='jump' argumentids='[]' warp='false'></mutation></block></statement></block></next></block><block type='procedures_definition' id='LI-IL[,^qf_-B=I=Bjez' x='474' y='80'><statement name='custom_block'><shadow type='procedures_prototype' id='u5H]H[72J4}JhDqh!=7l'><mutation proccode='jump' argumentids='[]' argumentnames='[]' argumentdefaults='[]' warp='false'></mutation></shadow></statement><next><block type='control_repeat' id='NLH?/iZ2KT4gTJ`G]t!v'><value name='TIMES'><shadow type='math_whole_number' id='Qa-pGAX@}=-#K*YsMl.r'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='w9@CehxUS_72Tcx4_z;S'><value name='DY'><shadow type='math_number' id='Mc`LlV3LKet:yE308yP8'><field name='NUM'>2</field></shadow></value></block></statement><next><block type='control_wait' id='{r=;7@mSu*cOh|.*Npz('><value name='DURATION'><shadow type='math_positive_number' id='9,7lBs/r~PiI,Utq_-3T'><field name='NUM'>0.1</field></shadow></value><next><block type='control_repeat' id=']$L98xB}[blm)*2@8^$D'><value name='TIMES'><shadow type='math_whole_number' id='cCSAEMik`Xh*V9E$;JK,'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='U^cvx=fq1}V(B{iy5NgV'><value name='DY'><shadow type='math_number' id='Vr6HQ/R6dmfQg/^?x)!b'><field name='NUM'>-2</field></shadow></value></block></statement></block></next></block></next></block></next></block></xml>", 
                 expected: [
@@ -227,30 +282,39 @@ export default {
             {
                 id: 'concept-cloning',
                 title: (
-                    <p><ConceptLabel /> We can clone (creating multiple copies of) a character sprite
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}> Jump With A Different Height</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p><ConceptLabel /> We can clone (creating multiple copies of) a main character sprite
                         by using "create clone of "myself" and "when I start as a clone" blocks.</p>
+                            <img src={cloningConcept} style={{ width: '400px' }} />
+                        </div>
+                    </div>
                 ),
-                image: cloningConcept,
                 shouldCleanup: true,
             },
             {
                 id: 'exercise-cloning',
                 title: (
-                    <div>
-                        <p>A small program in the workspace creates 5 invisible cat clones,
-                        each go to a random position, becomes visible, and says "Hello!"
-                        Click <GreenFlagButton /> button to see in action
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}> The Copycats</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>A small program (already created for you) creates 5 invisible cat clones.
+                            Each goes to a random position, becomes visible, and says "Hello!"
+                            Click <GreenFlagButton /> button to see it in action.
                         </p>
-                        <p>
-                            <PracticeLabel /> Modify the program so each cat clone in addition to going to a random position,
-                            says a random number (1-10) instead of "Hello!", and set itself to a random color effect (1-200).
-                            You will need to use some of these blocks: <img src={pickRandomNum} className={styles.mediumInlinePic} /> and
-                            <img src={setColorEffect} className={styles.mediumInlinePic} />.
+                            <p>
+                                <PracticeLabel /> Modify the program so each cat clone in addition to going to a random position,
+                                says a random number (1-10) instead of "Hello!", and sets itself to a random color effect (1-200).
+                            You will need to use some of these blocks:
+                            <img src={pickRandomNum} style={{ width: '10rem', verticalAlign: 'middle' }} /> and
+                            <img src={setColorEffect} style={{ width: '10rem', verticalAlign: 'middle' }} />.
                             The picture below shows an example of the expected output when <GreenFlagButton /> button is clicked.
                         </p>
+                            <img src={catCloning} style={{ width: '300px' }} />
+                        </div>
                     </div>
                 ),
-                image: catCloning,
                 setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><block type='event_whenflagclicked' id='Ed+KUz?n--I~Td}6xi2I' x='99' y='-250'><next><block type='looks_hide' id='{8jqxUwd*%?pt6oC2Wq!'><next><block type='control_repeat' id='gIU9=Mv12Wh@~awauzub'><value name='TIMES'><shadow type='math_whole_number' id='lkypM}p}o-Lz/pqMeSzw'><field name='NUM'>5</field></shadow></value><statement name='SUBSTACK'><block type='control_create_clone_of' id='`^yOe_.aB{y|A}Fej8QL'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='[[8S}#7`aMP[IN#;{e|,'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></statement></block></next></block></next></block><block type='control_start_as_clone' id='enXotOX{(Gyls@7Yb=JV' x='99' y='56'><next><block type='looks_show' id='X%,+1;_b#2bd.4g,l^mt'><next><block type='motion_goto' id='%c3q3613gGFNkD$D66(o'><value name='TO'><shadow type='motion_goto_menu' id='_pdjAzCJtp4#Vdz0bm#0'><field name='TO'>_random_</field></shadow></value><next><block type='looks_say' id='s7owYH^c0?k{~10Y^p7q'><value name='MESSAGE'><shadow type='text' id='KN(cq~:7%TBk|8jdsEX-'><field name='TEXT'>Hello!</field></shadow></value></block></next></block></next></block></next></block></xml>",
                 shouldCleanup: true,
                 expected: [
@@ -261,7 +325,9 @@ export default {
             {
                 id: 'copy-completion-code',
                 title: (
-                    <div><h3>Please copy and paste the completion code below to the main survey.</h3></div>
+                    <div className={styles.contentContainer}>
+                        <p style={{ fontSize: '1.25rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p>
+                    </div>
                 ),
                 shouldCleanup: true,
                 completionCode: 'scratch101',
@@ -277,22 +343,21 @@ export default {
                 id: 'intro',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Part 2: Your First Remix</p>
-                        <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
-                            <img src={originalVsGoal} className={styles.contentImage} />
+                        <p className={styles.contentTitle}>Part 2: Let's Remix and Learn from Your Peers</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <img src={originalVsGoal} className={styles.contentImage} style={{ width: '400px' }} />
                             <p>
-                                This project, titled "Shapes and Shades", was created and shared by a Scratch programmer.
-                                It generates a row of green squares with decreasingly lighter shades (left side).
+                                An experienced Scratch programmer created and shared this project, "Shapes and Shades" that generates a row of green squares with decreasingly lighter shades (left side).
                                 Click <GreenFlagButton /> to see it in action.
                             </p>
                             <p>
-                                We will use this project as a starting point and modify this project so it looks like the right side of the picture above 
+                                We will modify this project to make it look like the right side of the picture above
                                 (adding blue-shaded row of triangles and make both rows span the width of the stage)
-                                Modifying and extending someone else's project is called "remixing". 
+                                Modifying and extending someone else's project is called "remixing".
                                 It's a fun and engaging way to learn programming.
                             </p>
                             <p>
-                                The last card will provide you with the completion code that you can copy and paste into the main survey page.
+                                The last card will provide you with the completion code to copy and paste into the main survey page.
                             </p>
                         </div>
                     </div>
@@ -305,9 +370,9 @@ export default {
                         <p className={styles.contentTitle}>Adding a Row of Blue-Shaded Triangles</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>
-                                <PracticeLabel /> Follow the step-by-step guide animated picture below.
-                                The guide show how to add a triangle row by reusing the program part that generates the square row and 
-                                make the following changes to it:<br/>
+                                <PracticeLabel /> Follow the step-by-step animated guide below.
+                                It shows how to add a triangle row by reusing the program part that generates a square row and
+                                 changes it as follows:<br />
                                 1) switch the costume to "triangle"<br />
                                 2) position it below the square row (set go to x, y  to -215 and 60 respectively)<br />
                                 3) set the color effect to 85 for blue.<br />
@@ -326,11 +391,19 @@ export default {
                 id: 'modification-1',
                 title: (
                     <div className={styles.contentContainer}>
-                        <img src={modifyRepeat} className={styles.contentImage} style={{ width: '200px' }} />
-                        <p><PracticeLabel /> Let's change the input to the repeat blocks from 5 to 9.
-                        Make sure to change the values in both repeat blocks!
-                        Click <GreenFlagButton /> as you make changes to see if you are on the right track!
-                        </p>
+                        <p className={styles.contentTitle}>Generate More Shaded Shapes</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <img src={modifyRepeat} className={styles.contentImage} style={{ width: '200px' }} />
+                            <p><PracticeLabel /> Both rows are a bit short.
+                        Let's make the rows longer by <span className={styles.highlightText}> increase the repetitions of the repeat blocks from
+                        5 to 9</span>
+                                to create more shaded shape clones. <span className={styles.highlightText}>Make sure to change the values in both repeat blocks!</span>
+                                Click <GreenFlagButton /> as you make changes to see if you are on the right track!
+                        <span className={styles.yellowMark}> You will find that the rows do not seem to get longer as we expected even if we create more clones!?
+                                                                Actually the rows get longer but we just don't see them as their high brightness values
+                        make them appear to be white and blend with the white background. We will fix that next!</span>
+                            </p>
+                        </div>
                     </div>
                 ),
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
@@ -339,12 +412,17 @@ export default {
                 id: 'modification-2',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p className={styles.contentTitle}>Increase the Brightness More Slowly</p>
                             <img src={modifyBrightness} className={styles.contentImage} style={{ width: '250px' }} />
-                            <PracticeLabel /> The brightness increases too fast. Let's change it from 15 to 9.
-                            Make sure to change the value in both places!
-                            Click <GreenFlagButton /> as you make changes to see if you are on the right track!
-                        </p>
+                            <p>
+                                <PracticeLabel /> Each subsequent shape clone becomes too bright too quickly.
+                            Let's <span className={styles.highlightText}>reduce the brightness values of the "change brightness effect by" block from 15 to 9.
+                            Make sure to change the value in both places!</span>
+                                Click <GreenFlagButton /> as you make changes to see if you are on the right track!
+                            <span className={styles.yellowMark}>Now you should see the rows get longer!</span>
+                            </p>
+                        </div>
                     </div>
                 ),
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
@@ -357,14 +435,15 @@ export default {
                         <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
                             <p>
                                 <img src={highlightedPart} style={{ width: '200px', float: 'left' }} />
-                                Your current program should have these highlighted program parts on the left pic. These parts
+                                Your current program should have these same highlighted parts as appeared on the left. These parts
                                 generate green and blue rows of shaded color shapes respectively.
-                                We are modifying these program parts quite often and almost for the exact same changes.
-                                These parts are <b>almost the same except the color effect value of the <em>set color effect</em> block</b>: the one in the top part has 35 for green effect value and the one in the bottom part has 85 for blue.
+                                We modify these program parts quite often to make the same changes.
+                                These parts are <b>almost the same except for the color effect value of the <em>set color effect</em> block</b>:
+                                the one in the top part has 35 for the green effect value and the one in the bottom part has 85 for blue.
                                 This code duplication makes modifying code difficult.
                             </p>
                             <p>
-                                To make our code <b>easy to understand and modify</b>, we can <b>extract a custom block</b> from these parts called it <b>"generateShades"</b> block with a <b>"color"</b> parameter.
+                                To make our code <b>easy to understand and modify</b>, we can <b>extract a custom block</b> from these parts and call it <b>"generateShades"</b> block with a <b>"color"</b> parameter.
                             </p>
                         </div>
                     </div>
@@ -376,7 +455,8 @@ export default {
                     <div className={styles.contentContainer}>
                         <p className={styles.contentTitle}>Extract Custom Block</p>
                         <p>
-                            <img src={abstractExtractCustomBlock} className={styles.contentImage} style={{ width: '250px' }} />
+                            <img src={abstractExtractCustomBlock} className={styles.contentImage}
+                                style={{ width: '250px', float: 'left' }} />
                             You can <b>extract a custom block</b> from <b>common program parts that tend to be modified together</b>.
                         Such common program parts perform a similar action and are often the result of copying and pasting code.
                         </p>
@@ -390,9 +470,9 @@ export default {
                         <p className={styles.contentTitle}>Getting Help From Code Wizard</p>
                         <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
                             <p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
-                                to see improvement hints and follow its suggestion.
+                                to see improvement hints and follow their suggestions.
                                 The improved code should look like the one below.
-                                Click <GreenFlagButton /> to make sure your program still works like the same.
+                                Click <GreenFlagButton /> to make sure your program still works the same.
                                 Click <CheckButtonImg /> when you are done.
                             </p>
                             <img src={expectedImprovement} className={styles.contentImage} style={{ width: '400px' }} />
@@ -429,9 +509,9 @@ export default {
                     <div className={styles.contentContainer}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <img src={tipsIcon} style={{ width: '5rem', margin: '0.5rem' }} /></div>
+                                <img src={tipsIcon} style={{ margin: '0.5rem' }} /></div>
                             <p style={{ fontSize: '1.25rem' }}>
-                                <b>Custom blocks</b> make code easy to understand and modify. Can you imaging how difficult it would be to modify this program if we have a 3 more rows of shaded shapes?
+                                <b>Custom blocks</b> make code easy to understand and modify. Can you imaging how difficult it would be to modify this program if we had 3 more rows of shaded shapes?
                         </p>
                         </div>
                     </div>
@@ -452,57 +532,65 @@ export default {
             {
                 id: 'study-task-intro',
                 title: (
-                    <div>
-                        <h3>Welcome to Part 3 of the study</h3>
-                        <p>
-                            This is the last programming part of the study.
-                            You will remix a project called <b>"The Particle Radiator"</b>.
-                            Click <GreenFlagButton /> to see it in action!
-                        </p>
-
-                        <p>
-                            The next two cards provide an overview of what each program part does.
-                            The remaining cards ask you to modify the code so it produces the expected animation.
-                            The last card will provide you with the completion code that you can copy and paste into the main survey page.
-                        </p>
-
-                        <p>
-                            <em>Your completed work will be shared with others.
-                            As you work, please consider making your code easy to understand and modify!
-                            </em>
-                        </p>
-
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Part 3: Let's Make It Look Cooler <br />and Share It With Your Peers!</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>
+                                You will remix the project <b>"The Particle Radiator"</b> created by <a target="_blank" className={styles.externalLink} href="https://scratch.mit.edu/projects/328143397/">tpeera4</a>.
+                                This project creates a simple animation as seen on the left of the animated picture below.
+                                Click <GreenFlagButton /> to see it in action.
+                                We will modify it so that the final animation looks like the one on the right.
+                                <span className={styles.yellowMark}>
+                                    Your completed work will be shared with participants in our future user study who could learn
+                                    from and remix your project! Please make sure your program is easy to understand and modify!</span>
+                            </p>
+                            <img src={studyTaskPreview} className={styles.contentImage} />
+                            <p>
+                                The last card will provide you with the completion code for you to copy and paste into the main survey page.
+                            </p>
+                        </div>
                     </div>
                 )
             },
-
             {
-                title: (
-                    <div>
-                        <p>
-                            These program parts continuously radiate red followed by blue particle clones repeatedly.
-                            Each part creates 10 particle clones, slightly turns each one by 36 degree and set the color's value to red and blue respectively.
-                            <b>You do <em>NOT</em> need to modify these parts!</b>
-                        </p>
-                        <img src={createCloneSeq} className={styles.imgPreview} />
-                    </div>
-                ),
+                title:
+                    (
+                        <div className={styles.contentContainer}>
+                            <p className={styles.contentTitle}>How Does This Program Work?</p>
+                            <div className={styles.scrollable} style={{ height: '300px' }}>
+                                <img src={programExplained1} style={{ width: '350px' }} />
+                                <p>
+                                    The two program parts above continuously radiate 20 particle clones.
+                                    The first 10 particle clones are specified to be red and the remaining 10 blue.
+                                    These clones will later be set to the specified color and be animated by the program part
+                                    that starts with <img src={whenIStartAsCloneBlock} className={styles.imgInline} style={{ width: '8rem' }} /> block.
+                                </p>
+                                {/* <img src={programExplained3} style={{ width: '400px' }} /> */}
+                            </div>
+                        </div>
+                    ),
                 id: 'preview-clone-attribute-setting'
             },
             {
                 title: (
-                    <div>
-                        <p>
-                            This program parts animate particle clones.
-                            First it make the clone visible with the "show" action.
-                            When the clone's variable color is set to "red", it set the color effect's value to 185
-                            and when the clone's variable color is set to "blue" it set the color effect's value to 80.<br />
-                            Then it animates each particle clone: repeating the <img src={moveBlock} className={styles.block} /> steps block 8 times to make the particle clone moves away from the center.
+
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>What Parts Of The Program Are We Modifying?</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>
+                                <img src={modificationTarget} style={{ width: '180px', float: 'left', marginRight: '0.4rem' }} />
+                                To be aesthetically pleasing, the animations of the red and blue particles have to behave similarly to each other.
+                                So we will only modify the code within the highlighted parts shown on the left.
+                                <b> Just to give you a heads up, you will make 3 changes to the highlighted part, and each change
+                                    will ask you to experiment with a set of value settings</b><br />
+                                <span className={styles.yellowMark}>It might be a good idea to extract a custom block from these common parts
+                                to make your code easy to understand and modify, though this additional step is not required.
+                                Your peers would appreciate your effort in keeping your code easy to understand and modify when they remix your project!</span>
                             </p>
-                        <img src={cloneAction} className={styles.imgPreview} />
+                        </div>
                     </div>
                 ),
-                id: 'preview-clone-action'
+                id: 'modification-target'
             },
             {
                 title: (
@@ -520,22 +608,19 @@ export default {
             },
             {
                 id: 'modify-repeat',
-                title: (<div>
-                    <p>
-                        <PracticeLabel /> Make both red and blue particles move farther to the edge of the stage.
-                    </p>
-                    <p>
-                        <img src={changeRepeatInputHint} className={styles.imgFloat} />
-                        <b>Hint</b>: Perhaps you can try to change the number of times the repeat block
-                        repeats. Try increase the value (currently 8) to 10, 12 and 18. &nbsp;
-                        <em>There is one value that move each particle just about the edge!</em>
-                    </p>
-                    <p>
-                        You can change the value while the program is running.
-                    If the result starts to look strange, you might try to stop <StopButton /> the program first  and then click <GreenFlagButton /> again!<br />
-                    </p>
-                </div>),
-                image: studyTask1,
+                title: (
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Make Particles Move Farther</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>
+                                <img src={changeRepeatInputHint} className={styles.imgFloat} />
+                                Modify the part that animates the particle clones so that they cover the entire available area.<br />
+                                <b>Hint</b>: Try to change the number of repetitions for the repeat block (currently 8). Use the following values: 10, 12 and 18. &nbsp;
+                        <em>Click <CheckButtonImg /> to see if the right value is used. </em>
+                            </p>
+                            <img src={studyTask1} style={{ width: '400px' }} />
+                        </div>
+                    </div>),
                 customCheck:
                     "(workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 2)||" +
                     "((workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 1) &&" +
@@ -544,15 +629,18 @@ export default {
             {
                 id: 'modify-size',
                 title: (
-                    <div>
-                        <p>
-                            <PracticeLabel />Make both red and blue particles slightly grow in size as they move like the picture below on the right.<br />
-                            <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} />
-                            and experiment with the input value to the <em>change size by</em> block. Try the following input values  (50, 30, 5).
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Make Particles Slightly Grow In Size</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>
+                                <PracticeLabel />Make both the red and blue particles slightly grow in size as they move like the picture below on the right.<br />
+                                <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} />
+                                and experiment with the input value to the <em>change size by</em> block. Try the following input values  (50, 30, 5).
                         </p>
+                            <img src={studyTask2} style={{ width: '400px' }} />
+                        </div>
                     </div>
                 ),
-                image: studyTask2,
                 customCheck:
                     "(workspace.getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
                     "((workspace.getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
@@ -561,13 +649,16 @@ export default {
             {
                 id: 'modify-ghost',
                 title: (
-                    <div>
-                        <p><PracticeLabel /> Make particles gradually fade as they move.<br />
-                            <b>Hint</b>: Add <img src={changeGhostEffect} className={styles.block} /> after <img src={changeSizeByImg} className={styles.block} /> and experiment with effect values (20, 15, 10, 5)
+                    <div className={styles.contentContainer}>
+                        <p className={styles.contentTitle}>Make Particles Gradually Fade</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p><PracticeLabel />
+                                <b>Hint</b>: Add <img src={changeGhostEffect} className={styles.block} /> after <img src={changeSizeByImg} className={styles.block} /> and experiment with the effect values of 20, 15, 10, 5.
                         </p>
+                            <img src={studyTask3} style={{ width: '400px' }} />
+                        </div>
                     </div>
                 ),
-                image: studyTask3,
                 customCheck:
                     "(workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
                     "((workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
@@ -588,7 +679,7 @@ export default {
             {
                 id: 'copy-completion-code',
                 title: (
-                    <div><h3>Please copy and paste the completion code below to the main survey.</h3></div>
+                    <div><p style={{ fontSize: '1.25rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p></div>
                 ),
                 completionCode: 'happy-scratching',
                 recordCompletion: true

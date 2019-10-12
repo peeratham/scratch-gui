@@ -26,6 +26,7 @@ import copyPasteReuse from './custom-block-deck/copy-paste-modify.gif';
 
 import pickRandomNum from './intro/pick-random.png';
 import setColorEffect from './intro/set-color-effect.png';
+import blockAsInput from './intro/block-as-input.png';
 
 //QI
 import customBlockCfg from './intro/custom-block-cfg.png';
@@ -115,7 +116,10 @@ export default {
 
                             <p className={styles.yellowMark}> The cards with <PracticeLabel /> label require you to complete some simple programming tasks.
                             For these cards, you will need to check your work by clicking <CheckButtonImg /> before you can go to the next card.
-                            Other card are for you to learn and require no work for you to perform.</p>
+                            Other cards are for you to learn and require no work for you to perform.
+                            <b>You may refresh your browser tab in case you experience problems and need a fresh start.
+                            Your completion status of each <em>practice</em> card is recorded so you will be able to skip the ones you have already completed. </b>
+                            </p>
 
                             <p className={styles.yellowMark}>Please feel free to use live chat by
                             clicking <img src={needHelpButton} className={styles.needHelp} /> at the bottom of the page
@@ -126,14 +130,20 @@ export default {
             },
             {
                 id: 'intro-vid',
-                title: (<span style={{ fontSize: '1rem' }}>Watch a Preview of Scratch (1 min)</span>),
+                title: (
+                <p className={styles.contentTitle}>Programming With Scratch (50-second Teaser)</p>
+                ),
                 video: 'rpjvs3v9gj'
             },
             {
                 id: 'move-say',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p><PracticeLabel /> Experiment with some command blocks. To go to the next card, create a sequence of blocks shown below and click "Check".</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Create A Sequence of Blocks</p>
+                        <p>
+                            Create a sequence of blocks shown in the animated guide below.
+                            Click the block sequence for the Cat to perform the corresponding actions.
+                            Click <CheckButtonImg/> to go to next card.</p>
                     </div>
                 ),
                 image: stepMove,
@@ -144,19 +154,25 @@ export default {
                 id: 'gf-move-say',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p><PracticeLabel /> Place <img src={gfClickedBlock} className={styles.block} /> block
-                        at the top of the block sequence called a script,
-                    then click the <GreenFlagButton /> button to run your first program!</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Start The Program When <br/><GreenFlagButton/> Button Is Clicked</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>Place <img src={gfClickedBlock} className={styles.block} /> block at the top of a block sequence to run that program part when the <GreenFlagButton /> button is clicked.
+
+                                    Clicking <GreenFlagButton /> button is the standard way to run a Scratch program.
+                        But for your convenience, when you <span className={styles.yellowMark}>click <CheckButtonImg />, we also run the program for you!</span>
+                            </p>
+                            <img src={stepMoveSayHello} style={{ width: '400px' }} />
+                        </div>
                     </div>
                 ),
-                image: stepMoveSayHello,
                 expected: [["event_whenflagclicked", "motion_movesteps", "looks_sayforsecs"]],
             },
             {
                 id: 'tip-inspect',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p><TipsLabel /> You can separate program parts and click each of them to see what it does.</p>
+                        <p className={styles.contentTitle}>Figure Out What Each Program Part Does</p>
+                        <p>You can separate program parts and click each of them to see what it does.</p>
                     </div>
                 ),
                 // setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><block type='event_whenflagclicked' id='K+6DxCUq`c$nW]J9917d' x='91' y='88'><next><block type='control_forever' id='8p.EClpJ`2=QZ#0+`Swp'><statement name='SUBSTACK'><block type='control_repeat' id='Cq.ael%UMOJyNHB9[+e+'><value name='TIMES'><shadow type='math_whole_number' id='nY?;B3?TpUvh0@n=e4xV'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='looks_changeeffectby' id='`Ls7^xrYZxm65wm}ko(p'><field name='EFFECT'>GHOST</field><value name='CHANGE'><shadow type='math_number' id='p!5VpWaX*0;%yQSTTlq|'><field name='NUM'>10</field></shadow></value></block></statement><next><block type='control_repeat' id='O@oN3W-R38.oSeZtr[62'><value name='TIMES'><shadow type='math_whole_number' id='WsHP7W,iMf{P~%4kc-00'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='looks_changeeffectby' id='Ctd7:vUTr0p$Va9K7f:l'><field name='EFFECT'>GHOST</field><value name='CHANGE'><shadow type='math_number' id='V`x.64iC*N]4jU,bD/Ln'><field name='NUM'>-10</field></shadow></value></block></statement></block></next></block></statement></block></next></block></xml>",
@@ -167,25 +183,30 @@ export default {
                 id: 'tip-delete',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p><TipsLabel /> Right click a block then select "Delete Block" to delete it.
-                        When a block is dragged, the block sequence connected below it will also move along.
-                        To delete, place a block or a sequence of blocks to the block palette area.
-                    </p>
+                        <p className={styles.contentTitle}>How to Delete Blocks</p>
+                        <div className={styles.scrollable} style={{ height: '300px' }}>
+                            <p>Right click a block then select "Delete Block" to delete just that block.
+                            <span className={styles.yellowMark}>A quicker way to delete block is to drag and drop it in the block palette area.
+                                                        When a block is dragged, the block sequence connected below it will also move along.
+                            Placing a sequence of blocks in the block palette area will delete all blocks in the sequence.</span>
+                            </p>
+                            <img src={deleteCode} style={{ width: '400px' }} />
+                        </div>
                     </div>
                 ),
-                image: deleteCode,
                 shouldCleanup: true
             },
             {
                 id: 'color-random',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Let's Change the Color of the Cat</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Let's Change the Color of the Cat</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
-                            <p><PracticeLabel />
+                            <p>
                                 Create a program that makes the cat turns purple for 1 second when the green flag is clicked.
-                                Use the following color effect values of 50,100,140,180.
-                                Click "check" to see whether you use the right value!</p>
+                                Use the following color effect values of
+                                <span className={styles.highlightText}>50, 100, 140 and 180.</span>
+                                Click <CheckButtonImg /> to see whether you use the right value!</p>
                             <img src={coloringTheCat} style={{ width: '400px' }} />
                         </div>
                     </div>
@@ -213,11 +234,11 @@ export default {
                 id: 'walking-anim',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>A Forever Walking Cat</p>
+                        <p className={styles.contentTitle}><PracticeLabel />A Forever Walking Cat</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
-                            <p><PracticeLabel /> Create a basic walking animation.
-                    You will learn to make the Cat switch its <b>costume</b> and how a <b>Forever</b> block
-                                                                                                                                                                                            can be used to repeat the sequence of blocks inside it forever
+                            <p>Create a basic walking animation.
+                    You will learn that how <b>"switch costume to"</b> block can be used change character sprite's <em>costume</em>
+                                and how a <b>"forever"</b> block                                                                                                                                                                                                                                                                   can be used to repeat the sequence of blocks inside it forever
                     unless you stop the program by clicking <StopButton />.
                             </p>
                             <img src={walkingMovement} style={{ width: '400px' }} />
@@ -230,10 +251,10 @@ export default {
                 shouldCleanup: true
             },
             {
-                id: 'exercise-custom-block',
+                id: 'jump-custom-block',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Making Your Own Block: A Jump Block</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Making Your Own Block: A Jump Block</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>
                                 The program (already created for you) animates cat jumping continuously.
@@ -241,7 +262,7 @@ export default {
                                 We can make a "jump" custom block out of the program part that performs the jumping action. <br />
                             </p>
                             <p>
-                                <PracticeLabel /> Follow the steps below to make a jump block and use it in the code.
+                                Follow the steps below to make a jump block and use it in the code.
                                 Click <GreenFlagButton /> to check whether the "jump" custom block indeed makes the cat jump.
                             </p>
                             <img src={jump0} style={{ width: '400px' }} />
@@ -258,60 +279,73 @@ export default {
                 shouldCleanup: true
             },
             {
-                id: 'exercise-custom-block-param',
+                id: 'jump-with-height',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}> Jump With A Different Height</p>
+                        <p className={styles.contentTitle}><PracticeLabel /> Jump With A Different Height</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p> We want to make the cat jump with 2 different heights.<br />
-                                <PracticeLabel /> Follow the steps below to introduce a height parameter to the "jump" custom block.
-                                Modify the program so the cat alternates between a high jump (jump 15) and a low jump (jump 5).
+                                Follow the steps below to <span className={styles.highlightText}>add a height parameter to the "jump" custom block.</span>
+                                Modify the program so the cat alternates between
+                                <span className={styles.highlightText}>a high jump (jump 15)</span>
+                                and <span className={styles.highlightText}>a low jump (jump 5)</span>.
                                 Click <GreenFlagButton /> to see whether the change to the "jump" custom block indeed makes the cat jump with different heights.
                             </p>
                             <img src={jump1} style={{ width: '400px' }} />
                         </div>
                     </div>
                 ),
-                // setupCode:
-                // "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='XG3B]7tQO?9{fcPe${Ek' x='213' y='80'><next><block type='control_forever' id='r6NRa`6c|S6Q?:^orT2C'><statement name='SUBSTACK'><block type='procedures_call' id='8lsqu%un%`2q{0%*Wqm#'><mutation proccode='jump' argumentids='[]' warp='false'></mutation></block></statement></block></next></block><block type='procedures_definition' id='LI-IL[,^qf_-B=I=Bjez' x='474' y='80'><statement name='custom_block'><shadow type='procedures_prototype' id='u5H]H[72J4}JhDqh!=7l'><mutation proccode='jump' argumentids='[]' argumentnames='[]' argumentdefaults='[]' warp='false'></mutation></shadow></statement><next><block type='control_repeat' id='NLH?/iZ2KT4gTJ`G]t!v'><value name='TIMES'><shadow type='math_whole_number' id='Qa-pGAX@}=-#K*YsMl.r'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='w9@CehxUS_72Tcx4_z;S'><value name='DY'><shadow type='math_number' id='Mc`LlV3LKet:yE308yP8'><field name='NUM'>2</field></shadow></value></block></statement><next><block type='control_wait' id='{r=;7@mSu*cOh|.*Npz('><value name='DURATION'><shadow type='math_positive_number' id='9,7lBs/r~PiI,Utq_-3T'><field name='NUM'>0.1</field></shadow></value><next><block type='control_repeat' id=']$L98xB}[blm)*2@8^$D'><value name='TIMES'><shadow type='math_whole_number' id='cCSAEMik`Xh*V9E$;JK,'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='U^cvx=fq1}V(B{iy5NgV'><value name='DY'><shadow type='math_number' id='Vr6HQ/R6dmfQg/^?x)!b'><field name='NUM'>-2</field></shadow></value></block></statement></block></next></block></next></block></next></block></xml>", 
+                setupCode:
+                    "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='XG3B]7tQO?9{fcPe${Ek' x='213' y='80'><next><block type='control_forever' id='r6NRa`6c|S6Q?:^orT2C'><statement name='SUBSTACK'><block type='procedures_call' id='8lsqu%un%`2q{0%*Wqm#'><mutation proccode='jump' argumentids='[]' warp='false'></mutation></block></statement></block></next></block><block type='procedures_definition' id='LI-IL[,^qf_-B=I=Bjez' x='474' y='80'><statement name='custom_block'><shadow type='procedures_prototype' id='u5H]H[72J4}JhDqh!=7l'><mutation proccode='jump' argumentids='[]' argumentnames='[]' argumentdefaults='[]' warp='false'></mutation></shadow></statement><next><block type='control_repeat' id='NLH?/iZ2KT4gTJ`G]t!v'><value name='TIMES'><shadow type='math_whole_number' id='Qa-pGAX@}=-#K*YsMl.r'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='w9@CehxUS_72Tcx4_z;S'><value name='DY'><shadow type='math_number' id='Mc`LlV3LKet:yE308yP8'><field name='NUM'>2</field></shadow></value></block></statement><next><block type='control_wait' id='{r=;7@mSu*cOh|.*Npz('><value name='DURATION'><shadow type='math_positive_number' id='9,7lBs/r~PiI,Utq_-3T'><field name='NUM'>0.1</field></shadow></value><next><block type='control_repeat' id=']$L98xB}[blm)*2@8^$D'><value name='TIMES'><shadow type='math_whole_number' id='cCSAEMik`Xh*V9E$;JK,'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='U^cvx=fq1}V(B{iy5NgV'><value name='DY'><shadow type='math_number' id='Vr6HQ/R6dmfQg/^?x)!b'><field name='NUM'>-2</field></shadow></value></block></statement></block></next></block></next></block></next></block></xml>",
                 expected: [
                     ["event_whenflagclicked", "control_forever", "procedures_call", "procedures_call"],
                     ["procedures_definition", "control_repeat", "motion_changeyby", "control_wait", "control_repeat", "motion_changeyby", "argument_reporter_string_number", "argument_reporter_string_number"]
                 ], // customCheck: 1. cb has a param, 2 jumps (with string input) 
+                shouldCleanup: true
             },
             {
                 id: 'concept-cloning',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}> Jump With A Different Height</p>
+                        <p className={styles.contentTitle}>A Character Sprite and Its Multiple Clones</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
-                            <p><ConceptLabel /> We can clone (creating multiple copies of) a main character sprite
-                        by using "create clone of "myself" and "when I start as a clone" blocks.</p>
+                            <p>We can clone (creating multiple copies of) a main character sprite
+                        by using "create clone of "myself" and "when I start as a clone" blocks.
+                        </p>
                             <img src={cloningConcept} style={{ width: '400px' }} />
                         </div>
                     </div>
                 ),
+                // setupCode:"<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='Fnv*LU:IU:]P`ZTW;r4/' x='125' y='464'><next><block type='looks_hide' id='Xwu=}mj}J.juvK^Y:#1X'><next><block type='control_repeat' id='!wAK/NEOrC1DbaAQN;2}'><value name='TIMES'><shadow type='math_whole_number' id='+jJaQFQjR2J^(_|WG=zN'><field name='NUM'>2</field></shadow></value><statement name='SUBSTACK'><block type='control_create_clone_of' id='+!AHY%mKan-LhPGfSh^]'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='dY,kB3!#9,Z!;+`ID(k|'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></statement></block></next></block></next></block><block type='control_start_as_clone' id='8Daq9w1M+Tbf5UUcsHph' x='406' y='489'><next><block type='looks_show' id='v+@]V1KX!,IQT[_2UmP7'><next><block type='motion_goto' id='RzOXXa}6Xarj9C$$]%+_'><value name='TO'><shadow type='motion_goto_menu' id='e$E^gQMP?8Fkb_V.!(Nv'><field name='TO'>_random_</field></shadow></value></block></next></block></next></block></xml>",
                 shouldCleanup: true,
             },
             {
                 id: 'exercise-cloning',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}> The Copycats</p>
+                        <p className={styles.contentTitle}><PracticeLabel />The Copycats</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>A small program (already created for you) creates 5 invisible cat clones.
                             Each goes to a random position, becomes visible, and says "Hello!"
                             Click <GreenFlagButton /> button to see it in action.
                         </p>
                             <p>
-                                <PracticeLabel /> Modify the program so each cat clone in addition to going to a random position,
-                                says a random number (1-10) instead of "Hello!", and sets itself to a random color effect (1-200).
-                            You will need to use some of these blocks:
-                            <img src={pickRandomNum} style={{ width: '10rem', verticalAlign: 'middle' }} /> and
-                            <img src={setColorEffect} style={{ width: '10rem', verticalAlign: 'middle' }} />.
-                            The picture below shows an example of the expected output when <GreenFlagButton /> button is clicked.
-                        </p>
+                                Modify the program so each cat clone in addition to going to a random position,
+                                <span className={styles.highlightText}>says a random number (1-10) instead of "Hello!", and then sets itself to a random color effect (1-200).</span>
+                            </p>
+                            <p>The picture below shows an example of the expected output
+                            when <GreenFlagButton /> button is clicked.</p>
+
                             <img src={catCloning} style={{ width: '300px' }} />
+
+                            <p><b>Hints: </b> 
+                            You only need to modify the part that starts with <img src={whenIStartAsCloneBlock} className={styles.imgInline} style={{ width: '7rem', verticalAlign: 'middle' }} />
+                            You will need to use some of these blocks:
+                            <img src={pickRandomNum} style={{ width: '9rem', verticalAlign: 'middle', margin: '0.1rem' }} /> and
+                            <img src={setColorEffect} style={{ width: '9rem', verticalAlign: 'middle', margin: '0.1rem' }} />.
+                            Also, a block can be used as an input to another block (e.g., <img src={blockAsInput} style={{ width: '6rem', verticalAlign: 'middle', margin: '0.1rem' }}/> will make the cat says "3").
+                            </p>
+
                         </div>
                     </div>
                 ),
@@ -400,7 +434,7 @@ export default {
                                 to create more shaded shape clones. <span className={styles.highlightText}>Make sure to change the values in both repeat blocks!</span>
                                 Click <GreenFlagButton /> as you make changes to see if you are on the right track!
                         <span className={styles.yellowMark}> You will find that the rows do not seem to get longer as we expected even if we create more clones!?
-                                                                Actually the rows get longer but we just don't see them as their high brightness values
+                                                                                                                                                                                                                                        Actually the rows get longer but we just don't see them as their high brightness values
                         make them appear to be white and blend with the white background. We will fix that next!</span>
                             </p>
                         </div>

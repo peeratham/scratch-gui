@@ -15,7 +15,7 @@ import expandIcon from './icon--expand.svg';
 import isEqual from 'lodash.isequal';
 
 import { workspaceFromXml, addBlocksToWorkspace } from '../../lib/hints/hint-test-workspace-setup.js';
-import { saveDataToMongo, queryData } from "../../lib/custom-analytics";
+import { saveDataToMongo, queryData, checkCompletionMongo } from "../../lib/custom-analytics";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 // reference for latest update: https://github.com/LLK/scratch-gui/blob/develop/src/components/cards/cards.jsx
 import Floater from 'react-floater';
@@ -25,7 +25,7 @@ import analytics from "../../lib/custom-analytics";
 import Reference from './reference.jsx';
 
 const enableCloseCard = false;
-const bypassCheck = true;
+const bypassCheck = false;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
@@ -93,7 +93,7 @@ const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, ex
 // // so that the mouseup is not swallowed by the iframe.
 const VideoStep = ({ video, dragging, title }) => (
     <div className={styles.stepVideo}>
-        <div style={{margin:'0rem'}}>{title}</div>
+        <div style={{ margin: '0rem' }}>{title}</div>
         {dragging ? (
             <div className={styles.videoCover} />
         ) : null}
@@ -201,7 +201,14 @@ const workspaceContainsScript = ({ workspace, expected, shouldExcludeShadow = tr
     return !!found;
 }
 
-const checkStepCompletion = ({ onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer, workspace }) => () => {
+const checkStepCompletion = ({ vm, isStarted, onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer, workspace }) => () => {
+    vm.stopAll();
+    if (!isStarted) {
+        vm.start();
+    }
+    vm.greenFlag();
+
+
     let isComplete = null;
     if (!expected) {
         isComplete = true;//not specified => auto complete
@@ -305,7 +312,7 @@ class ImageStep extends React.Component {
                     {title}
                 </div>
                 {completionCode && <div>
-                    <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold', fontSize:'1.25rem'}}>{completionCode}</div>
+                    <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold', fontSize: '1.25rem' }}>{completionCode}</div>
                     <CopyToClipboard text={completionCode}>
                         <div className={styles.copyCompletionCodeButton} onClick={() => { this.setState({ copied: true }) }}>
                             Copy the Completion Code {this.state.copied && <span style={{ color: "white" }}>(COPIED!)</span>
@@ -313,7 +320,7 @@ class ImageStep extends React.Component {
                     </CopyToClipboard>
                 </div>
                 }
-                {completionCode && this.state.copied && <p style={{fontSize:'1rem'}}>After pasting the completion code to the main survey, <br />you may close this Scratch editor</p>}
+                {completionCode && this.state.copied && <p style={{ fontSize: '1rem' }}>After pasting the completion code to the main survey, <br />you may close this Scratch editor</p>}
                 {image && (<div className={styles.stepImageContainer}>
                     <img
                         className={styles.stepImage}
@@ -467,6 +474,18 @@ class CustomCards extends React.Component {
         saveDataToMongo('completion', this.props.activeDeckId + '_time-spent', seconds);
     }
 
+    remoteCheck(id) {
+        return checkCompletionMongo('completion', this.props.activeDeckId + '_' + id).then(res => {
+            if (res) {
+                this.props.onCompleteStep(id);
+                return true;
+            } else {
+                console.log('remote check', id, res);
+                return false;
+            }
+        });
+    }
+
     startStepTimer() {
         const startStepTime = new Date();
         this.setState({ startStepTime: startStepTime });
@@ -506,6 +525,7 @@ class CustomCards extends React.Component {
     }
 
     componentDidUpdate() {
+
         if (!this.state.workspace) {
             this.setState({ workspace: ScratchBlocks.getMainWorkspace() });
         }
@@ -515,9 +535,15 @@ class CustomCards extends React.Component {
             completed
         } = this.props;
 
+
         if ((!!this.steps[step].expected || !!this.steps[step].customCheck)
             && !!!this.state.startStepTime && !completed.includes(this.steps[step].id)) {
-            this.startStepTimer();
+            this.remoteCheck(this.steps[this.props.step].id).then(res => {
+                //if already complete then don't start
+                if (!res) {
+                    this.startStepTimer();
+                }
+            });
         }
     }
 
@@ -545,6 +571,7 @@ class CustomCards extends React.Component {
             onCompleteStep,
             vm,
             qualityHintToggleVisible,
+            isStarted,
             ...posProps
         } = this.props;
         let { x, y } = posProps;
@@ -611,7 +638,7 @@ class CustomCards extends React.Component {
                         {this.state.selectedView === 'instructions' && expanded &&
                             !!(steps[step].expected || steps[step].customCheck) &&
                             <div className={styles.footer}>
-                                {completed.includes(steps[step].id) ? <div className={styles.completedStatus}>Completed</div> :
+                                {completed.includes(steps[step].id) ? <div className={styles.completedStatus}>COMPLETED!</div> :
                                     <Floater content={this.state.reminderMessage || "Click to check your work!"}
                                         open={!!this.state.reminderMessage}
                                         styles={{
@@ -621,6 +648,7 @@ class CustomCards extends React.Component {
                                         }}>
                                         <div className={styles.checkButton}
                                             onClick={checkStepCompletion({
+                                                isStarted,
                                                 onCompleteStep, vm, expected: steps[step].expected, customCheck: steps[step].customCheck,
                                                 onShowReminderMessage: this.onShowReminderMessage,
                                                 currentInstructionId: steps[step].id,
@@ -638,7 +666,7 @@ class CustomCards extends React.Component {
                             onNextStep={step < steps.length - 1 ? onNextStep : null}
                             onPrevStep={step > 0 ? onPrevStep : null}
                             stepCompleted={bypassCheck || (!steps[step].expected && !steps[step].customCheck) || completed.includes(steps[step].id)}
-                            checkCompletion={checkStepCompletion({ onCompleteStep, vm, expected: steps[step].expected, currentInstructionId: steps[step].id, workspace: this.state.workspace })}
+                            checkCompletion={checkStepCompletion({ isStarted, onCompleteStep, vm, expected: steps[step].expected, currentInstructionId: steps[step].id, workspace: this.state.workspace })}
                             isAlreadySetup={this.state.isAlreadySetup}
                             setUpdateCodeStatus={this.setUpdateCodeStatus}
                             currentInstructionId={steps[step].id}

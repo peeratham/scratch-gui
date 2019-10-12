@@ -31,7 +31,8 @@ const mapStateToProps = (state, ownProps) => ({
     dragging: state.scratchGui.customCards.dragging,
     stepCompleted: state.scratchGui.customCards.stepCompleted,
     completed: state.scratchGui.customCards.completed,
-    vm: state.scratchGui.vm
+    vm: state.scratchGui.vm,
+    isStarted: state.scratchGui.vmStatus.started,
 });
 
 const mapDispatchToProps = dispatch => ({

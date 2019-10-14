@@ -178,7 +178,7 @@ $action-button-size: 2.75rem;
 .highlight{
     animation: example 1s 2;
     /* animation-iteration-count: 2; */
-    -webkit-animation: example 2s 1;
+    -webkit-animation: example 2s 3;
     -webkit-animation-delay: 3s;
     animation-delay: 3s;
 }

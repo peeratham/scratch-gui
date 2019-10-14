@@ -20,9 +20,12 @@ import jump0 from './intro/tutorial-noparam-custom-block.gif';
 import jump1 from './intro/tutorial-1param-custom-block.gif'
 import cloningConcept from './intro/cloning-concept.gif';
 import walkingMovement from './intro/walking-movement.gif';
+import foreverWalking from './intro/forever-walking.png';
 import catCloning from './intro/cat-cloning.png';
 import originalVsGoal from './custom-block-deck/original-vs-goal.png';
 import copyPasteReuse from './custom-block-deck/copy-paste-modify.gif';
+import copyPasteOnly from './custom-block-deck/copy-paste-only.gif';
+import expectedMods from './custom-block-deck/expected-modifications.png';
 
 import pickRandomNum from './intro/pick-random.png';
 import setColorEffect from './intro/set-color-effect.png';
@@ -40,13 +43,14 @@ import modifyChangeXBy from './custom-block-deck/modify-change-x-by.png';
 
 import expectedImprovement from './custom-block-deck/expected-improvement.png';
 import highlightedPart from './custom-block-deck/highlighted-to-extract.png';
+import beforeAfter from './custom-block-deck/before-after.png';
 
 import tipsIcon from './custom-block-deck/tips-icon.png';
 
 //study tasks
 import studyTaskPreview from './study-tasks/study-task-preview.gif';
 import programExplained from './study-tasks/original-program-explained.png';
-import programExplained1 from './study-tasks/original-program-explained-1-horizontal.png';
+import programExplained1 from './study-tasks/original-program-explained-1.png';
 import programExplained2 from './study-tasks/original-program-explained-2.png';
 import programExplained3 from './study-tasks/original-program-explained-3.png';
 import whenIStartAsCloneBlock from './study-tasks/when-i-start-as-clone.png';
@@ -116,7 +120,7 @@ export default {
 
                             <p className={styles.yellowMark}> The cards with <PracticeLabel /> label require you to complete some simple programming tasks.
                             For these cards, you will need to check your work by clicking <CheckButtonImg /> before you can go to the next card.
-                            Other cards are for you to learn and require no work for you to perform.
+                                                                Other cards are for you to learn and require no work for you to perform.
                             <b>You may refresh your browser tab in case you experience problems and need a fresh start.
                             Your completion status of each <em>practice</em> card is recorded so you will be able to skip the ones you have already completed. </b>
                             </p>
@@ -131,7 +135,7 @@ export default {
             {
                 id: 'intro-vid',
                 title: (
-                <p className={styles.contentTitle}>Programming With Scratch (50-second Teaser)</p>
+                    <p className={styles.contentTitle}>Programming With Scratch (50-second Teaser)</p>
                 ),
                 video: 'rpjvs3v9gj'
             },
@@ -143,7 +147,7 @@ export default {
                         <p>
                             Create a sequence of blocks shown in the animated guide below.
                             Click the block sequence for the Cat to perform the corresponding actions.
-                            Click <CheckButtonImg/> to go to next card.</p>
+                            Click <CheckButtonImg /> to go to next card.</p>
                     </div>
                 ),
                 image: stepMove,
@@ -154,7 +158,7 @@ export default {
                 id: 'gf-move-say',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}><PracticeLabel />Start The Program When <br/><GreenFlagButton/> Button Is Clicked</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Start The Program When <br /><GreenFlagButton /> Button Is Clicked</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>Place <img src={gfClickedBlock} className={styles.block} /> block at the top of a block sequence to run that program part when the <GreenFlagButton /> button is clicked.
 
@@ -165,6 +169,9 @@ export default {
                         </div>
                     </div>
                 ),
+
+                setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><variables></variables><block type='motion_movesteps' id='zIR%EA*XTI1B8PQQD6u{' x='61' y='190'><value name='STEPS'><shadow type='math_number' id='v}Ur-3GldrS*rB(SAG}@'><field name='NUM'>10</field></shadow></value><next><block type='looks_sayforsecs' id='rn_U}S8I]I*(!3ch~s:/'><value name='MESSAGE'><shadow type='text' id='v?Kx-`=J`7u05[x2O%}q'><field name='TEXT'>Hello!</field></shadow></value><value name='SECS'><shadow type='math_number' id='1G93N9O*AK-=DZ0pgY=R'><field name='NUM'>2</field></shadow></value></block></next></block></xml>",
+                shouldCleanup: true,
                 expected: [["event_whenflagclicked", "motion_movesteps", "looks_sayforsecs"]],
             },
             {
@@ -187,7 +194,7 @@ export default {
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>Right click a block then select "Delete Block" to delete just that block.
                             <span className={styles.yellowMark}>A quicker way to delete block is to drag and drop it in the block palette area.
-                                                        When a block is dragged, the block sequence connected below it will also move along.
+                                                                                            When a block is dragged, the block sequence connected below it will also move along.
                             Placing a sequence of blocks in the block palette area will delete all blocks in the sequence.</span>
                             </p>
                             <img src={deleteCode} style={{ width: '400px' }} />
@@ -236,12 +243,10 @@ export default {
                     <div className={styles.contentContainer}>
                         <p className={styles.contentTitle}><PracticeLabel />A Forever Walking Cat</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
-                            <p>Create a basic walking animation.
-                    You will learn that how <b>"switch costume to"</b> block can be used change character sprite's <em>costume</em>
-                                and how a <b>"forever"</b> block                                                                                                                                                                                                                                                                   can be used to repeat the sequence of blocks inside it forever
-                    unless you stop the program by clicking <StopButton />.
+                            <p>
+                                <img src={foreverWalking} style={{ width: '200px', marginRight: '1rem', float: 'left' }} />
+                                Create a basic walking animation.You will learn that how <b>"switch costume to"</b> block can be used change character sprite's <em>costume</em> and how a <b>"forever"</b> block can be used to repeat the sequence of blocks inside it forever unless you stop the program by clicking <StopButton />.
                             </p>
-                            <img src={walkingMovement} style={{ width: '400px' }} />
                         </div>
                     </div>
                 ),
@@ -271,7 +276,6 @@ export default {
                 ),
                 setupCode:
                     "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='XG3B]7tQO?9{fcPe${Ek' x='200' y='329'><next><block type='control_forever' id='r6NRa`6c|S6Q?:^orT2C'><statement name='SUBSTACK'><block type='control_repeat' id='NLH?/iZ2KT4gTJ`G]t!v'><value name='TIMES'><shadow type='math_whole_number' id='Qa-pGAX@}=-#K*YsMl.r'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='w9@CehxUS_72Tcx4_z;S'><value name='DY'><shadow type='math_number' id='Mc`LlV3LKet:yE308yP8'><field name='NUM'>2</field></shadow></value></block></statement><next><block type='control_wait' id='{r=;7@mSu*cOh|.*Npz('><value name='DURATION'><shadow type='math_positive_number' id='9,7lBs/r~PiI,Utq_-3T'><field name='NUM'>0.1</field></shadow></value><next><block type='control_repeat' id=']$L98xB}[blm)*2@8^$D'><value name='TIMES'><shadow type='math_whole_number' id='cCSAEMik`Xh*V9E$;JK,'><field name='NUM'>10</field></shadow></value><statement name='SUBSTACK'><block type='motion_changeyby' id='U^cvx=fq1}V(B{iy5NgV'><value name='DY'><shadow type='math_number' id='Vr6HQ/R6dmfQg/^?x)!b'><field name='NUM'>-2</field></shadow></value></block></statement></block></next></block></next></block></statement></block></next></block></xml>",
-                // "<xml xmlns='http://www.w3.org/1999/xhtml'><block type='event_whenflagclicked' id='*2_U~)FT}hV}IOw`WpgI' x='85' y='-257'><next><block type='procedures_call' id='g=H`Y5OO:g%1*FQZ6|?`'><mutation proccode='jump' argumentids='[]' warp='false'></mutation><next><block type='looks_sayforsecs' id='Z#w){$DU+bEc%yC6C~{9'><value name='MESSAGE'><shadow type='text' id='O|Bgc[[|w0V`3Gz6;13J'><field name='TEXT'>Hello!</field></shadow></value><value name='SECS'><shadow type='math_number' id='3E)nusFZxU6MrHR/[N0k'><field name='NUM'>2</field></shadow></value><next><block type='procedures_call' id='t!lUpD{h{:qsfvVIIxHC'><mutation proccode='jump' argumentids='[]' warp='false'></mutation></block></next></block></next></block></next></block><block type='procedures_definition' id='+T)h:,DF~eAw@DD)7Q#-' x='442' y='-254'><statement name='custom_block'><shadow type='procedures_prototype' id='rz~]Ha`+;%uQvVA|qn%C'><mutation proccode='jump' argumentids='[]' argumentnames='[]' argumentdefaults='[]' warp='false'></mutation></shadow></statement><next><block type='motion_changeyby' id='k(AUhXY}Q][D%L;Q+a|#'><value name='DY'><shadow type='math_number' id='U@zOSWEJ1Gc|kVcEiT61'><field name='NUM'>10</field></shadow></value><next><block type='control_wait' id='e7n0whD12mI*HElF-01A'><value name='DURATION'><shadow type='math_positive_number' id='[ss53aQ(PuYF}3SI?m9g'><field name='NUM'>0.5</field></shadow></value><next><block type='motion_changeyby' id='ru7G};a,FsP~}VE/9CkB'><value name='DY'><shadow type='math_number' id='9FHdK6P-J.{];3Qj=**S'><field name='NUM'>-10</field></shadow></value></block></next></block></next></block></next></block></xml>",
                 expected: [
                     ["event_whenflagclicked", "control_forever", "procedures_call"],
                     ["procedures_definition", "control_repeat", "motion_changeyby", "control_wait", "control_repeat", "motion_changeyby"]
@@ -338,12 +342,12 @@ export default {
 
                             <img src={catCloning} style={{ width: '300px' }} />
 
-                            <p><b>Hints: </b> 
-                            You only need to modify the part that starts with <img src={whenIStartAsCloneBlock} className={styles.imgInline} style={{ width: '7rem', verticalAlign: 'middle' }} />
-                            You will need to use some of these blocks:
+                            <p><b>Hints: </b>
+                                You only need to modify the part that starts with <img src={whenIStartAsCloneBlock} className={styles.imgInline} style={{ width: '7rem', verticalAlign: 'middle' }} />
+                                You will need to use some of these blocks:
                             <img src={pickRandomNum} style={{ width: '9rem', verticalAlign: 'middle', margin: '0.1rem' }} /> and
                             <img src={setColorEffect} style={{ width: '9rem', verticalAlign: 'middle', margin: '0.1rem' }} />.
-                            Also, a block can be used as an input to another block (e.g., <img src={blockAsInput} style={{ width: '6rem', verticalAlign: 'middle', margin: '0.1rem' }}/> will make the cat says "3").
+                            Also, a block can be used as an input to another block (e.g., <img src={blockAsInput} style={{ width: '6rem', verticalAlign: 'middle', margin: '0.1rem' }} /> will make the cat says "3").
                             </p>
 
                         </div>
@@ -384,10 +388,10 @@ export default {
                                 An experienced Scratch programmer created and shared this project, "Shapes and Shades" that generates a row of green squares with decreasingly lighter shades (left side).
                                 Click <GreenFlagButton /> to see it in action.
                             </p>
-                            <p>
+                            <p className={styles.yellowMark}>
                                 We will modify this project to make it look like the right side of the picture above
                                 (adding blue-shaded row of triangles and make both rows span the width of the stage)
-                                Modifying and extending someone else's project is called "remixing".
+                                Modifying and extending someone else's project is called <b>"remixing"</b>.
                                 It's a fun and engaging way to learn programming.
                             </p>
                             <p>
@@ -401,18 +405,24 @@ export default {
                 id: 'copy-paste',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Adding a Row of Blue-Shaded Triangles</p>
+                        <p className={styles.contentTitle}><PracticeLabel /> Adding a Row of Blue-Shaded Triangles</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>
-                                <PracticeLabel /> Follow the step-by-step animated guide below.
-                                It shows how to add a triangle row by reusing the program part that generates a square row and
-                                 changes it as follows:<br />
+                                <img src={copyPasteOnly} className={styles.contentImage} style={{ width: '220px', float: 'left' }} />
+                                Let's add a triangle row by reusing the program part that generates a square row and modify it to produce a row of blue-shaded triangles.
+                                First, <span className={styles.highlightText}>duplicate the part that starts with
+                                "clear graphic effects" block</span> and connect the replicated part to the end of the sequence.
+                            </p>
+                            <p>
+                                <img src={expectedMods} className={styles.contentImage} style={{ width: '200px', float: 'left' }} />
+                                <span className={styles.yellowMark}>Then modify it to look like the picture of on the left (the modified locations are highlighted in red <b>duplicated part</b>).
+                                The specific detail of the changes are:
+                                </span><br />
                                 1) switch the costume to "triangle"<br />
-                                2) position it below the square row (set go to x, y  to -215 and 60 respectively)<br />
+                                2) position it below the square row by setting y:60 for the "go to x: y:" block<br />
                                 3) set the color effect to 85 for blue.<br />
                                 Click <GreenFlagButton /> often as you make changes to see if you are on the right track!
                             </p>
-                            <img src={copyPasteReuse} className={styles.contentImage} />
                         </div>
                     </div>
                 ),
@@ -425,21 +435,23 @@ export default {
                 id: 'modification-1',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Generate More Shaded Shapes</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Generate More Shaded Shapes</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <img src={modifyRepeat} className={styles.contentImage} style={{ width: '200px' }} />
-                            <p><PracticeLabel /> Both rows are a bit short.
+                            <p>Both rows are a bit short.
                         Let's make the rows longer by <span className={styles.highlightText}> increase the repetitions of the repeat blocks from
                         5 to 9</span>
                                 to create more shaded shape clones. <span className={styles.highlightText}>Make sure to change the values in both repeat blocks!</span>
                                 Click <GreenFlagButton /> as you make changes to see if you are on the right track!
                         <span className={styles.yellowMark}> You will find that the rows do not seem to get longer as we expected even if we create more clones!?
-                                                                                                                                                                                                                                        Actually the rows get longer but we just don't see them as their high brightness values
+                                                                                                                                                                                                                                                                                                                Actually the rows get longer but we just don't see them as their high brightness values
                         make them appear to be white and blend with the white background. We will fix that next!</span>
                             </p>
                         </div>
                     </div>
                 ),
+                setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='GoTQ97j2EJXhLs!EDUM}' x='32' y='-545'><next><block type='looks_hide' id='_#~+WH0Un%_=d?xxXopA'><next><block type='looks_cleargraphiceffects' id='LXwA[VJyg1rza;F$R`$/'><next><block type='looks_switchcostumeto' id='=3U}RCYakN,it35w{%ce'><value name='COSTUME'><shadow type='looks_costume' id='IZWl+mz$@osw+u(dcTBA'><field name='COSTUME'>square</field></shadow></value><next><block type='motion_gotoxy' id='|1yB]x7`h.hi6QtA1FW?'><value name='X'><shadow type='math_number' id='/,IQ4-6EqF?BXg!=pSl/'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='cm8^@f`tEiO54d[5fzM`'><field name='NUM'>120</field></shadow></value><next><block type='looks_seteffectto' id='rP0yU%a`)#0-H_[ydMCX'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow type='math_number' id='w-mhN?[/n9RlZP-|()dh'><field name='NUM'>35</field></shadow></value><next><block type='control_repeat' id='(4O$sHR,g!3GAhtHeAO;'><value name='TIMES'><shadow type='math_whole_number' id='a.k}V-k@e,Ya:*/t9i8('><field name='NUM'>5</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='#av-crB}[j4|eb9{hTl-'><value name='DX'><shadow type='math_number' id='*x2[m~lSgg~k{f?eC.*F'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='cNEh@0/x)pxw{i=4.;8d'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='?tfo-)YIU*7yDMZL0ri0'><field name='NUM'>15</field></shadow></value><next><block type='control_create_clone_of' id='n(9_@Y^%f3q8uzw^qFg~'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='f2XAnacOoA#hc(fIQ@3,'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement><next><block type='looks_cleargraphiceffects' id='?[G@7Sn]Qd#I;t4h5]%I'><next><block type='looks_switchcostumeto' id='%:CkQ!*!dt+~%GV5n)SY'><value name='COSTUME'><shadow type='looks_costume' id='1oqdHx7l+O))k?b+wN1c'><field name='COSTUME'>triangle</field></shadow></value><next><block type='motion_gotoxy' id='l5C!#{^d}M_Wp9gxhdqg'><value name='X'><shadow type='math_number' id='M{bhnKt4{f8ac8s(T+H~'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='wcV7iHY:DAN=+.)r`h/V'><field name='NUM'>60</field></shadow></value><next><block type='looks_seteffectto' id='Yyx/evN3MqD;IIiqhT/M'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow type='math_number' id='YBCQ~%g0q.XjpBcXHN#q'><field name='NUM'>85</field></shadow></value><next><block type='control_repeat' id='jx3$oX^-#%bPc3xp}qT('><value name='TIMES'><shadow type='math_whole_number' id='$t?$CQQnw=~X%;ap-PHP'><field name='NUM'>5</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='Q*z#)`XC~SFNwlkHH?Fc'><value name='DX'><shadow type='math_number' id=']T9vkTSqymXL+Q+jOMrj'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='h)K=5tTab~sG!F_bxIIs'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='-jXI[3aGK+t0i@tr:G(c'><field name='NUM'>15</field></shadow></value><next><block type='control_create_clone_of' id=':5SGONYRC3vET]fHmoD2'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='AqriWy)JvM8%Yc01~aUv'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block><block type='control_start_as_clone' id=';^A_yDtWBl=[e9X?h3-v' x='355' y='-504'><next><block type='looks_show' id='34#G|!#qC+u?0RL5_l-z'><next><block type='control_wait' id='h#Dx+p/mZjf;4Vy.PttQ'><value name='DURATION'><shadow type='math_positive_number' id=':gT2k-pq|VV|t)s5TxER'><field name='NUM'>1</field></shadow></value><next><block type='control_delete_this_clone' id='pS5+F}nygYS+*|oV@,$3'></block></next></block></next></block></next></block></xml>",
+                shouldCleanup: true,
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
             },
             {
@@ -447,10 +459,9 @@ export default {
                 title: (
                     <div className={styles.contentContainer}>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
-                            <p className={styles.contentTitle}>Increase the Brightness More Slowly</p>
+                            <p className={styles.contentTitle}><PracticeLabel />Increase the Brightness More Slowly</p>
                             <img src={modifyBrightness} className={styles.contentImage} style={{ width: '250px' }} />
-                            <p>
-                                <PracticeLabel /> Each subsequent shape clone becomes too bright too quickly.
+                            <p>Each subsequent shape clone becomes too bright too quickly.
                             Let's <span className={styles.highlightText}>reduce the brightness values of the "change brightness effect by" block from 15 to 9.
                             Make sure to change the value in both places!</span>
                                 Click <GreenFlagButton /> as you make changes to see if you are on the right track!
@@ -459,6 +470,8 @@ export default {
                         </div>
                     </div>
                 ),
+                setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='GoTQ97j2EJXhLs!EDUM}' x='0' y='0'><next><block type='looks_hide' id='_#~+WH0Un%_=d?xxXopA'><next><block type='looks_cleargraphiceffects' id='LXwA[VJyg1rza;F$R`$/'><next><block type='looks_switchcostumeto' id='=3U}RCYakN,it35w{%ce'><value name='COSTUME'><shadow type='looks_costume' id='IZWl+mz$@osw+u(dcTBA'><field name='COSTUME'>square</field></shadow></value><next><block type='motion_gotoxy' id='|1yB]x7`h.hi6QtA1FW?'><value name='X'><shadow type='math_number' id='/,IQ4-6EqF?BXg!=pSl/'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='cm8^@f`tEiO54d[5fzM`'><field name='NUM'>120</field></shadow></value><next><block type='looks_seteffectto' id='rP0yU%a`)#0-H_[ydMCX'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow type='math_number' id='w-mhN?[/n9RlZP-|()dh'><field name='NUM'>35</field></shadow></value><next><block type='control_repeat' id='(4O$sHR,g!3GAhtHeAO;'><value name='TIMES'><shadow type='math_whole_number' id='a.k}V-k@e,Ya:*/t9i8('><field name='NUM'>9</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='#av-crB}[j4|eb9{hTl-'><value name='DX'><shadow type='math_number' id='*x2[m~lSgg~k{f?eC.*F'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='cNEh@0/x)pxw{i=4.;8d'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='?tfo-)YIU*7yDMZL0ri0'><field name='NUM'>15</field></shadow></value><next><block type='control_create_clone_of' id='n(9_@Y^%f3q8uzw^qFg~'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='f2XAnacOoA#hc(fIQ@3,'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement><next><block type='looks_cleargraphiceffects' id='?[G@7Sn]Qd#I;t4h5]%I'><next><block type='looks_switchcostumeto' id='%:CkQ!*!dt+~%GV5n)SY'><value name='COSTUME'><shadow type='looks_costume' id='1oqdHx7l+O))k?b+wN1c'><field name='COSTUME'>triangle</field></shadow></value><next><block type='motion_gotoxy' id='l5C!#{^d}M_Wp9gxhdqg'><value name='X'><shadow type='math_number' id='M{bhnKt4{f8ac8s(T+H~'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='wcV7iHY:DAN=+.)r`h/V'><field name='NUM'>60</field></shadow></value><next><block type='looks_seteffectto' id='Yyx/evN3MqD;IIiqhT/M'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow type='math_number' id='YBCQ~%g0q.XjpBcXHN#q'><field name='NUM'>85</field></shadow></value><next><block type='control_repeat' id='jx3$oX^-#%bPc3xp}qT('><value name='TIMES'><shadow type='math_whole_number' id='$t?$CQQnw=~X%;ap-PHP'><field name='NUM'>9</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='Q*z#)`XC~SFNwlkHH?Fc'><value name='DX'><shadow type='math_number' id=']T9vkTSqymXL+Q+jOMrj'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='h)K=5tTab~sG!F_bxIIs'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='-jXI[3aGK+t0i@tr:G(c'><field name='NUM'>15</field></shadow></value><next><block type='control_create_clone_of' id=':5SGONYRC3vET]fHmoD2'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='AqriWy)JvM8%Yc01~aUv'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block><block type='control_start_as_clone' id=';^A_yDtWBl=[e9X?h3-v' x='0' y='984'><next><block type='looks_show' id='34#G|!#qC+u?0RL5_l-z'><next><block type='control_wait' id='h#Dx+p/mZjf;4Vy.PttQ'><value name='DURATION'><shadow type='math_positive_number' id=':gT2k-pq|VV|t)s5TxER'><field name='NUM'>1</field></shadow></value><next><block type='control_delete_this_clone' id='pS5+F}nygYS+*|oV@,$3'></block></next></block></next></block></next></block></xml>",
+                shouldCleanup: true,
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='9').length === 2"
             },
             {
@@ -481,7 +494,9 @@ export default {
                             </p>
                         </div>
                     </div>
-                )
+                ),
+                setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='event_whenflagclicked' id='GoTQ97j2EJXhLs!EDUM}' x='0' y='0'><next><block type='looks_hide' id='_#~+WH0Un%_=d?xxXopA'><next><block type='looks_cleargraphiceffects' id='LXwA[VJyg1rza;F$R`$/'><next><block type='looks_switchcostumeto' id='=3U}RCYakN,it35w{%ce'><value name='COSTUME'><shadow type='looks_costume' id='IZWl+mz$@osw+u(dcTBA'><field name='COSTUME'>square</field></shadow></value><next><block type='motion_gotoxy' id='|1yB]x7`h.hi6QtA1FW?'><value name='X'><shadow type='math_number' id='/,IQ4-6EqF?BXg!=pSl/'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='cm8^@f`tEiO54d[5fzM`'><field name='NUM'>120</field></shadow></value><next><block type='looks_seteffectto' id='rP0yU%a`)#0-H_[ydMCX'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow type='math_number' id='w-mhN?[/n9RlZP-|()dh'><field name='NUM'>35</field></shadow></value><next><block type='control_repeat' id='(4O$sHR,g!3GAhtHeAO;'><value name='TIMES'><shadow type='math_whole_number' id='a.k}V-k@e,Ya:*/t9i8('><field name='NUM'>9</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='#av-crB}[j4|eb9{hTl-'><value name='DX'><shadow type='math_number' id='*x2[m~lSgg~k{f?eC.*F'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='cNEh@0/x)pxw{i=4.;8d'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='?tfo-)YIU*7yDMZL0ri0'><field name='NUM'>9</field></shadow></value><next><block type='control_create_clone_of' id='n(9_@Y^%f3q8uzw^qFg~'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='f2XAnacOoA#hc(fIQ@3,'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement><next><block type='looks_cleargraphiceffects' id='?[G@7Sn]Qd#I;t4h5]%I'><next><block type='looks_switchcostumeto' id='%:CkQ!*!dt+~%GV5n)SY'><value name='COSTUME'><shadow type='looks_costume' id='1oqdHx7l+O))k?b+wN1c'><field name='COSTUME'>triangle</field></shadow></value><next><block type='motion_gotoxy' id='l5C!#{^d}M_Wp9gxhdqg'><value name='X'><shadow type='math_number' id='M{bhnKt4{f8ac8s(T+H~'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='wcV7iHY:DAN=+.)r`h/V'><field name='NUM'>60</field></shadow></value><next><block type='looks_seteffectto' id='Yyx/evN3MqD;IIiqhT/M'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow type='math_number' id='YBCQ~%g0q.XjpBcXHN#q'><field name='NUM'>85</field></shadow></value><next><block type='control_repeat' id='jx3$oX^-#%bPc3xp}qT('><value name='TIMES'><shadow type='math_whole_number' id='$t?$CQQnw=~X%;ap-PHP'><field name='NUM'>9</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='Q*z#)`XC~SFNwlkHH?Fc'><value name='DX'><shadow type='math_number' id=']T9vkTSqymXL+Q+jOMrj'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='h)K=5tTab~sG!F_bxIIs'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='-jXI[3aGK+t0i@tr:G(c'><field name='NUM'>9</field></shadow></value><next><block type='control_create_clone_of' id=':5SGONYRC3vET]fHmoD2'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='AqriWy)JvM8%Yc01~aUv'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block><block type='control_start_as_clone' id=';^A_yDtWBl=[e9X?h3-v' x='0' y='984'><next><block type='looks_show' id='34#G|!#qC+u?0RL5_l-z'><next><block type='control_wait' id='h#Dx+p/mZjf;4Vy.PttQ'><value name='DURATION'><shadow type='math_positive_number' id=':gT2k-pq|VV|t)s5TxER'><field name='NUM'>1</field></shadow></value><next><block type='control_delete_this_clone' id='pS5+F}nygYS+*|oV@,$3'></block></next></block></next></block></next></block></xml>",
+                shouldCleanup: true
             },
             {
                 id: 'extract-cb-intro',
@@ -501,20 +516,23 @@ export default {
                 id: 'intro-QIS',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Getting Help From Code Wizard</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Getting Help From Code Wizard</p>
                         <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
-                            <p><PracticeLabel /> Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
+                            <p>Toggle <b>Code Wizard</b> <img src={featureTogglingImg} className={styles.imgInline} />
                                 to see improvement hints and follow their suggestions.
-                                The improved code should look like the one below.
+                                The picture below gives a high-level view of the parts we are improving (left) and its resulting improvement (right). Scroll down to see the enlarged picture of the expected improved code.
                                 Click <GreenFlagButton /> to make sure your program still works the same.
                                 Click <CheckButtonImg /> when you are done.
                             </p>
+                            <b>Before and After:</b>
+                            <img src={beforeAfter} className={styles.contentImage} style={{ width: '420px' }} />
+                            <b>Expected resulting improvement:</b>
                             <img src={expectedImprovement} className={styles.contentImage} style={{ width: '400px' }} />
                         </div>
                     </div>
                 ),
                 onlyVisibleToGroup: 'automated',
-                customCheck: "(workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)"
+                customCheck: "(workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length > 0)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length>=2)"
             },
             {
                 id: 'intro-manual',
@@ -527,14 +545,16 @@ export default {
                 id: 'modification-final',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Modifying Once Within Custom Block's Definition</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Modifying Once Within Custom Block's Definition</p>
                         <div className={styles.scrollable} style={{ height: '300px', float: 'left' }}>
-                            <p><PracticeLabel /> For this last step, we need to increase the distance between each shape clone to make both rows span the width of the stage.
+                            <p>For this last step, we need to increase the distance between each shape clone to make both rows span the width of the stage.
                                 <span className={styles.highlightText}>Use the following values: 25,30, 35, 40 and 50.</span> Each time click <CheckButtonImg /> to see if you use the right value!
                             </p>
                             <img src={modifyChangeXBy} className={styles.contentImage} style={{ width: '400px' }} />
                         </div>
                     </div>),
+                setupCode: "<xml xmlns='http://www.w3.org/1999/xhtml'><variables><variable type='' id='`jEk@4|i[#Fk?(8x)AV.-my variable' islocal='false' iscloud='false'>my variable</variable></variables><block type='procedures_definition' id='c3' x='272' y='128'><statement name='custom_block'><shadow type='procedures_prototype' id='YMk3c'><mutation proccode='generateShades %s' argumentids='[&quot;param0_ID&quot;]' argumentnames='[&quot;color&quot;]' argumentdefaults='[&quot;&quot;]' warp='false'></mutation><value name='param0_ID'><shadow type='argument_reporter_string_number' id='sjwDGF'><field name='VALUE'>color</field></shadow></value></shadow></statement><next><block type='looks_seteffectto' id='SO'><field name='EFFECT'>COLOR</field><value name='VALUE'><shadow xmlns='' type='math_number' id='8X'><field name='NUM'>35</field></shadow><block type='argument_reporter_string_number' id='b5'><field name='VALUE'>color</field></block></value><next><block type='control_repeat' id='Sm'><value name='TIMES'><shadow type='math_whole_number' id='s1'><field name='NUM'>9</field></shadow></value><statement name='SUBSTACK'><block type='motion_changexby' id='Pc'><value name='DX'><shadow type='math_number' id='uq'><field name='NUM'>20</field></shadow></value><next><block type='looks_changeeffectby' id='nP'><field name='EFFECT'>BRIGHTNESS</field><value name='CHANGE'><shadow type='math_number' id='i1'><field name='NUM'>9</field></shadow></value><next><block type='control_create_clone_of' id='MU'><value name='CLONE_OPTION'><shadow type='control_create_clone_of_menu' id='63'><field name='CLONE_OPTION'>_myself_</field></shadow></value></block></next></block></next></block></statement></block></next></block></next></block><block type='event_whenflagclicked' id='GoTQ97j2EJXhLs!EDUM}' x='-3' y='213'><next><block type='looks_hide' id='_#~+WH0Un%_=d?xxXopA'><next><block type='looks_cleargraphiceffects' id='LXwA[VJyg1rza;F$R`$/'><next><block type='looks_switchcostumeto' id='=3U}RCYakN,it35w{%ce'><value name='COSTUME'><shadow type='looks_costume' id='IZWl+mz$@osw+u(dcTBA'><field name='COSTUME'>square</field></shadow></value><next><block type='motion_gotoxy' id='|1yB]x7`h.hi6QtA1FW?'><value name='X'><shadow type='math_number' id='/,IQ4-6EqF?BXg!=pSl/'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='cm8^@f`tEiO54d[5fzM`'><field name='NUM'>120</field></shadow></value><next><block type='procedures_call' id='DoSomething12%s_Call1'><mutation proccode='generateShades %s' argumentids='[&quot;param0_ID&quot;]' warp='false'></mutation><value name='param0_ID'><shadow type='text' id='DoSomething12%s_Call1_param_0'><field name='TEXT'>35</field></shadow></value><next><block type='looks_cleargraphiceffects' id='?[G@7Sn]Qd#I;t4h5]%I'><next><block type='looks_switchcostumeto' id='%:CkQ!*!dt+~%GV5n)SY'><value name='COSTUME'><shadow type='looks_costume' id='1oqdHx7l+O))k?b+wN1c'><field name='COSTUME'>triangle</field></shadow></value><next><block type='motion_gotoxy' id='l5C!#{^d}M_Wp9gxhdqg'><value name='X'><shadow type='math_number' id='M{bhnKt4{f8ac8s(T+H~'><field name='NUM'>-215</field></shadow></value><value name='Y'><shadow type='math_number' id='wcV7iHY:DAN=+.)r`h/V'><field name='NUM'>60</field></shadow></value><next><block type='procedures_call' id='DoSomething12%s_Call2'><mutation proccode='generateShades %s' argumentids='[&quot;param0_ID&quot;]' warp='false'></mutation><value name='param0_ID'><shadow type='text' id='DoSomething12%s_Call2_param_0'><field name='TEXT'>85</field></shadow></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block><block type='control_start_as_clone' id=';^A_yDtWBl=[e9X?h3-v' x='288' y='597'><next><block type='looks_show' id='34#G|!#qC+u?0RL5_l-z'><next><block type='control_wait' id='h#Dx+p/mZjf;4Vy.PttQ'><value name='DURATION'><shadow type='math_positive_number' id=':gT2k-pq|VV|t)s5TxER'><field name='NUM'>1</field></shadow></value><next><block type='control_delete_this_clone' id='pS5+F}nygYS+*|oV@,$3'></block></next></block></next></block></next></block></xml>",
+                shouldCleanup: true,
                 customCheck: "workspace.getAllBlocks().filter(b=>b.type==='motion_changexby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='40').length === 1"
             },
             {
@@ -543,10 +563,12 @@ export default {
                     <div className={styles.contentContainer}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <img src={tipsIcon} style={{ margin: '0.5rem' }} /></div>
-                            <p style={{ fontSize: '1.25rem' }}>
-                                <b>Custom blocks</b> make code easy to understand and modify. Can you imaging how difficult it would be to modify this program if we had 3 more rows of shaded shapes?
-                        </p>
+                                <img src={tipsIcon} style={{ maxWidth: '100%', marginRight: '1rem',  }} /></div>
+                            <div style={{ display: 'flex'}}>
+                                <p style={{ fontSize: '1.25rem' }}>
+                                    <b>Custom blocks</b> make code easy to understand and modify. Can you imaging how difficult it would be to modify this program if we had 3 more rows of shaded shapes?
+                                </p>
+                            </div>
                         </div>
                     </div>
                 )
@@ -570,7 +592,7 @@ export default {
                         <p className={styles.contentTitle}>Part 3: Let's Make It Look Cooler <br />and Share It With Your Peers!</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>
-                                You will remix the project <b>"The Particle Radiator"</b> created by <a target="_blank" className={styles.externalLink} href="https://scratch.mit.edu/projects/328143397/">tpeera4</a>.
+                                You will remix the project <b>"The Particle Radiator"</b> created by a Scratcher, username <a target="_blank" className={styles.externalLink} href="https://scratch.mit.edu/projects/328143397/">tpeera4</a>.
                                 This project creates a simple animation as seen on the left of the animated picture below.
                                 Click <GreenFlagButton /> to see it in action.
                                 We will modify it so that the final animation looks like the one on the right.
@@ -592,12 +614,13 @@ export default {
                         <div className={styles.contentContainer}>
                             <p className={styles.contentTitle}>How Does This Program Work?</p>
                             <div className={styles.scrollable} style={{ height: '300px' }}>
-                                <img src={programExplained1} style={{ width: '350px' }} />
+                                <img src={programExplained1} style={{ width: '150px', float: 'right' }} />
                                 <p>
-                                    The two program parts above continuously radiate 20 particle clones.
+                                    The two program parts in the workspace that look like
+                                    the picture on the right continuously radiate 20 particle clones.
                                     The first 10 particle clones are specified to be red and the remaining 10 blue.
                                     These clones will later be set to the specified color and be animated by the program part
-                                    that starts with <img src={whenIStartAsCloneBlock} className={styles.imgInline} style={{ width: '8rem' }} /> block.
+                                    that starts with <img src={whenIStartAsCloneBlock} className={styles.imgInline} style={{ width: '6rem' }} /> block.
                                 </p>
                                 {/* <img src={programExplained3} style={{ width: '400px' }} /> */}
                             </div>
@@ -615,12 +638,11 @@ export default {
                                 <img src={modificationTarget} style={{ width: '180px', float: 'left', marginRight: '0.4rem' }} />
                                 To be aesthetically pleasing, the animations of the red and blue particles have to behave similarly to each other.
                                 So we will only modify the code within the highlighted parts shown on the left.
-                                <b> Just to give you a heads up, you will make 3 changes to the highlighted part, and each change
-                                    will ask you to experiment with a set of value settings</b><br />
-                                <span className={styles.yellowMark}>It might be a good idea to extract a custom block from these common parts
-                                to make your code easy to understand and modify, though this additional step is not required.
-                                Your peers would appreciate your effort in keeping your code easy to understand and modify when they remix your project!</span>
                             </p>
+                            <p>
+                                <b> Just to give you a heads up, you will make 3 changes to the highlighted part, and each change will ask you to experiment with a set of value settings</b>
+                            </p>
+                            <p ><span className={styles.yellowMark}>It might be a good idea to extract a custom block from these common parts to make your code easy to understand and modify, though this additional step is not required. Your peers would appreciate your effort in keeping your code easy to understand and modify when they remix your project!</span></p>
                         </div>
                     </div>
                 ),
@@ -644,12 +666,12 @@ export default {
                 id: 'modify-repeat',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Make Particles Move Farther</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Make Particles Move Farther</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>
                                 <img src={changeRepeatInputHint} className={styles.imgFloat} />
-                                Modify the part that animates the particle clones so that they cover the entire available area.<br />
-                                <b>Hint</b>: Try to change the number of repetitions for the repeat block (currently 8). Use the following values: 10, 12 and 18. &nbsp;
+                                Modify the part that animates the particle clones so that they cover the entire available area.
+                                <span className={styles.highlightText}><b> Hint</b>: Try to change the number of repetitions for the repeat block (currently 8). Use the following values: 10, 12 and 18.</span> &nbsp;
                         <em>Click <CheckButtonImg /> to see if the right value is used. </em>
                             </p>
                             <img src={studyTask1} style={{ width: '400px' }} />
@@ -658,19 +680,19 @@ export default {
                 customCheck:
                     "(workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 2)||" +
                     "((workspace.getAllBlocks().filter(b=>b.type==='control_repeat').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='18').length === 1) &&" +
-                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
+                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 2)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===4)))"
             },
             {
                 id: 'modify-size',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Make Particles Slightly Grow In Size</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Make Particles Slightly Grow In Size</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>
-                                <PracticeLabel />Make both the red and blue particles slightly grow in size as they move like the picture below on the right.<br />
-                                <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} />
-                                and experiment with the input value to the <em>change size by</em> block. Try the following input values  (50, 30, 5).
-                        </p>
+                                Make both the red and blue particles slightly grow in size as they move like the picture below on the right.<br />
+                                <span className={styles.highlightText}>
+                                    <b>Hint</b>: Add <img src={changeSizeByImg} className={styles.block} /> block after <img src={moveBlock} className={styles.block} /> and experiment with the input value to the <em>change size by</em> block. Try the input values of 50, 30,5.</span>
+                            </p>
                             <img src={studyTask2} style={{ width: '400px' }} />
                         </div>
                     </div>
@@ -678,17 +700,17 @@ export default {
                 customCheck:
                     "(workspace.getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
                     "((workspace.getAllBlocks().filter(b=>b.type==='looks_changesizeby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
-                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
+                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 2)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===4)))"
             },
             {
                 id: 'modify-ghost',
                 title: (
                     <div className={styles.contentContainer}>
-                        <p className={styles.contentTitle}>Make Particles Gradually Fade</p>
+                        <p className={styles.contentTitle}><PracticeLabel />Make Particles Gradually Fade</p>
                         <div className={styles.scrollable} style={{ height: '300px' }}>
-                            <p><PracticeLabel />
-                                <b>Hint</b>: Add <img src={changeGhostEffect} className={styles.block} /> after <img src={changeSizeByImg} className={styles.block} /> and experiment with the effect values of 20, 15, 10, 5.
-                        </p>
+                            <p>
+                                <b>Hint</b>: Add <img src={changeGhostEffect} className={styles.block} /> after <img src={changeSizeByImg} className={styles.block} /> and <span className={styles.highlightText}>experiment with the effect values of 20, 15, 10, 5.</span>
+                            </p>
                             <img src={studyTask3} style={{ width: '400px' }} />
                         </div>
                     </div>
@@ -696,7 +718,7 @@ export default {
                 customCheck:
                     "(workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 2)||" +
                     "((workspace.getAllBlocks().filter(b=>b.type==='looks_changeeffectby').filter(b=>b.getChildren()[0].getFieldValue('NUM')==='5').length === 1) &&" +
-                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 1)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===2)))"
+                    "((workspace.getAllBlocks().filter(b=>b.type==='procedures_prototype').length === 2)&&(workspace.getAllBlocks().filter(b=>b.type==='procedures_call').length===4)))"
             },
             {
                 id: 'download-work',

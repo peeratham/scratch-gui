@@ -29,16 +29,6 @@ const bypassCheck = false;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
-        {/* <div classnames={styles.viewButtonGroup}> */}
-        {/* <div className={styles.allButton}>
-                <div className={styles.viewSelectable}
-                    onClick={() => { onViewSelected('instructions') }}>Instructions</div>
-            </div>
-            <div className={styles.allButton}>
-                <div className={styles.viewSelectable}
-                    onClick={() => { onViewSelected('reference') }}>Reference
-            </div>
-            </div> */}
         <div className={styles.viewButtonGroup}>
             <div className={view === 'instructions' ? styles.selectedViewSelectable : styles.viewSelectable}
                 onClick={() => { onViewSelected('instructions') }}

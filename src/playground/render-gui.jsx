@@ -100,17 +100,18 @@ export default appTarget => {
                 }
                 customCardsVisible={true}
                 customDeckId={
-                    'scratch-basics'
+                    // 'scratch-basics'
                     // 'color-shade-generator'
-                    // 'particle-radiator'
+                    'particle-radiator'
                 }
                 projectId={
                     // scratch-basics
-                    "326026661"
+                    // "326026661"
                     // color-shade-generator
                     // "326637227"
-                    // particle-radiator
-                    // "328143397"
+                    // particle-radiator (328143397)
+                    338507065
+                    // 338515653
                     //test-custom-selection // duplicated code populated
                     // 329224756
                     //test reduce var scope

@@ -89,7 +89,7 @@ class CustomizedMenuBar extends React.Component {
           {this.props.qualityHintToggleVisible ? <div style={{display:'flex'}}><FeatureToggle
             className='code-hint-feature-toggle'
             featureName='Code Wizard'
-            checked={this.props.showQualityHint}
+            checked={!!this.props.showQualityHint}
             handleOnChange={() => {
               const isEnabled = !this.props.showQualityHint;
               this.props.onToggleQualityHintFeature(isEnabled)

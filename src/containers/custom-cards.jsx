@@ -16,6 +16,9 @@ import {
 //     openTipsLibrary
 // } from '../reducers/modals';
 
+
+import { setHintOptions } from '../reducers/hints-state';
+
 import CustomCardsComponent from '../components/custom-cards/custom-cards.jsx';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -33,6 +36,7 @@ const mapStateToProps = (state, ownProps) => ({
     completed: state.scratchGui.customCards.completed,
     vm: state.scratchGui.vm,
     isStarted: state.scratchGui.vmStatus.started,
+    hintManager: state.scratchGui.hintState.hintManager
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -48,7 +52,12 @@ const mapDispatchToProps = dispatch => ({
     onDrag: (e_, data) => dispatch(dragCard(data.x, data.y)),
     onStartDrag: () => dispatch(startDrag()),
     onEndDrag: () => dispatch(endDrag()),
-    onCompleteStep: (id) => dispatch(completeStep(id))
+    onCompleteStep: (id) => dispatch(completeStep(id)),
+    onToggleQualityHintFeature: (isOn) => {
+        dispatch(setHintOptions({
+          showQualityHint: isOn
+        }))
+      },
 });
 
 export default connect(

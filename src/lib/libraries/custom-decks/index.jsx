@@ -120,7 +120,7 @@ export default {
 
                             <p className={styles.yellowMark}> The cards with <PracticeLabel /> label require you to complete some simple programming tasks.
                             For these cards, you will need to check your work by clicking <CheckButtonImg /> before you can go to the next card.
-                                                                Other cards are for you to learn and require no work for you to perform.
+                                                                        Other cards are for you to learn and require no work for you to perform.
                             <b>You may refresh your browser tab in case you experience problems and need a fresh start.
                             Your completion status of each <em>practice</em> card is recorded so you will be able to skip the ones you have already completed. </b>
                             </p>
@@ -194,7 +194,7 @@ export default {
                         <div className={styles.scrollable} style={{ height: '300px' }}>
                             <p>Right click a block then select "Delete Block" to delete just that block.
                             <span className={styles.yellowMark}>A quicker way to delete block is to drag and drop it in the block palette area.
-                                                                                            When a block is dragged, the block sequence connected below it will also move along.
+                                                                                                    When a block is dragged, the block sequence connected below it will also move along.
                             Placing a sequence of blocks in the block palette area will delete all blocks in the sequence.</span>
                             </p>
                             <img src={deleteCode} style={{ width: '400px' }} />
@@ -444,7 +444,7 @@ export default {
                                 to create more shaded shape clones. <span className={styles.highlightText}>Make sure to change the values in both repeat blocks!</span>
                                 Click <GreenFlagButton /> as you make changes to see if you are on the right track!
                         <span className={styles.yellowMark}> You will find that the rows do not seem to get longer as we expected even if we create more clones!?
-                                                                                                                                                                                                                                                                                                                Actually the rows get longer but we just don't see them as their high brightness values
+                                                                                                                                                                                                                                                                                                                                Actually the rows get longer but we just don't see them as their high brightness values
                         make them appear to be white and blend with the white background. We will fix that next!</span>
                             </p>
                         </div>
@@ -563,8 +563,8 @@ export default {
                     <div className={styles.contentContainer}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <img src={tipsIcon} style={{ maxWidth: '100%', marginRight: '1rem',  }} /></div>
-                            <div style={{ display: 'flex'}}>
+                                <img src={tipsIcon} style={{ maxWidth: '100%', marginRight: '1rem', }} /></div>
+                            <div style={{ display: 'flex' }}>
                                 <p style={{ fontSize: '1.25rem' }}>
                                     <b>Custom blocks</b> make code easy to understand and modify. Can you imaging how difficult it would be to modify this program if we had 3 more rows of shaded shapes?
                                 </p>
@@ -647,6 +647,11 @@ export default {
                     </div>
                 ),
                 id: 'modification-target'
+            },
+            {
+                onlyVisibleToGroup: 'automated',
+                id: 'qis-on-options',
+                featurePrompt: true
             },
             {
                 title: (

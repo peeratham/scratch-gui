@@ -386,3 +386,19 @@
     padding-bottom: 0.6rem;
     font-weight: 600;
 }
+
+.card-button{
+    color: #0fbd8c;
+    cursor: pointer;
+    padding: 0.6rem;
+    margin-right: 2rem;
+    border-style: solid;
+    box-shadow: 0 0 0 4px #0fbd8c2f;
+    transition: all 0.2s ease; 
+    border-radius: 0.75rem;
+}
+
+.card-button:hover {
+    box-shadow: 0 0 0 6px #0fbd8c2f;
+    transform: scale(1.05);
+}

@@ -1,5 +1,5 @@
 // import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Draggable from 'react-draggable';
 import classnames from 'classnames';
@@ -24,6 +24,10 @@ import analytics from "../../lib/custom-analytics";
 
 import Reference from './reference.jsx';
 
+import { DUPLICATE_CODE_SMELL_HINT_TYPE } from '../../lib/hints/constants.js'
+import featureTogglingImg from '../../lib/libraries/custom-decks/custom-block-deck/feature-toggle.png';
+
+import hintIcon from "../../components/hint-overlay/light-bulb-icon.svg";
 const enableCloseCard = false;
 const bypassCheck = false;
 
@@ -372,7 +376,7 @@ const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepComplete
     )
 };
 
-const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace }) => {
+const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace, onEnableQualityHintFeature }) => {
     return (
         <div className={expanded ? styles.stepBody : styles.hidden}>
             {
@@ -399,10 +403,56 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                         />
                     )
             }
+            {steps[step].featurePrompt && <FeaturePrompt onEnableQualityHintFeature={onEnableQualityHintFeature} />}
             {steps[step].trackingPixel && steps[step].trackingPixel}
         </div>
     );
 };
+
+class FeaturePrompt extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            option: ''
+        }
+        this.setOption = this.setOption.bind(this);
+    }
+
+    setOption(opt) {
+        this.setState({ option: opt })
+    }
+
+    render() {
+        const { onEnableQualityHintFeature } = this.props;
+        return (
+            <div>
+                {this.state.option === '' && <div style={{ width: '400px', fontSize: '1.1rem', color: '#575e75' }}>Do you want to enable <em>Code Wizard</em> feature to help with code improvement?</div>}
+                {this.state.option === '' && <div
+                    style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}
+                >
+                    <div className={styles.cardButton} onClick={() => {
+                        this.setOption('now');
+                        onEnableQualityHintFeature()
+                    }}>Yes, Let's toggle it on.</div>
+                    <div className={styles.cardButton} onClick={() => this.setOption('later')}>Maybe later.</div>
+
+                </div>}
+                {this.state.option === 'later' && <div style={{ fontSize: '1rem', padding: '0.8rem', color: '#575e75', width: '400px' }}>
+                    <b>Tips</b>: You can always toggle on <em>Code Wizard</em> feature (located at the top left) to help with improving your code when you need.<br />
+                    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+                        <img src={featureTogglingImg} />
+                    </div>
+                </div>}
+                {this.state.option === 'now' && <div style={{ fontSize: '1.1rem', padding: '0.8rem', color: '#575e75', width: '440px' }}>
+                    <b>Tips</b>: Hints are shown as  <img src={hintIcon} style={{ width: '2rem', verticalAlign: 'bottom' }} /><br/> 
+                    You can view a hint's suggestion by mouse over it.<br />
+                    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+                    </div>
+                </div>}
+            </div>
+        )
+    }
+}
 
 class CustomCards extends React.Component {
     constructor(props) {
@@ -470,7 +520,6 @@ class CustomCards extends React.Component {
                 this.props.onCompleteStep(id);
                 return true;
             } else {
-                console.log('remote check', id, res);
                 return false;
             }
         });
@@ -562,6 +611,7 @@ class CustomCards extends React.Component {
             vm,
             qualityHintToggleVisible,
             isStarted,
+            hintManager,
             ...posProps
         } = this.props;
         let { x, y } = posProps;
@@ -620,6 +670,10 @@ class CustomCards extends React.Component {
                                 vm={vm}
                                 endDeckTimer={this.endDeckTimer}
                                 workspace={this.state.workspace}
+                                onEnableQualityHintFeature={() => {
+                                    this.props.onToggleQualityHintFeature(true);
+                                    this.props.hintManager.generateHints(DUPLICATE_CODE_SMELL_HINT_TYPE);
+                                }}
                             />}
 
                         {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId} />}
@@ -668,5 +722,7 @@ class CustomCards extends React.Component {
         );
     }
 }
+
+
 
 export default CustomCards;

@@ -45,6 +45,9 @@ const getProgramXml = function (vm) {
     let targets = "";
     for (let i = 0; i < vm.runtime.targets.length; i++) {
         const currTarget = vm.runtime.targets[i];
+        if(!currTarget.isOriginal){
+         continue;   
+        }
         const variableMap = currTarget.variables;
         const variables = Object.keys(variableMap).map(k => variableMap[k]);
         const xmlString = `<${currTarget.isStage ? "stage " : "sprite "} 

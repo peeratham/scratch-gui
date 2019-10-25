@@ -107,11 +107,12 @@ export default appTarget => {
                 projectId={
                     // scratch-basics
                     // "326026661"
-                    // color-shade-generator
+                    // color-shade-generator 
                     // "326637227"
+                    // garden
+                    // 338515653
                     // particle-radiator (328143397)
                     338507065
-                    // 338515653
                     //test-custom-selection // duplicated code populated
                     // 329224756
                     //test reduce var scope

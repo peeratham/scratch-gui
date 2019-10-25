@@ -29,7 +29,7 @@ div::-webkit-scrollbar {
 
 div::-webkit-scrollbar-track {
     /* border-radius: 10px; */
-    background:rgb(173, 235, 232); ; 
+    background:#cde0d8; ; 
 }
 
 div::-webkit-scrollbar-thumb {

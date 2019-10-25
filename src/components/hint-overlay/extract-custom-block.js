@@ -48,7 +48,7 @@ const ActionPreview = ({ type }) => {
     return <img src={mapping[type]} />
 }
 
-const ActionButton = ({ onActionClick, type, actionName, onMouseEnterAction, onMouseLeaveAction, tooltipMsg }) => {
+const ActionButton = ({ onActionClick, type, actionName, onMouseEnterAction, onMouseLeaveAction, tooltipMsg, isEnabled }) => {
     const mapping = {
         [REMOVE_LAST]: removeButton,
         [ADD_TO_LAST]: addButton,
@@ -70,12 +70,15 @@ const ActionButton = ({ onActionClick, type, actionName, onMouseEnterAction, onM
                     maxWidth: 250,
                 }
             }}>
-            <img src={mapping[type]} className={type==="ShowMe"?classNames(styles.actionButton,styles.highlight):styles.actionButton} />
+            <img src={mapping[type]} className={
+                type === "ShowMe" ? classNames(styles.actionButton, styles.highlight) :
+                    isEnabled ? styles.actionButton : classNames(styles.actionButton, styles.actionDisabled)} />
         </Floater>
     </div>)
 }
 
 const ControlComponent = (props) => {
+    console.log("can add: ", props.canAdd);
     return (
         <div className={styles.floaterLayout}>
             <div className={classNames(styles.body)}>
@@ -87,6 +90,7 @@ const ControlComponent = (props) => {
                         onMouseEnterAction={props.onMouseEnterAction(MOVE_UP)}
                         onMouseLeaveAction={props.onMouseLeaveAction(MOVE_UP)}
                         tooltipMsg="Move the selection up"
+                        isEnabled={props.canMoveUp}
                     />
                     <ActionButton actionName="MoveDown"
                         type={MOVE_DOWN}
@@ -94,6 +98,7 @@ const ControlComponent = (props) => {
                         onMouseLeaveAction={props.onMouseLeaveAction(MOVE_DOWN)}
                         onActionClick={props.onMoveDown}
                         tooltipMsg="Move the selection down"
+                        isEnabled={props.canMoveDown}
                     />
                     <ActionButton actionName="AddToLast"
                         type={ADD_TO_LAST}
@@ -101,6 +106,7 @@ const ControlComponent = (props) => {
                         onMouseEnterAction={props.onMouseEnterAction(ADD_TO_LAST)}
                         onMouseLeaveAction={props.onMouseLeaveAction(ADD_TO_LAST)}
                         tooltipMsg="Expand the selection"
+                        isEnabled={props.canAdd}
                     />
                     <ActionButton actionName="RemoveLast"
                         type={REMOVE_LAST}
@@ -108,6 +114,7 @@ const ControlComponent = (props) => {
                         onMouseEnterAction={props.onMouseEnterAction(REMOVE_LAST)}
                         onMouseLeaveAction={props.onMouseLeaveAction(REMOVE_LAST)}
                         tooltipMsg="Shrink the selection"
+                        isEnabled={props.canRemove}
                     />
                     <ActionButton actionName="Extract"
                         type={"Extract"}
@@ -115,6 +122,7 @@ const ControlComponent = (props) => {
                         onMouseEnterAction={() => { }}
                         onMouseLeaveAction={() => { }}
                         tooltipMsg="Extract the selection as a custom block"
+                        isEnabled={true}
                     />
                     <div className={styles.showMeButtonWrapper}>
                         <ActionButton actionName="ShowMe"
@@ -241,8 +249,8 @@ class ExtractCustomBlockHint extends React.Component {
             this.handleBlockSelection(h, action);
 
             saveDataToMongo('interact',
-                    this.props.deckId + '_'+action, new Date().toLocaleString('en-US', { timeZone: "America/New_York" })
-                );
+                this.props.deckId + '_' + action, new Date().toLocaleString('en-US', { timeZone: "America/New_York" })
+            );
         }
     }
 
@@ -299,6 +307,10 @@ class ExtractCustomBlockHint extends React.Component {
                     onCustomBlockExtractClick={this.onCustomBlockExtractClick}
                     onShowMeHowClick={this.onShowMeHowClick}
                     showMeHow={this.state.showMeHow}
+                    canAdd={this.state.selection.actionApplicableFor(ADD_TO_LAST)}
+                    canMoveUp={this.state.selection.actionApplicableFor(MOVE_UP)}
+                    canMoveDown={this.state.selection.actionApplicableFor(MOVE_DOWN)}
+                    canRemove={this.state.selection.actionApplicableFor(REMOVE_LAST)}
                 />);
         } else if (showHintMessage) {
             component = props => (

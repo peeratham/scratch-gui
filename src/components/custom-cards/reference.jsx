@@ -38,40 +38,40 @@ const cardContents = [
     //     title: "Inspect code",
     //     image: inspectCode
     // },
-    {
-        id: "create-custom-block",
-        title: "Create a custom block",
-        image: createCustomBlock
-    },
-    {
-        id: "introduce-parameter",
-        title: "Introduce a custom block's parameter",
-        image: introduceParam
-    },
-    {
-        id: "renaming",
-        title: "Rename a Custom Block",
-        content: (
-            <div className={styles.cardContent}>
-                <p>
-                    Right click on the <em>define</em> block and select "Edit".
-                </p>
-                <img src={renameCb} className={styles.mediumImg} />
-            </div>
-        )
-    },
-    {
-        id: "good-naming",
-        title: "Give a Descriptive Name for a Custom Block",
-        content: (
-            <div className={styles.cardContent}>
-                <p>
-                    A descriptive name that tells what your custom block does make code easier to understand. For example:
-                </p>
-                <img src={cbNaming} className={styles.mediumImg} />
-            </div>
-        )
-    },
+    // {
+    //     id: "create-custom-block",
+    //     title: "Create a custom block",
+    //     image: createCustomBlock
+    // },
+    // {
+    //     id: "introduce-parameter",
+    //     title: "Introduce a custom block's parameter",
+    //     image: introduceParam
+    // },
+    // {
+    //     id: "renaming",
+    //     title: "Rename a Custom Block",
+    //     content: (
+    //         <div className={styles.cardContent}>
+    //             <p>
+    //                 Right click on the <em>define</em> block and select "Edit".
+    //             </p>
+    //             <img src={renameCb} className={styles.mediumImg} />
+    //         </div>
+    //     )
+    // },
+    // {
+    //     id: "good-naming",
+    //     title: "Give a Descriptive Name for a Custom Block",
+    //     content: (
+    //         <div className={styles.cardContent}>
+    //             <p>
+    //                 A descriptive name that tells what your custom block does make code easier to understand. For example:
+    //             </p>
+    //             <img src={cbNaming} className={styles.mediumImg} />
+    //         </div>
+    //     )
+    // },
     {
         id: "undo",
         title: "Undo Your Last Action",

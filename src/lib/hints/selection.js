@@ -1,10 +1,27 @@
-import {REMOVE_LAST, ADD_TO_LAST, MOVE_UP, MOVE_DOWN } from './hints-util';
+import { REMOVE_LAST, ADD_TO_LAST, MOVE_UP, MOVE_DOWN } from './hints-util';
 
 class Selection {
     constructor(fragments) {
         this.fragments = fragments;
         this.start = 0,
             this.end = Object.values(fragments)[0].stmtIds.length - 1;
+    }
+
+    actionApplicableFor(action) {
+        if (action === ADD_TO_LAST) {
+            return this.end < Object.values(this.fragments)[0].stmtIds.length - 1;
+        }
+        else if (action === REMOVE_LAST) {
+            return this.end > this.start;
+        }
+        else if (action === MOVE_UP) {
+            return this.start > 0;
+        }
+        else if (action === MOVE_DOWN) {
+            return this.end < Object.values(this.fragments)[0].stmtIds.length - 1;
+        }
+
+        return false;
     }
 
     removeLast() {
@@ -33,7 +50,7 @@ class Selection {
         }
     }
 
-    apply(action){
+    apply(action) {
         switch (action) {
             case REMOVE_LAST: {
                 this.removeLast();

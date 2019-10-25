@@ -15,7 +15,7 @@ import expandIcon from './icon--expand.svg';
 import isEqual from 'lodash.isequal';
 
 import { workspaceFromXml, addBlocksToWorkspace } from '../../lib/hints/hint-test-workspace-setup.js';
-import { saveDataToMongo, queryData, checkCompletionMongo } from "../../lib/custom-analytics";
+import { saveDataToMongo, queryData, checkCompletionMongo, findIP } from "../../lib/custom-analytics";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 // reference for latest update: https://github.com/LLK/scratch-gui/blob/develop/src/components/cards/cards.jsx
 import Floater from 'react-floater';
@@ -264,6 +264,7 @@ class ImageStep extends React.Component {
     }
 
     componentDidMount() {
+        this.props.vm.stopAll();
         const {
             setUpdateCodeStatus, shouldCleanup, dragging, setupCode
         } = this.props;
@@ -444,7 +445,7 @@ class FeaturePrompt extends React.Component {
                     </div>
                 </div>}
                 {this.state.option === 'now' && <div style={{ fontSize: '1.1rem', padding: '0.8rem', color: '#575e75', width: '440px' }}>
-                    <b>Tips</b>: Hints are shown as  <img src={hintIcon} style={{ width: '2rem', verticalAlign: 'bottom' }} /><br/> 
+                    <b>Tips</b>: Hints are shown as  <img src={hintIcon} style={{ width: '2rem', verticalAlign: 'bottom' }} /><br />
                     You can view a hint's suggestion by mouse over it.<br />
                     <div style={{ textAlign: 'center', marginTop: '1rem' }}>
                     </div>
@@ -559,6 +560,11 @@ class CustomCards extends React.Component {
         // activateDeck
         saveDataToMongo('completion', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
         saveDataToMongo('interact', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
+        findIP.then(ip => { 
+            saveDataToMongo('completion', 'ip', ip); 
+            saveDataToMongo('interact', 'ip', ip); 
+        }).catch(e => console.error(e));
+
         this.props.onActivateDeckFactory(this.props.activeDeckId)();
         this.startDeckTimer();
     }
@@ -641,6 +647,7 @@ class CustomCards extends React.Component {
             //dbmanager record tutorial completion
             saveDataToMongo('completion', activeDeckId, new Date().toLocaleString('en-US', { timeZone: "America/New_York" }));
         }
+        const numPracticeInstruction = steps.filter(s=>s.expected||s.customCheck).length;
 
         return (
             <Draggable position={{ x: x, y: y }} onDrag={onDrag} >
@@ -649,13 +656,16 @@ class CustomCards extends React.Component {
                         <QISCardHeader
                             expanded={expanded}
                             step={step}
-                            totalSteps={steps.length}
+                            totalSteps={
+                                // numPracticeInstruction
+                                steps.length
+                            }
                             onCloseCards={onCloseCards}
                             onShowAll={onShowAll}
                             onShrinkExpandCards={onShrinkExpandCards}
                             onViewSelected={this.onViewSelected}
                             view={this.state.selectedView}
-                            shouldShowReference={!qualityHintToggleVisible}
+                            shouldShowReference={false} //!qualityHintToggleVisible
                         />
                         {this.state.selectedView === 'instructions' &&
                             <Instructions
@@ -704,6 +714,7 @@ class CustomCards extends React.Component {
                             </div>}
 
                         {this.state.selectedView === 'instructions' && <NextPrevButtons
+                            vm={vm}
                             expanded={expanded}
                             isRtl={false}
                             dragging={dragging}

@@ -29,7 +29,7 @@ import featureTogglingImg from '../../lib/libraries/custom-decks/custom-block-de
 
 import hintIcon from "../../components/hint-overlay/light-bulb-icon.svg";
 const enableCloseCard = false;
-const bypassCheck = false;
+const bypassCheck = true;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
@@ -98,7 +98,7 @@ const VideoStep = ({ video, dragging, title }) => (
             scrolling="no"
             src={`https://fast.wistia.net/embed/iframe/${video}?seo=false&videoFoam=true`}
             title="📹"
-            width="600"
+            width="540"
         />
         <script
             async
@@ -257,6 +257,30 @@ const configureWorkspace = ({ shouldCleanup, dragging, setupCode, setUpdateCodeS
 
 }
 
+class ScrollableContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.myRef = this.refs.div;//React.createRef();
+        this.state = { curId: null }
+    }
+    componentDidMount() {
+    }
+    
+    componentDidUpdate(){
+        if(this.state.curId!==this.props.stepId){
+            this.myRef.scrollTop = 0;
+            this.setState({curId:this.props.stepId});
+        }
+    }
+
+    render() {
+        const { height } = this.props;
+        return <div className={styles.scrollable} style={{ height: height, float: 'left' }} ref={elem => this.myRef = elem}>
+            {this.props.children}
+        </div>;
+    }
+}
+
 class ImageStep extends React.Component {
     constructor(props) {
         super(props);
@@ -275,9 +299,15 @@ class ImageStep extends React.Component {
 
     componentDidUpdate() {
         const {
-            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace
+            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace, projectId
         } = this.props;
 
+        // if(projectId){
+        // window.location.hash = "#"+projectId;
+
+        // console.log('switch to project', projectId);
+        // return;
+        // }
 
         // configureWorkspace({shouldCleanup,dragging,setupCode, setUpdateCodeStatus, populateWorkspace})();
 
@@ -297,7 +327,7 @@ class ImageStep extends React.Component {
     }
 
     render() {
-        const { title, image, completionCode } = this.props;
+        const { title, image, completionCode, content, stepId } = this.props;
         if (completionCode && !this.state.copied) {
             this.props.endDeckTimer();
         }
@@ -305,6 +335,7 @@ class ImageStep extends React.Component {
             <Fragment>
                 <div className={styles.stepTitle}>
                     {title}
+                    {!completionCode&&<ScrollableContainer height='250px' stepId={stepId}>{content}</ScrollableContainer>}
                 </div>
                 {completionCode && <div>
                     <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold', fontSize: '1.25rem' }}>{completionCode}</div>
@@ -329,7 +360,7 @@ class ImageStep extends React.Component {
 }
 
 
-const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepCompleted, setUpdateCodeStatus, currentInstructionId, onShowReminderMessage }) => {
+const NextPrevButtons = ({ vm, isRtl, onNextStep, onPrevStep, expanded, stepCompleted, setUpdateCodeStatus, currentInstructionId, onShowReminderMessage }) => {
     return (
         <Fragment>
             {onNextStep ? (
@@ -338,6 +369,7 @@ const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepComplete
                     <div
                         className={expanded ? (stepCompleted ? styles.rightButton : classnames(styles.buttonDisabled, styles.rightButton)) : styles.hidden}
                         onClick={stepCompleted ? (() => () => {
+                            vm.stopAll();
                             setUpdateCodeStatus(false); //clear setup status to false
 
                             //analytics
@@ -377,7 +409,7 @@ const NextPrevButtons = ({ isRtl, onNextStep, onPrevStep, expanded, stepComplete
     )
 };
 
-const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace, onEnableQualityHintFeature }) => {
+const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace, onEnableQualityHintFeature, setProjectId }) => {
     return (
         <div className={expanded ? styles.stepBody : styles.hidden}>
             {
@@ -392,6 +424,7 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                             dragging={dragging}
                             image={steps[step].image}
                             title={steps[step].title}
+                            content={steps[step].content}
                             stepCompleted={stepCompleted}
                             completionCode={steps[step].completionCode}
                             shouldCleanup={steps[step].shouldCleanup}
@@ -401,6 +434,9 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                             vm={vm}
                             endDeckTimer={endDeckTimer}
                             workspace={workspace}
+                            projectId={steps[step].projectId}
+                            setProjectId={setProjectId}
+                            stepId={steps[step].id}
                         />
                     )
             }
@@ -560,9 +596,9 @@ class CustomCards extends React.Component {
         // activateDeck
         saveDataToMongo('completion', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
         saveDataToMongo('interact', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
-        findIP.then(ip => { 
-            saveDataToMongo('completion', 'ip', ip); 
-            saveDataToMongo('interact', 'ip', ip); 
+        findIP.then(ip => {
+            saveDataToMongo('completion', 'ip', ip);
+            saveDataToMongo('interact', 'ip', ip);
         }).catch(e => console.error(e));
 
         this.props.onActivateDeckFactory(this.props.activeDeckId)();
@@ -570,7 +606,6 @@ class CustomCards extends React.Component {
     }
 
     componentDidUpdate() {
-
         if (!this.state.workspace) {
             this.setState({ workspace: ScratchBlocks.getMainWorkspace() });
         }
@@ -579,6 +614,10 @@ class CustomCards extends React.Component {
             step,
             completed
         } = this.props;
+
+        if (this.steps[step].projectId && this.steps[step].projectId !== this.props.projectId) {
+            this.props.setProjectId(this.steps[step].projectId);
+        }
 
 
         if ((!!this.steps[step].expected || !!this.steps[step].customCheck)
@@ -647,7 +686,7 @@ class CustomCards extends React.Component {
             //dbmanager record tutorial completion
             saveDataToMongo('completion', activeDeckId, new Date().toLocaleString('en-US', { timeZone: "America/New_York" }));
         }
-        const numPracticeInstruction = steps.filter(s=>s.expected||s.customCheck).length;
+        const numPracticeInstruction = steps.filter(s => s.expected || s.customCheck).length;
 
         return (
             <Draggable position={{ x: x, y: y }} onDrag={onDrag} >
@@ -684,6 +723,7 @@ class CustomCards extends React.Component {
                                     this.props.onToggleQualityHintFeature(true);
                                     this.props.hintManager.generateHints(DUPLICATE_CODE_SMELL_HINT_TYPE);
                                 }}
+                                setProjectId={this.props.setProjectId}
                             />}
 
                         {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId} />}

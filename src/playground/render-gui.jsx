@@ -100,31 +100,31 @@ export default appTarget => {
                 }
                 customCardsVisible={true}
                 customDeckId={
-                    // 'scratch-basics'
+                    'scratch-basics'
                     // 'color-shade-generator'
-                    'particle-radiator'
+                    // 'particle-radiator'
                 }
-                projectId={
-                    // scratch-basics
-                    // "326026661"
-                    // color-shade-generator 
-                    // "326637227"
-                    // garden
-                    // 338515653
-                    // particle-radiator (328143397)
-                    338507065
-                    //test-custom-selection // duplicated code populated
-                    // 329224756
-                    //test reduce var scope
-                    // 330600515
-                    // test extract parent sprite
-                    // 331488059
-                    // 331812747
-                    // test extract constant
-                    // 326142227
-                    // empty
-                    // 330600515
-                }
+                // projectId={
+                //     // scratch-basics
+                //     "330600515"
+                //     // color-shade-generator 
+                //     // "326637227"
+                //     // garden
+                //     // 338515653
+                //     // particle-radiator (328143397)
+                //     // 338507065
+                //     //test-custom-selection // duplicated code populated
+                //     // 329224756
+                //     //test reduce var scope
+                //     // 330600515
+                //     // test extract parent sprite
+                //     // 331488059
+                //     // 331812747
+                //     // test extract constant
+                //     // 326142227
+                //     // empty
+                //     // 330600515
+                // }
             />,
         appTarget);
 };

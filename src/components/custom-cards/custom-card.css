@@ -403,3 +403,13 @@
     box-shadow: 0 0 0 6px #0fbd8c2f;
     transform: scale(1.05);
 }
+
+.scrollable {
+    /* cursor: default; */
+    overflow-y: auto;
+    margin-right:0.1rem;
+    margin-bottom:0.4rem;
+    border-radius: 1rem;
+    padding: 0.2rem;
+}
+

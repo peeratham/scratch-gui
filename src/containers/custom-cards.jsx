@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import {
     activateDeck,
@@ -12,6 +12,10 @@ import {
     completeStep
 } from '../reducers/custom-cards';
 
+
+import {
+    setProjectId
+} from '../reducers/project-state';
 // import {
 //     openTipsLibrary
 // } from '../reducers/modals';
@@ -36,7 +40,8 @@ const mapStateToProps = (state, ownProps) => ({
     completed: state.scratchGui.customCards.completed,
     vm: state.scratchGui.vm,
     isStarted: state.scratchGui.vmStatus.started,
-    hintManager: state.scratchGui.hintState.hintManager
+    hintManager: state.scratchGui.hintState.hintManager,
+    projectId: state.scratchGui.projectState.projectId
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -55,9 +60,12 @@ const mapDispatchToProps = dispatch => ({
     onCompleteStep: (id) => dispatch(completeStep(id)),
     onToggleQualityHintFeature: (isOn) => {
         dispatch(setHintOptions({
-          showQualityHint: isOn
+            showQualityHint: isOn
         }))
-      },
+    },
+    setProjectId: projectId => {
+        dispatch(setProjectId(projectId));
+    }
 });
 
 export default connect(

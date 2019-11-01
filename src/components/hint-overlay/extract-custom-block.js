@@ -78,7 +78,6 @@ const ActionButton = ({ onActionClick, type, actionName, onMouseEnterAction, onM
 }
 
 const ControlComponent = (props) => {
-    console.log("can add: ", props.canAdd);
     return (
         <div className={styles.floaterLayout}>
             <div className={classNames(styles.body)}>

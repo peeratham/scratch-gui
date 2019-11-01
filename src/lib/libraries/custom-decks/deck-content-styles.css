@@ -84,21 +84,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.scrollable {
-    /* cursor: default; */
-    overflow-y: auto;
-    margin-right:0.1rem;
-    margin-bottom:0.4rem;
-    border-radius: 1rem;
-    padding: 0.2rem;
-}
 
-.content-title{
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin-bottom: 0rem;
-    text-align: center;
-}
 
 .highlight-text{
     background-color: rgb(209, 238, 255);
@@ -127,3 +113,9 @@
     color: #0ddad6;
 }
 
+.content-title{
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    text-align: center;
+}

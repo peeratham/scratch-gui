@@ -27,6 +27,7 @@ import jumpBlock from './intro/jump-block.png';
 import defineJump from './intro/define-jump.png';
 import extractSlideRight from './intro/extract-slide-right.gif';
 import renameToSlideRight from './intro/rename-to-slide-right.gif';
+import checkPoint3Output from './intro/checkpoint-3-output.gif';
 import orangeBlue from './intro/orange-blue.gif';
 import orangeBlueStarter from './intro/orange-blue-starter.gif';
 import orangeBlueModifyTarget from './intro/orange-blue-modify-target-2.png';
@@ -279,50 +280,51 @@ export default {
             //     ),
             //     projectId: 341014499
             // },
-            {
-                id: 'my-sliding-block',
-                title: (<p className={styles.contentTitle}><PracticeLabel />Making Your Own Slide Blocks!</p>),
-                content: (
-                    <div className={styles.contentContainer}>
-                        <p>
-                            Your program works great and we can improve it further! In the long run, it pays off if you improve your program along the way. You might notice two recurring block sequences.
-                            The first recurring block sequence performs slide right and the other slide up. 
-                            You can extract these two recurring block sequences as custom blocks to make your program easy to understand and modify. The steps below will guide you:
-                        </p>
-                        <p><StepLabel step="Step 0/2" />
-                            {/* Toggle on <b>Code Wizard</b> to see code improvement hints: */}
-                            Toggle <b>Code Wizard</b> on <img src={featureTogglingImg} className={styles.imgInline} style={{width:'180px'}} />
-                                to see improvement hints and follow their suggestions.
-                        </p>
-                        <p><StepLabel step="Step 1/2" />
-                            A hint icon should show up next to the recurring block sequence. 
-                            Click the hint icon and adjust the selection so it covers the recurring block sequences that do the slide right animation and then click Extract.
-                            <img src={extractSlideRight} className={styles.contentImage} style={{ height: '240px', width:'auto' }} /><br/>
-                            Rename the extracted custom block to "Slide Right".
-                            <img src={renameToSlideRight} className={styles.contentImage} style={{ height: '240px', width:'auto' }} />
+            // {
+            //     id: 'my-sliding-block',
+            //     title: (<p className={styles.contentTitle}><PracticeLabel />Making Your Own Slide Blocks!</p>),
+            //     content: (
+            //         <div className={styles.contentContainer}>
+            //             <p>
+            //                 Your program works great and we can improve it further! In the long run, it pays off if you improve your program along the way. You might notice two recurring block sequences.
+            //                 The first recurring block sequence performs slide right and the other slide up. 
+            //                 You can extract these two recurring block sequences as custom blocks to make your program easy to understand and modify. The steps below will guide you:
+            //             </p>
+            //             <p><StepLabel step="Step 0/2" />
+            //                 {/* Toggle on <b>Code Wizard</b> to see code improvement hints: */}
+            //                 Toggle <b>Code Wizard</b> on <img src={featureTogglingImg} className={styles.imgInline} style={{width:'180px'}} />
+            //                     to see improvement hints and follow their suggestions.
+            //             </p>
+            //             <p><StepLabel step="Step 1/2" />
+            //                 A hint icon should show up next to the recurring block sequence. 
+            //                 Click the hint icon and adjust the selection so it covers the recurring block sequences that do the slide right animation and then click Extract.
+            //                 <img src={extractSlideRight} className={styles.contentImage} style={{ height: '240px', width:'auto' }} /><br/>
+            //                 Rename the extracted custom block to "Slide Right".
+            //                 <img src={renameToSlideRight} className={styles.contentImage} style={{ height: '240px', width:'auto' }} />
                             
-                        </p>
-                        <p><StepLabel step="Step 2/2" />
-                            Follow the similar steps in Step 1/2 to extract a "Slide Up" custom block.
-                        </p>
-                        <p><StepLabel step="Finally" />
-                            Click <GreenFlagButton/> to see the result! Everything should work like before!
-                            Click <CheckButtonImg/> to check your work.
-                        </p>
-                    </div>
-                ),
-                projectId: 341049519
-            },
+            //             </p>
+            //             <p><StepLabel step="Step 2/2" />
+            //                 Follow the similar steps in Step 1/2 to extract a "Slide Up" custom block.
+            //             </p>
+            //             <p><StepLabel step="Finally" />
+            //                 Click <GreenFlagButton/> to see the result! Everything should work like before!
+            //                 Click <CheckButtonImg/> to check your work.
+            //             </p>
+            //         </div>
+            //     ),
+            //     projectId: 341049519
+            // },
             {
                 id: 'using-your-slide-blocks',
                 title: (<p className={styles.contentTitle}><PracticeLabel />Using your slide blocks to complete all checkpoints</p>),
                 content: (
                     <div className={styles.contentContainer}>
+                        <img src={checkPoint3Output} className={styles.contentImage} style={{ width: '220px', float:'right' }} />
                         Program the blue square to slide through all the checkpoints.
                         Sliding through the first two checkpoints have been completed for you!
                     </div>
                 ),
-                projectId: 341055614
+                projectId: 341059384
             },
             // {
             //     id: 'jumping-square',

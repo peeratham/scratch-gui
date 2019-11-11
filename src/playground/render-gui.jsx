@@ -100,9 +100,10 @@ export default appTarget => {
                 }
                 customCardsVisible={true}
                 customDeckId={
-                    'scratch-basics'
+                    // 'scratch-basics'
                     // 'color-shade-generator'
                     // 'particle-radiator'
+                    'refactor-slides'
                 }
                 // projectId={
                 //     // scratch-basics

@@ -22,6 +22,7 @@ import {
 
 
 import { setHintOptions } from '../reducers/hints-state';
+import { setShowWizard } from '../reducers/menus';
 
 import CustomCardsComponent from '../components/custom-cards/custom-cards.jsx';
 
@@ -41,6 +42,7 @@ const mapStateToProps = (state, ownProps) => ({
     vm: state.scratchGui.vm,
     isStarted: state.scratchGui.vmStatus.started,
     hintManager: state.scratchGui.hintState.hintManager,
+    showWizard: state.scratchGui.menus.showWizard,
     projectId: state.scratchGui.projectState.projectId
 });
 
@@ -63,9 +65,8 @@ const mapDispatchToProps = dispatch => ({
             showQualityHint: isOn
         }))
     },
-    setProjectId: projectId => {
-        dispatch(setProjectId(projectId));
-    }
+    setProjectId: projectId => dispatch(setProjectId(projectId)),
+    onSetShowWizard: shouldShow => dispatch(setShowWizard(shouldShow))
 });
 
 export default connect(

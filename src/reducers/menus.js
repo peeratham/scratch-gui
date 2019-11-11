@@ -7,13 +7,15 @@ const MENU_EDIT = 'editMenu';
 const MENU_LANGUAGE = 'languageMenu';
 const MENU_LOGIN = 'loginMenu';
 
+const SHOW_WIZARD = 'showWizard'
 
 const initialState = {
     [MENU_ACCOUNT]: false,
     [MENU_FILE]: false,
     [MENU_EDIT]: false,
     [MENU_LANGUAGE]: false,
-    [MENU_LOGIN]: false
+    [MENU_LOGIN]: false,
+    [SHOW_WIZARD]: false
 };
 
 const reducer = function (state, action) {
@@ -27,6 +29,10 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             [action.menu]: false
         });
+    case SHOW_WIZARD:
+        return Object.assign({}, state, {
+            [SHOW_WIZARD]: action.shouldShow
+        });
     default:
         return state;
     }
@@ -39,6 +45,11 @@ const closeMenu = menu => ({
     type: CLOSE_MENU,
     menu: menu
 });
+const setShowWizard = shouldShow =>({
+    type: SHOW_WIZARD,
+    shouldShow: shouldShow
+})
+
 const openAccountMenu = () => openMenu(MENU_ACCOUNT);
 const closeAccountMenu = () => closeMenu(MENU_ACCOUNT);
 const accountMenuOpen = state => state.scratchGui.menus[MENU_ACCOUNT];
@@ -72,5 +83,6 @@ export {
     languageMenuOpen,
     openLoginMenu,
     closeLoginMenu,
-    loginMenuOpen
+    loginMenuOpen,
+    setShowWizard
 };

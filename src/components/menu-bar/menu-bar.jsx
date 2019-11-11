@@ -497,7 +497,10 @@ class MenuBar extends React.Component {
                     </div>
                     {/* START-customized gui: quality hints*/}
                     {this.props.customizedGui && <Divider className={classNames(styles.divider)} />}
-                    {this.props.customizedGui && this.props.qualityHintToggleVisible && <div className={classNames(styles.menuBarItem)}>
+                    {this.props.customizedGui && 
+                        // this.props.qualityHintToggleVisible 
+                        this.props.showWizard
+                        && <div className={classNames(styles.menuBarItem)}>
 
                         <FeatureToggle
                             className='code-hint-feature-toggle'
@@ -861,7 +864,8 @@ const mapStateToProps = state => {
         showQualityHint: showQualityHint,
         hintManager: state.scratchGui.hintState.hintManager,
         deckId: state.scratchGui.customCards.activeDeckId,
-        qualityHintStatus: state.scratchGui.hintState.isUpdating
+        qualityHintStatus: state.scratchGui.hintState.isUpdating,
+        showWizard: state.scratchGui.menus.showWizard
     };
 };
 

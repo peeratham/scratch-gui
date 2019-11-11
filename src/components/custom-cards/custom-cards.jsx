@@ -299,7 +299,8 @@ class ImageStep extends React.Component {
 
     componentDidUpdate() {
         const {
-            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace, projectId
+            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace, projectId, showCodeWizard, 
+            showWizard, onSetShowWizard
         } = this.props;
 
         // if(projectId){
@@ -324,6 +325,13 @@ class ImageStep extends React.Component {
             }
             setUpdateCodeStatus(true);
         }
+
+           {/* <div>show wizard:{showWizard?'true':'false'}</div>
+            <button onClick={()=>onSetShowWizard(false)}>hide</button>
+            <button onClick={()=>onSetShowWizard(true)}>show</button> */}
+            if(showCodeWizard!==showWizard){
+                onSetShowWizard(showCodeWizard);
+            }
     }
 
     render() {
@@ -409,7 +417,7 @@ const NextPrevButtons = ({ vm, isRtl, onNextStep, onPrevStep, expanded, stepComp
     )
 };
 
-const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace, onEnableQualityHintFeature, setProjectId }) => {
+const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, isAlreadySetup, setUpdateCodeStatus, vm, endDeckTimer, workspace, onEnableQualityHintFeature, setProjectId, onSetShowWizard, showWizard }) => {
     return (
         <div className={expanded ? styles.stepBody : styles.hidden}>
             {
@@ -437,11 +445,14 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                             projectId={steps[step].projectId}
                             setProjectId={setProjectId}
                             stepId={steps[step].id}
+                            showCodeWizard={steps[step].showCodeWizard}
+                            showWizard={showWizard}
+                            onSetShowWizard={onSetShowWizard}
                         />
                     )
             }
             {steps[step].featurePrompt && <FeaturePrompt onEnableQualityHintFeature={onEnableQualityHintFeature} />}
-            {steps[step].trackingPixel && steps[step].trackingPixel}
+            {steps[step].trackingPixel && steps[step].trackingPixel}   
         </div>
     );
 };
@@ -681,6 +692,9 @@ class CustomCards extends React.Component {
             steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'manual')
         }
 
+        //if test specific card
+        // steps = steps.filter(c=>c.active);
+
         // populateWorkspace({ vm });
         if (steps[step].recordCompletion) {
             //dbmanager record tutorial completion
@@ -724,6 +738,8 @@ class CustomCards extends React.Component {
                                     this.props.hintManager.generateHints(DUPLICATE_CODE_SMELL_HINT_TYPE);
                                 }}
                                 setProjectId={this.props.setProjectId}
+                                showWizard={this.props.showWizard}
+                                onSetShowWizard={this.props.onSetShowWizard}
                             />}
 
                         {this.state.selectedView === 'reference' && <Reference expanded={expanded} activeDeckId={activeDeckId} />}

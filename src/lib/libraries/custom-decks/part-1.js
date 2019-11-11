@@ -94,7 +94,7 @@ export const part1 = {
             content: (
                 <div className={styles.contentContainer}>
                     <p><StepLabel step="step 1/2" />
-                        <img src={moveSay} className={styles.contentImage} style={{ width: '320px' }} /><br/>
+                        <img src={moveSay} className={styles.contentImage} style={{ width: '320px' }} /><br />
                         Create a sequence of blocks as shown below. Each block performs a specific action.
                         Click any block in the sequence for the square to perform all actions specified by the sequence.
                     </p>
@@ -137,18 +137,59 @@ export const part1 = {
             shouldCleanup: true
         },
         {
+            id: 'simple-slides',
+            title: (<p className={styles.contentTitle}><PracticeLabel />Simple Slides</p>),
+            content: (
+                <div className={styles.contentContainer}>
+                    Some simple slides combination of right and up
+                </div>
+            ),
+            active: true
+        },
+        {
+            id: 'slower-slides',
+            title: (<p className={styles.contentTitle}><PracticeLabel />Slower Slides</p>),
+            content: (
+                <div className={styles.contentContainer}>
+                    Adjust to make it slower suggesting using repeat and change x/y
+                </div>
+            ),
+            active: true
+        },
+        {
+            id: 'slide-right-up',
+            title: (<p className={styles.contentTitle}><PracticeLabel />Extracting Slide Blocks</p>),
+            content: (
+                <div className={styles.contentContainer}>
+                    Hard to modify. You can extract a custom block (right and up)
+                </div>
+            ),
+            active: true
+        },
+        {
+            id: 'slide-right-up-ma',
+            title: (<p className={styles.contentTitle}><PracticeLabel />Extracting Slide Blocks (Manually)</p>),
+            content: (
+                <div className={styles.contentContainer}>
+                    Hard to modify. You can extract a custom block (right and up)
+                </div>
+            ),
+            active: true,
+
+        },
+        {
             id: 'sliding-square',
             title: (<p className={styles.contentTitle}><PracticeLabel />Go Square Go!</p>),
             content: (
                 <div className={styles.contentContainer}>
                     <p>
-                        <img src={slidingSquareOutput1} className={styles.contentImage} style={{ width: '220px', float:'right' }} />
-                        Program the the blue square to slide through all checkpoints. The result should look like the animation on the right. You will add to the script that starts with <b>when I receive "Level 1 Start".</b> 
+                        <img src={slidingSquareOutput1} className={styles.contentImage} style={{ width: '220px', float: 'right' }} />
+                        Program the the blue square to slide through all checkpoints. The result should look like the animation on the right. You will add to the script that starts with <b>when I receive "Level 1 Start".</b>
                         <span className={styles.yellowMark}>Each slide animation is a little pause (0.1 seconds) followed by a 100-step movement in a given direction.</span>
                         {/* <img src={goSquare} className={styles.block} style={{ width: '10rem', height: 'auto' }} />. */}
                     </p>
                     <p><StepLabel step="Step 0/3" />
-                        (Already completed for you as an example!) Please, click <GreenFlagButton/> to see the example. We move the square rightward to the first checkpoint. If you look at the grid lines in the background, the first checkpoint is 100 steps to the right of the starting point. We <b>repeat</b> the <b>"change x by 10"</b> block <b>10</b> times (i.e., 10 x 10 = 100).
+                        (Already completed for you as an example!) Please, click <GreenFlagButton /> to see the example. We move the square rightward to the first checkpoint. If you look at the grid lines in the background, the first checkpoint is 100 steps to the right of the starting point. We <b>repeat</b> the <b>"change x by 10"</b> block <b>10</b> times (i.e., 10 x 10 = 100).
                     </p>
                     <p>
                         <StepLabel step="Step 1/3" />Move the square upward to the second checkpoint which is 100 steps above the first one. Following what we did for the first checkpoint, using the combination of repeat block but this time, use the <b>"change y by 10"</b> block instead.
@@ -213,17 +254,17 @@ export const part1 = {
             title: (<p className={styles.contentTitle}><PracticeLabel />Avoid the Spikes</p>),
             content: (
                 <div className={styles.contentContainer}>
-                    <img src={squareJumpOutput} className={styles.contentImage} style={{ width: '200px', float:'right' }} />
+                    <img src={squareJumpOutput} className={styles.contentImage} style={{ width: '200px', float: 'right' }} />
                     <p>You will program the square to do a basic jump to avoid the purple spikes!
                         The square should jump when if it's touching the purple color.
-                        A basic jump simply putting an upward movement followed by a downward movement. 
+                        A basic jump simply putting an upward movement followed by a downward movement.
                     </p>
-                    <p style={{marginTop:'1rem', marginBottom:'1.5rem'}}>
-                        <img src={jumpUpward} className={styles.contentImage} style={{ width: '110px', float:'left' }} />
+                    <p style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
+                        <img src={jumpUpward} className={styles.contentImage} style={{ width: '110px', float: 'left' }} />
                         <StepLabel step="Step 1/2" /> Put together the block sequence that moves the square up (shown on the left) and put it inside the <b>if touching color then...</b> block.<br />
                     </p>
                     <p>
-                        <img src={jumpDownward} className={styles.contentImage} style={{ width: '110px', float:'right' }} />
+                        <img src={jumpDownward} className={styles.contentImage} style={{ width: '110px', float: 'right' }} />
                         <StepLabel step="Step 2/2" /> Put together the block sequence that moves the square down (shown on the right).  Connect it to the sequence created in the previous step.<br />
                     </p>
                 </div>
@@ -247,7 +288,7 @@ export const part1 = {
                     </p>
                     <p>
                         <StepLabel step="Step 2/2" />
-                        The <img src={defineJump} className={styles.imgInline} style={{ width: '6rem' }} /> lets you define what <b>jump</b> block should do. Follow the animated guide below that show how to use the block sequence you created previously as the definition for your jump block. Finally you will use the created jump block in your code to make the square jump. 
+                        The <img src={defineJump} className={styles.imgInline} style={{ width: '6rem' }} /> lets you define what <b>jump</b> block should do. Follow the animated guide below that show how to use the block sequence you created previously as the definition for your jump block. Finally you will use the created jump block in your code to make the square jump.
                             <img src={jump02} className={styles.contentImage} style={{ width: '400px' }} />
                     </p>
                     <p>

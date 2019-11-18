@@ -50,6 +50,8 @@ import {
     ConceptLabel, GreenFlagButton, StopButton, CheckButtonImg, BeforeAfter, ScrollableContainer
 } from './card-components';
 
+import InstructionHint from './instruction-hint';
+
 export const refactorSlides = {
     steps: [
         {
@@ -58,9 +60,12 @@ export const refactorSlides = {
             content: (
                 <div className={styles.contentContainer}>
                     Some simple slides combination of right and up
+
+
                 </div>
             ),
-            active: true
+            projectId: 341014499,
+            // active: true
         },
         {
             id: 'slower-slides',
@@ -70,7 +75,7 @@ export const refactorSlides = {
                     Adjust to make it slower suggesting using repeat and change x/y
                 </div>
             ),
-            active: true
+            // active: true
         },
         {
             id: 'slide-right-up',
@@ -82,7 +87,7 @@ export const refactorSlides = {
                 </div>
             ),
             showCodeWizard: true,
-            active: true
+            // active: true
         },
         {
             id: 'slide-right-up-manual',
@@ -94,17 +99,30 @@ export const refactorSlides = {
                 </div>
             ),
             onlyVisibleToGroup: 'manual',
-            active: true
+            // active: true
         },
         {
             id: 'slide-left-down',
             title: (<p className={styles.contentTitle}><PracticeLabel />Extracting Slide Blocks (Left and Down)</p>),
             content: (
                 <div className={styles.contentContainer}>
-                    Use Code Wizard
+                    Let's practice. See if you can use less hints as possible.
+                    <InstructionHint id='hint-summary' content={'hint-summary'}>
+                        <InstructionHint id='hint1' content={'hint1'}>
+                            <InstructionHint id='hint1.1' content={'hint1.1'}>
+                                <InstructionHint id='hint1.1' content={'hint1.1.1'} />
+                            </InstructionHint>
+                        </InstructionHint>
+                        <InstructionHint id='hint2' content={'hint2'}>
+                            <InstructionHint id='hint2.1' content={'hint2.1'}>
+                                <InstructionHint id='hint2.1' content={'hint2.1.1'} />
+                            </InstructionHint>
+                        </InstructionHint>
+                    </InstructionHint>
                 </div>
             ),
             showCodeWizard: true,
+            customCheck:'true',
             active: true
         },
         {

@@ -29,7 +29,7 @@ import featureTogglingImg from '../../lib/libraries/custom-decks/custom-block-de
 
 import hintIcon from "../../components/hint-overlay/light-bulb-icon.svg";
 const enableCloseCard = false;
-const bypassCheck = true;
+const bypassCheck = false;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
@@ -140,6 +140,7 @@ const checkStmtSequence = ({ topBlock, expected, shouldExcludeShadow }) => {
         if (shouldExcludeShadow) {
             filteredActual = actual.filter(n => !n.isShadow_).map(b => b.type);
         }
+        console.log(filteredActual);
         return filteredActual;
     }).map(seq => array_hash(seq)));
 
@@ -676,7 +677,7 @@ class CustomCards extends React.Component {
 
         if (x === 0 && y === 0) {
             // initialize positions
-            x = isRtl ? -292 : 292;
+            x = isRtl ? -292 : 500;
             // The tallest cards are about 385px high, and the default position is pinned
             // to near the bottom of the blocks palette to allow room to work above.
             const tallCardHeight = 385;
@@ -748,14 +749,8 @@ class CustomCards extends React.Component {
                         {this.state.selectedView === 'instructions' && expanded &&
                             !!(steps[step].expected || steps[step].customCheck) &&
                             <div className={styles.footer}>
+                                <div className={styles.scoreView}>score: {100-this.props.viewedInstructionHints.length}</div>
                                 {completed.includes(steps[step].id) ? <div className={styles.completedStatus}>COMPLETED!</div> :
-                                    <Floater content={this.state.reminderMessage || "Click to check your work!"}
-                                        open={!!this.state.reminderMessage}
-                                        styles={{
-                                            floater: {
-                                                zIndex: 9999
-                                            }
-                                        }}>
                                         <div className={styles.checkButton}
                                             onClick={checkStepCompletion({
                                                 isStarted,
@@ -765,7 +760,6 @@ class CustomCards extends React.Component {
                                                 endStepTimer: this.endStepTimer,
                                                 workspace: this.state.workspace
                                             })}>Check</div>
-                                    </Floater>
                                 }
                             </div>}
 

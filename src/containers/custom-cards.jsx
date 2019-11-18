@@ -43,7 +43,8 @@ const mapStateToProps = (state, ownProps) => ({
     isStarted: state.scratchGui.vmStatus.started,
     hintManager: state.scratchGui.hintState.hintManager,
     showWizard: state.scratchGui.menus.showWizard,
-    projectId: state.scratchGui.projectState.projectId
+    projectId: state.scratchGui.projectState.projectId,
+    viewedInstructionHints: state.scratchGui.customCards.viewedInstructionHints
 });
 
 const mapDispatchToProps = dispatch => ({

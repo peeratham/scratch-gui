@@ -10,6 +10,7 @@ const DRAG_CARD = 'scratch-gui/custom-cards/DRAG_CARD';
 const START_DRAG = 'scratch-gui/custom-cards/START_DRAG';
 const END_DRAG = 'scratch-gui/custom-cards/END_DRAG';
 const COMPLETE_STEP = 'scratch-gui/custom-cards/COMPLETE_STEP';
+const VIEW_INSTRUCTION_HINT = 'scratch-gui/custom-cards/VIEW_INSTRUCTION';
 
 const initialState = {
     visible: true, //default visibility
@@ -21,7 +22,8 @@ const initialState = {
     expanded: true,
     dragging: false,
     stepCompleted: false,
-    completed: []
+    completed: [],
+    viewedInstructionHints: []
 };
 
 const reducer = function (state, action) {
@@ -85,6 +87,10 @@ const reducer = function (state, action) {
             stepCompleted: true,
             completed: Array.from(new Set(state.completed.concat(action.id||state.content[state.activeDeckId].steps[state.step].id)))
         });
+    case VIEW_INSTRUCTION_HINT:
+        return Object.assign({}, state, {
+            viewedInstructionHints: Array.from(new Set(state.viewedInstructionHints.concat(action.id)))
+        });
     default:
         return state;
     }
@@ -133,6 +139,10 @@ const completeStep = function (id) {
     return {type: COMPLETE_STEP, id};
 };
 
+const viewInstructionHint = function(id){
+    return {type: VIEW_INSTRUCTION_HINT, id}
+} 
+
 export {
     reducer as default,
     initialState as customCardsInitialState,
@@ -145,5 +155,6 @@ export {
     dragCard,
     startDrag,
     endDrag,
-    completeStep
+    completeStep,
+    viewInstructionHint
 };

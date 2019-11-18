@@ -103,7 +103,9 @@ export default appTarget => {
                     // 'scratch-basics'
                     // 'color-shade-generator'
                     // 'particle-radiator'
-                    'refactor-slides'
+                    // 'refactor-slides'
+                    // 'study-tasks-1'
+                    'study-tasks-2'
                 }
                 // projectId={
                 //     // scratch-basics

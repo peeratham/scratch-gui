@@ -9,7 +9,8 @@ import slowerSlideRight from './slide/slower-slide-right.png';
 import basicSlideUp from './slide/basic-slide-up.png';
 import slowerSlideUp from './slide/slower-slide-up.png';
 import featureTogglingImg from './custom-block-deck/feature-toggle.png';
-import hintPlacement from './slide/hint-placement.png';
+import hintSlideRight from './slide/hint-slide-right.png';
+// import hintPlacement from './slide/hint-placement.png';
 import extractBlockButton from '../../../components/hint-overlay/extract-button.svg';
 import refactoredScript from './slide/refactored-script-2.png';
 import renameToSlideRight from './slide/rename-to-slide-right.gif';
@@ -42,7 +43,7 @@ import {
 
 const slideRightCheck = `
 (function () {
-    var targetPrototype = workspace.getAllBlocks().filter(b => b.type === 'procedures_prototype' && b.inputList[0].fieldRow[0].getText() === 'slide right');
+    var targetPrototype = workspace.getAllBlocks().filter(b => b.type === 'procedures_prototype' && b.inputList[0].fieldRow[0].getText().toLowerCase() === 'slide right');
     return targetPrototype.length === 1;
 })()
 //@ sourceURL=slideRightCheck.js;
@@ -50,7 +51,7 @@ const slideRightCheck = `
 
 const adjustedSlideRightCheck = `
 (function () {
-    const checkIfSlideRight = p => p.inputList[0].fieldRow[0].getText() === 'slide right';
+    const checkIfSlideRight = p => p.inputList[0].fieldRow[0].getText().toLowerCase() === 'slide right';
     const targetCustomBlock = workspace.getAllBlocks()
         .filter(b => b.type === 'procedures_definition'
             && b.getChildren().filter(p =>
@@ -72,7 +73,7 @@ const adjustedSlideRightCheck = `
 
 const slideUpCheck = `
 (function () {
-    var targetPrototype = workspace.getAllBlocks().filter(b => b.type === 'procedures_prototype' && b.inputList[0].fieldRow[0].getText() === 'slide up');
+    var targetPrototype = workspace.getAllBlocks().filter(b => b.type === 'procedures_prototype' && b.inputList[0].fieldRow[0].getText().toLowerCase() === 'slide up');
     return targetPrototype.length === 1;
 })()
 //@ sourceURL=slideUpCheck.js;
@@ -80,8 +81,7 @@ const slideUpCheck = `
 
 const adjustedSlideUpCheck = `
 (function () {
-    debugger;
-    const checkIfSlideUp = p => p.inputList[0].fieldRow[0].getText() === 'slide up';
+    const checkIfSlideUp = p => p.inputList[0].fieldRow[0].getText().toLowerCase() === 'slide up';
 
     const targetCustomBlock = workspace.getAllBlocks()
         .filter(b => b.type === 'procedures_definition'
@@ -130,7 +130,7 @@ export const studyTasks2 = {
             projectId: 330600515
         },
         {
-            id: 'sliding-square',
+            id: 'basic-slide',
             title: (<p className={styles.contentTitle}><PracticeLabel />Go Square Go!</p>),
             content: (
                 <div className={styles.contentContainer}>
@@ -144,7 +144,7 @@ export const studyTasks2 = {
                         One "slide right" to the first checkpoint is completed for you as an example!
                         <img src={basicSlideRight} className={styles.contentImage} style={{ width: '100px', float: 'left' }} />
                         The "wait" block is used before "change x by 100" block so that the square takes a little pause before the move.
-                        If there is no pause the movement will be too fast for your eye to see.
+                        If there is no pause the movement will be too fast for your eyes to see.
                         Click <GreenFlagButton /> to see how this basic slide right looks like.
                     </p>
 
@@ -163,7 +163,7 @@ export const studyTasks2 = {
         },
         {
             id: 'smoother-slide',
-            title: (<p className={styles.contentTitle}><PracticeLabel />Slow down the slide moves</p>),
+            title: (<p className={styles.contentTitle}><PracticeLabel />Animate the slide moves</p>),
             content: (
                 <div className={styles.contentContainer}>
                     <img src={slidingSquareOutput1} className={styles.contentImage} style={{ width: '220px', float: 'right' }} />
@@ -200,13 +200,13 @@ export const studyTasks2 = {
                         <b>Nor was the code easy to modify!</b> You probably felt that it was too repetitive having to modify parts that had been replicated. For example, when tweaking slide right to be slower, you had to make the same change to not just one but all of its duplicate parts.
                     </p>
                     <p>
-                        If you recall, in Part 1 you already had a brief experience creating a custom block "jump". <b>For the remaining cards, you will learn to use custom block to make your program easier to understand and modify by extracting a custom block from a recurring program parts.</b>
+                        If you recall, in Part 1 you already had a brief experience creating a custom block "jump". <b>For the remaining cards, you will learn to use custom block to make your program easier to understand and modify by extracting a custom block from a recurring program part.</b>
                     </p>
                 </div>
             )
         },
         {
-            id: 'slide-right-automated-refactor',
+            id: 'automated-refactor-slide-right',
             title: (<p className={styles.contentTitle}>Extract a slide right custom block with Code Wizard</p>),
             content: (
                 <div className={styles.contentContainer}>
@@ -216,18 +216,18 @@ export const studyTasks2 = {
                         Then follow the steps below to extract custom block using Code Wizard.
                     </p>
                     <p style={{ paddingBottom: '1rem' }}>
-                        <img src={hintPlacement} className={styles.contentImage} style={{ width: '150px', float: 'right' }} />
                         <StepLabel step="Step 1" /> <b>Toggle Code Wizard <br /> <img src={featureTogglingImg} className={styles.imgInline} style={{ width: '200px', padding: '0.5rem' }} /> <br />
                             Look for hints <HintIcon /> placed next to the corresponding recurring parts.</b><br />
 
-                        When mouse over the hint icon, you should see the recurring parts being highlighted. There is one recurring part  next to each other (slide right and slide up) x 2 next to each other. We will adjust in the next step to select only the slide right part.
+                        <img src={hintSlideRight} className={styles.contentImage} style={{ width: '150px', float: 'right' }} />
+                        When mouse over the hint icon, you should see the parts that are duplicates of one another being highlighted.
                     </p>
                     <p style={{ paddingBottom: '1rem' }}>
-                        <StepLabel step="Step 2" /> <b>Adjusting the part to extract</b><br />
+                        <StepLabel step="Step 2" /> <b>Extract</b><br />
                         Click the hint icon <HintIcon /> to see its options.
                         With the correct part selected, click <img src={extractBlockButton} className={styles.imgInline} style={{ width: '2.5rem' }} />  to extract that part as a custom block. <br />
                         <img src={refactoredScript} className={styles.contentImage} style={{ width: '250px', float: 'left' }} />
-                        You should see a new custom block similar to ["DoSomething.."] get created and all the recurring parts now being replaced with the newly created custom block as shown on the left. You "slide right" custom block is also available in the block palette under <b>"My Blocks"</b> category.
+                        You should see a new custom block similar to ["DoSomething.."] get created and all the recurring parts now being replaced with the newly created custom block as shown on the left.
                     </p>
                     <p>
                         <StepLabel step="Step 3" /> <b>Rename the extracted custom block to something more descriptive. </b>
@@ -239,11 +239,12 @@ export const studyTasks2 = {
                     </p>
                 </div>
             ),
+            onlyVisibleToGroup: 'automated',
             showCodeWizard: true,
             expected: [["procedures_definition", "control_repeat", "motion_changexby"],
             ["event_whenbroadcastreceived", "procedures_call", "control_repeat", "motion_changeyby", "control_repeat", "procedures_call", "motion_changeyby"]],
             customCheck: slideRightCheck,
-            // projectId: 341014499 //test
+            // projectId: 345796768 //test
         },
         {
             id: 'manual-refactor-slide-right',
@@ -275,6 +276,7 @@ export const studyTasks2 = {
             expected: [["procedures_definition", "control_repeat", "motion_changexby"],
             ["event_whenbroadcastreceived", "procedures_call", "control_repeat", "motion_changeyby", "control_repeat", "procedures_call", "motion_changeyby"]],
             customCheck: slideRightCheck,
+            onlyVisibleToGroup: 'manual',
             // projectId: 341014499 //test
         },
         {
@@ -334,6 +336,7 @@ export const studyTasks2 = {
             ["event_whenbroadcastreceived", "procedures_call", "procedures_call", "procedures_call", "procedures_call"]
             ],
             customCheck: slideUpCheck,
+            onlyVisibleToGroup:'automated',
             // projectId: 345811773 //test
         },
         {
@@ -366,11 +369,12 @@ export const studyTasks2 = {
                     </p>
                 </div>
             ),
+            onlyVisibleToGroup: 'manual',
+            showCodeWizard: true,
             expected: [["procedures_definition", "control_repeat", "motion_changeyby"],
             ["event_whenbroadcastreceived", "procedures_call", "procedures_call", "procedures_call", "procedures_call"]
             ],
             customCheck: slideUpCheck,
-            showCodeWizard: true,
             // projectId: 345681254 //test
         },
         {

@@ -14,6 +14,8 @@ import movingPart from './intro/moving-part.gif';
 import useJump from './intro/use-jump.gif';
 import defineBasicJump from './intro/define-basic-jump.png';
 import defineAnimatedJump from './intro/define-animated-jump.png';
+import ifTouchingThenJump from './intro/if-touching-then-jump.png';
+import initialJumpingSquare from './intro/initial-jumping-square.gif';
 
 import {
     PracticeLabel, StepLabel, TipsLabel, GreenFlagButton, CheckButtonImg, BeforeAfter
@@ -84,18 +86,18 @@ export const studyTasks1 = {
             content: (
                 <div className={styles.contentContainer}>
                     <p>
-                        Although Scratch is a novice programming language, it can still be quite challenging for a complete beginner to work through this tutorial under an hour. We compile a list of basic Scratch tips that will save you a headache and help you finish this tutorial in the most efficient way possible.
+                        Although Scratch is a novice programming language, it can still be quite challenging for a complete beginner to work through this quick tutorial. We compile a list of basic Scratch tips that will save you a headache and help you finish this tutorial in the most efficient way possible.
                         You should go through these tips and try to practice with a sample program we provided.
                     </p>
 
                     <p>
                         <b>Undo previous actions: </b>
-                        <img src={undo} className={styles.contentImage} style={{ width: '240px', float:'left' }} />
+                        <img src={undo} className={styles.contentImage} style={{ width: '240px', float: 'left' }} />
                         It's very likely you will make some mistakes (e.g., putting blocks in the wrong place). To undo, you can right click (empty space) and select "undo" or press <b>ctrl+z</b>.
                     </p>
                     <p>
                         <b>Selecting and moving blocks: </b>
-                        <img src={movingPart} className={styles.contentImage} style={{ width: '196px', float:'left'}} />
+                        <img src={movingPart} className={styles.contentImage} style={{ width: '196px', float: 'left' }} />
                         When you drag a block, the whole sequence of blocks connected below it will also follow.
                         For example, to move only "turn" and "move" blocks except the "say" block and put them inside the "repeat" block,
                         we may need to disconnect the unwanted blocks in the sequence.
@@ -115,12 +117,20 @@ export const studyTasks1 = {
             setupCode: '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="event_whenflagclicked" id="[2ONjiAOc?]9eF3Z+QEM" x="249" y="272"><next><block type="motion_movesteps" id="Eb$$fG-9A]-tmVr~n[I#"><value name="STEPS"><shadow type="math_number" id="zl+8(`n`[f!Yfbpqh8X;"><field name="NUM">10</field></shadow></value><next><block type="looks_sayforsecs" id="^o~k~D6p4S1OvDvty:o:"><value name="MESSAGE"><shadow type="text" id="Z1A$+3nshB^`%ynv!?g/"><field name="TEXT">Hello!</field></shadow></value><value name="SECS"><shadow type="math_number" id="(C8eEKy,s06ZsJ}L~94e"><field name="NUM">2</field></shadow></value></block></next></block></next></block><block type="event_whenflagclicked" id="f%3[i7d7;8coUxe2$AZo" x="270" y="581"><next><block type="motion_movesteps" id="d]dEohLyWA|o[ZH.9L3j"><value name="STEPS"><shadow type="math_number" id=":4;bMSuV,oEeiUB/WV)%"><field name="NUM">10</field></shadow></value><next><block type="control_repeat" id=".is6W,trwFwbg)M0y,mh"><value name="TIMES"><shadow type="math_whole_number" id="!.DV*]$eZTl`=dK~7T5w"><field name="NUM">10</field></shadow></value><next><block type="motion_turnright" id="V6PUt`{jMl.vI,Z:o)Lh"><value name="DEGREES"><shadow type="math_number" id="4tM6y)3O-CdrR]T~@tvP"><field name="NUM">15</field></shadow></value><next><block type="motion_movesteps" id="!#W6RiH0OmP+)=I;)odk"><value name="STEPS"><shadow type="math_number" id="}-%c*DkpyyOnR3S*~3+8"><field name="NUM">10</field></shadow></value><next><block type="looks_say" id="{ghFDWY81BS4`trFX$:y"><value name="MESSAGE"><shadow type="text" id=".|XU,lw$~xBP)%)!YtN8"><field name="TEXT">Hello!</field></shadow></value></block></next></block></next></block></next></block></next></block></next></block></xml>'
         },
         {
-            id: 'jumping-square',
+            id: 'create-jump-block',
             title: (<p className={styles.contentTitle}><PracticeLabel />Create Your Own Block</p>),
             content: (
                 <div className={styles.contentContainer}>
-                    <img src={squareJumpOutput} className={styles.contentImage} style={{ width: '200px', float: 'right' }} />
-                    <p> You will program the square to do a basic jump to avoid the moving purple spikes. A good time to jump is when the square starts touching the purple color. The idea is to move the square up and down. You will learn to create your own block or a <b>custom block</b> called "jump" that we can use in our program to make the square jump.
+                    <BeforeAfter before={initialJumpingSquare} after={squareJumpOutput} />
+                    <p> You will program the square to do a jump to avoid the moving purple spikes.
+                    </p>
+                    <p>
+                        <StepLabel step="Step 0" /><b>Click <GreenFlagButton /> to see how the initial program looks like. </b>
+                        <img src={ifTouchingThenJump} className={styles.contentImage} style={{ width: '200px', float: 'left' }} />
+                        A good time to jump is when the square starts touching the purple color.
+                        Unfortunately, Scratch does not have a "jump" block but we can create one!
+
+                        The idea is to move the square up and down. You will learn to create your own block or a <b>custom block</b> called "jump" that we can use in our program (like the one on the right) to make the square jump .
                     </p>
                     <p>
                         <StepLabel step="Step 1" /> <b>Create a custom block</b>:
@@ -134,27 +144,34 @@ export const studyTasks1 = {
                         <img src={useJump} className={styles.contentImage} />
                     </p>
                     <p>
-                        <img src={defineBasicJump} className={styles.contentImage} style={{ width: '120px', float:'right'}} /><br />
+                        <img src={defineBasicJump} className={styles.contentImage} style={{ width: '120px', float: 'right' }} /><br />
                         <StepLabel step="Step 3" /><b>Provide the definition for jump:</b><br />
                         Put what jump will do. Let's try the basic jump by moving the square up, take a little pause and moving it down. Then click <GreenFlagButton /> to see the result.
                     </p>
                     <p>
-                        <img src={defineAnimatedJump} className={styles.contentImage} style={{ width: '120px', float:'left'}} /><br />
-                        <StepLabel step="Step 4" />The square moves up and down too quickly (40 steps all at once to move up and down), something too quick for a human eye to see. Let's improve it to make the square appear to move slower. Let's replace the old definition with a new one (shown on the right) in which we move the square up little by little  (8 step each time for 5 times) which still gives us 40 steps but in a much smoother look.
+                        <img src={defineAnimatedJump} className={styles.contentImage} style={{ width: '120px', float: 'left' }} /><br />
+                        <StepLabel step="Step 4" />The square moves up and down to avoid the moving spikes but it does not animate the movement smoothly. Let's improve it by replacing the old definition with a new one (shown on the right). The idea is to move the square little by little  (changing y 8 steps for 5 times which gives a change of 40 steps in total to animate the up movement and the same for down movement but we use -8 steps for the change in y).
                     </p>
                     <p>
                         Click <GreenFlagButton /> to see the result.
                     </p>
                 </div>
             ),
-            projectId: 339735285,
-            active: true
+            projectId:
+                 339735285
+                //  ||
+                // 346126463 //test
+            ,
+            expected: [
+                ["event_whenflagclicked", "control_forever", "control_if", "sensing_touchingcolor", "procedures_call"],
+                ["procedures_definition", "control_repeat", "motion_changeyby", "control_repeat", "motion_changeyby"]
+            ]
         },
         {
             id: 'copy-completion-code',
             title: (
                 <div className={styles.contentContainer}>
-                    <p className={styles.contentTitle}>Congratulations! You complete Part 1.</p>
+                    <p className={styles.contentTitle}>Congratulations! You completed Part 1.</p>
                     <p style={{ fontSize: '1.1rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p>
                 </div>
             ),

@@ -11,6 +11,6 @@ export default {
     // 'color-shade-generator': part2,
     // 'particle-radiator': part3,
     // 'refactor-slides': refactorSlides,
-    'study-tasks-1': studyTasks1,
-    'study-tasks-2': studyTasks2
+    'jumping-square': studyTasks1,
+    'sliding-square': studyTasks2
 }

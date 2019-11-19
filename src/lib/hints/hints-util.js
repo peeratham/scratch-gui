@@ -93,7 +93,7 @@ const computeHintLocationStyles = function ({ hint, workspace, vm }) {
 };
 
 const analysisInfoToHints = function (analysisInfo) {
-    if (analysisInfo.error) return [];
+    if (analysisInfo.error||analysisInfo['records']===undefined) return [];
     const hints = [];
     for (let recordKey of Object.keys(analysisInfo['records'])) {
         let record = analysisInfo['records'][recordKey];

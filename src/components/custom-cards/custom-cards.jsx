@@ -29,7 +29,7 @@ import featureTogglingImg from '../../lib/libraries/custom-decks/custom-block-de
 
 import hintIcon from "../../components/hint-overlay/light-bulb-icon.svg";
 const enableCloseCard = false;
-const bypassCheck = false;
+const bypassCheck = true;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>
@@ -140,7 +140,7 @@ const checkStmtSequence = ({ topBlock, expected, shouldExcludeShadow }) => {
         if (shouldExcludeShadow) {
             filteredActual = actual.filter(n => !n.isShadow_).map(b => b.type);
         }
-        console.log(filteredActual);
+        // console.log(filteredActual);
         return filteredActual;
     }).map(seq => array_hash(seq)));
 
@@ -228,7 +228,7 @@ const checkStepCompletion = ({ vm, isStarted, onCompleteStep, expected, currentI
         endStepTimer(currentInstructionId);
     }
 
-    isComplete ? onCompleteStep(currentInstructionId) : onShowReminderMessage("Please follow the instruction and try again");
+    isComplete ? onCompleteStep(currentInstructionId) : onShowReminderMessage("Please complete all steps in this card and check again.");
 }
 
 const populateWorkspace = (setupCode) => {
@@ -266,11 +266,11 @@ class ScrollableContainer extends React.Component {
     }
     componentDidMount() {
     }
-    
-    componentDidUpdate(){
-        if(this.state.curId!==this.props.stepId){
+
+    componentDidUpdate() {
+        if (this.state.curId !== this.props.stepId) {
             this.myRef.scrollTop = 0;
-            this.setState({curId:this.props.stepId});
+            this.setState({ curId: this.props.stepId });
         }
     }
 
@@ -300,7 +300,7 @@ class ImageStep extends React.Component {
 
     componentDidUpdate() {
         const {
-            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace, projectId, showCodeWizard, 
+            isAlreadySetup, setUpdateCodeStatus, shouldCleanup, dragging, setupCode, workspace, projectId, showCodeWizard,
             showWizard, onSetShowWizard
         } = this.props;
 
@@ -327,12 +327,12 @@ class ImageStep extends React.Component {
             setUpdateCodeStatus(true);
         }
 
-           {/* <div>show wizard:{showWizard?'true':'false'}</div>
+        {/* <div>show wizard:{showWizard?'true':'false'}</div>
             <button onClick={()=>onSetShowWizard(false)}>hide</button>
             <button onClick={()=>onSetShowWizard(true)}>show</button> */}
-            if(showCodeWizard!==showWizard){
-                onSetShowWizard(showCodeWizard);
-            }
+        if (showCodeWizard !== showWizard) {
+            onSetShowWizard(showCodeWizard);
+        }
     }
 
     render() {
@@ -344,7 +344,7 @@ class ImageStep extends React.Component {
             <Fragment>
                 <div className={styles.stepTitle}>
                     {title}
-                    {!completionCode&&<ScrollableContainer height='250px' stepId={stepId}>{content}</ScrollableContainer>}
+                    {!completionCode && <ScrollableContainer height='250px' stepId={stepId}>{content}</ScrollableContainer>}
                 </div>
                 {completionCode && <div>
                     <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold', fontSize: '1.25rem' }}>{completionCode}</div>
@@ -369,7 +369,7 @@ class ImageStep extends React.Component {
 }
 
 
-const NextPrevButtons = ({ vm, isRtl, onNextStep, onPrevStep, expanded, stepCompleted, setUpdateCodeStatus, currentInstructionId, onShowReminderMessage }) => {
+const NextPrevButtons = ({ vm, isRtl, onNextStep, onPrevStep, expanded, stepCompleted, setUpdateCodeStatus, currentInstructionId, onShowReminderMessage, onEnableQualityHintFeature }) => {
     return (
         <Fragment>
             {onNextStep ? (
@@ -387,6 +387,9 @@ const NextPrevButtons = ({ vm, isRtl, onNextStep, onPrevStep, expanded, stepComp
                                 action: "view",
                                 label: currentInstructionId
                             });
+
+                            //off the hint
+                            onEnableQualityHintFeature(false);
                             onNextStep();
                         })() : () => { onShowReminderMessage("Please check your work to continue."); }}
                     >
@@ -453,7 +456,7 @@ const Instructions = ({ dragging, stepCompleted, expanded, styles, steps, step, 
                     )
             }
             {steps[step].featurePrompt && <FeaturePrompt onEnableQualityHintFeature={onEnableQualityHintFeature} />}
-            {steps[step].trackingPixel && steps[step].trackingPixel}   
+            {steps[step].trackingPixel && steps[step].trackingPixel}
         </div>
     );
 };
@@ -521,6 +524,7 @@ class CustomCards extends React.Component {
         this.endStepTimer = this.endStepTimer.bind(this);
         this.startDeckTimer = this.startDeckTimer.bind(this);
         this.endDeckTimer = this.endDeckTimer.bind(this);
+        this.onEnableQualityHintFeature = this.onEnableQualityHintFeature.bind(this);
     }
 
     setUpdateCodeStatus(alreadySetup) {
@@ -595,19 +599,19 @@ class CustomCards extends React.Component {
         const {
             content, activeDeckId,
             step,
-            qualityHintToggleVisible, stepCompleted
+            qualityHintToggleVisible, stepCompleted, trmo
         } = this.props;
 
 
-        if (qualityHintToggleVisible) {
+        if (trmo==='hnrf') {
             this.steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'automated')
         } else {
             this.steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'manual')
         }
 
         // activateDeck
-        saveDataToMongo('completion', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
-        saveDataToMongo('interact', 'trmo', qualityHintToggleVisible ? 'experimental' : 'control');
+        saveDataToMongo('completion', 'trmo', trmo==='hnrf' ? 'experimental' : 'control');
+        saveDataToMongo('interact', 'trmo', trmo==='hnrf' ? 'experimental' : 'control');
         findIP.then(ip => {
             saveDataToMongo('completion', 'ip', ip);
             saveDataToMongo('interact', 'ip', ip);
@@ -643,6 +647,15 @@ class CustomCards extends React.Component {
         }
     }
 
+    onEnableQualityHintFeature(isOn) {
+        this.props.onToggleQualityHintFeature(isOn);
+        if (isOn) {
+            this.props.hintManager.generateHints(DUPLICATE_CODE_SMELL_HINT_TYPE);
+        } else {
+            this.props.hintManager.clearAll(DUPLICATE_CODE_SMELL_HINT_TYPE);
+        }
+    }
+
     render() {
         const {
             activeDeckId,
@@ -669,6 +682,7 @@ class CustomCards extends React.Component {
             qualityHintToggleVisible,
             isStarted,
             hintManager,
+            trmo,
             ...posProps
         } = this.props;
         let { x, y } = posProps;
@@ -687,7 +701,7 @@ class CustomCards extends React.Component {
 
         let steps = null;
 
-        if (qualityHintToggleVisible) {
+        if (trmo==='hnrf') {
             steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'automated')
         } else {
             steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'manual')
@@ -734,10 +748,7 @@ class CustomCards extends React.Component {
                                 vm={vm}
                                 endDeckTimer={this.endDeckTimer}
                                 workspace={this.state.workspace}
-                                onEnableQualityHintFeature={() => {
-                                    this.props.onToggleQualityHintFeature(true);
-                                    this.props.hintManager.generateHints(DUPLICATE_CODE_SMELL_HINT_TYPE);
-                                }}
+                                onEnableQualityHintFeature={this.onEnableQualityHintFeature}
                                 setProjectId={this.props.setProjectId}
                                 showWizard={this.props.showWizard}
                                 onSetShowWizard={this.props.onSetShowWizard}
@@ -749,8 +760,15 @@ class CustomCards extends React.Component {
                         {this.state.selectedView === 'instructions' && expanded &&
                             !!(steps[step].expected || steps[step].customCheck) &&
                             <div className={styles.footer}>
-                                <div className={styles.scoreView}>score: {100-this.props.viewedInstructionHints.length}</div>
+                                {/* <div className={styles.scoreView}>score: {100-this.props.viewedInstructionHints.length}</div> */}
                                 {completed.includes(steps[step].id) ? <div className={styles.completedStatus}>COMPLETED!</div> :
+                                    <Floater content={this.state.reminderMessage || "Click to check your work!"}
+                                        open={!!this.state.reminderMessage}
+                                        styles={{
+                                            floater: {
+                                                zIndex: 9999
+                                            }
+                                        }}>
                                         <div className={styles.checkButton}
                                             onClick={checkStepCompletion({
                                                 isStarted,
@@ -760,6 +778,7 @@ class CustomCards extends React.Component {
                                                 endStepTimer: this.endStepTimer,
                                                 workspace: this.state.workspace
                                             })}>Check</div>
+                                    </Floater>
                                 }
                             </div>}
 
@@ -776,6 +795,7 @@ class CustomCards extends React.Component {
                             setUpdateCodeStatus={this.setUpdateCodeStatus}
                             currentInstructionId={steps[step].id}
                             onShowReminderMessage={this.onShowReminderMessage}
+                            onEnableQualityHintFeature={this.onEnableQualityHintFeature}
                         />}
                     </div>
                 </div>

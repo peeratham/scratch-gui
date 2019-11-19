@@ -129,6 +129,7 @@ const GUIComponent = props => {
         showTutorial,
         procedureShareToggleVisible,
         qualityHintToggleVisible,
+        trmo,
         showCustomMenuBar,
         showSurveyCallBack,
         tutorialDevMode,
@@ -219,7 +220,7 @@ const GUIComponent = props => {
                     <Cards />
                 ) : null}
                 {customCardsVisible? (
-                    <CustomCards activeDeckId={customDeckId} qualityHintToggleVisible={qualityHintToggleVisible}/>
+                    <CustomCards activeDeckId={customDeckId} qualityHintToggleVisible={qualityHintToggleVisible} trmo={trmo}/>
                 ): null}
                 {alertsVisible ? (
                     <Alerts className={styles.alertsContainer} />

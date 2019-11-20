@@ -171,14 +171,13 @@ export const studyTasks1 = {
             id: 'copy-completion-code',
             title: (
                 <div className={styles.contentContainer}>
-                    <p className={styles.contentTitle}>Congratulations! You completed Part 1.</p>
+                    <p className={styles.contentTitle}>Congratulations! You have completed Part 1.</p>
                     <p style={{ fontSize: '1.1rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p>
                 </div>
             ),
             content: (
                 <div></div>
             ),
-            shouldCleanup: true,
             completionCode: 'jumpstart',
             recordCompletion: true
         }

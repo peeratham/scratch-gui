@@ -69,7 +69,7 @@ class HintManager {
         if (!(['ui', 'endDrag'].includes(e.type))) { //recompute upon code changes
             if (this.hintState.options.showQualityHint) {
                 this.generateHints(DUPLICATE_CODE_SMELL_HINT_TYPE);
-                this.generateHints(RENAMABLE_CUSTOM_BLOCK);
+                // this.generateHints(RENAMABLE_CUSTOM_BLOCK);
                 // setTimeout(() => {
                 //     this.generateHints(DUPLICATE_CONSTANT_HINT_TYPE);
                 // }, 1000);

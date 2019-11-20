@@ -138,13 +138,13 @@ export const studyTasks2 = {
                         <img src={basicSlide} className={styles.contentImage} style={{ width: '220px', float: 'right' }} />
                         Program the the blue square to slide through all checkpoints. The result should look like the animation on the right. You will add to the script that starts with <b> when I receive "Square Go"</b> block.
                         Each checkpoint is placed at one of the corners of square grid whose each side is 100 steps long.
-                        <span className={styles.yellowMark}>Each slide movement is followed by <b>a 100-step move in a given direction</b>.</span>
+                        <span className={styles.yellowMark}>A basic slide is <b>a 100-step move in a given direction</b>.</span>
                     </p>
                     <p><StepLabel step="Step 1" />
                         One "slide right" to the first checkpoint is completed for you as an example!
                         <img src={basicSlideRight} className={styles.contentImage} style={{ width: '100px', float: 'left' }} />
                         The "wait" block is used before "change x by 100" block so that the square takes a little pause before the move.
-                        If there is no pause the movement will be too fast for your eyes to see.
+                        You will need a wait block like the example before each move, otherwise the movement will be too fast for your eyes to see.
                         Click <GreenFlagButton /> to see how this basic slide right looks like.
                     </p>
 
@@ -407,14 +407,13 @@ export const studyTasks2 = {
             id: 'copy-completion-code',
             title: (
                 <div className={styles.contentContainer}>
-                    <p className={styles.contentTitle}>Congratulations! You completed Part 2.</p>
+                    <p className={styles.contentTitle}>Congratulations! You have completed Part 2.</p>
                     <p style={{ fontSize: '1.1rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p>
                 </div>
             ),
             content: (
                 <div></div>
             ),
-            shouldCleanup: true,
             completionCode: 'myblocks',
             recordCompletion: true
         }

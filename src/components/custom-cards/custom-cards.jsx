@@ -29,7 +29,7 @@ import featureTogglingImg from '../../lib/libraries/custom-decks/custom-block-de
 
 import hintIcon from "../../components/hint-overlay/light-bulb-icon.svg";
 const enableCloseCard = false;
-const bypassCheck = true;
+const bypassCheck = false;
 
 const QISCardHeader = ({ onCloseCards, onShrinkExpandCards, totalSteps, step, expanded, dbManager, onViewSelected, view, shouldShowReference }) => (
     <div className={styles.headerButtons}>

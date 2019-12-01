@@ -17,6 +17,7 @@ import defineAnimatedJump from './intro/define-animated-jump.png';
 import ifTouchingThenJump from './intro/if-touching-then-jump.png';
 import initialJumpingSquare from './intro/initial-jumping-square.gif';
 
+
 import {
     PracticeLabel, StepLabel, TipsLabel, GreenFlagButton, CheckButtonImg, BeforeAfter
 } from './card-components';
@@ -63,7 +64,7 @@ export const studyTasks1 = {
                     </p>
 
                     <p>
-                        Scratch provides a range of blocks for programming arranged into different categories in the <b>block palette</b> and are color coded. Many of these blocks perform a specific action on the character object such as the ones you just used (i.e., "move" block, in motion category and "say" block in look category).
+                        Scratch provides a wide range of blocks that are color-coded according to their category (e.g., Motion, Looks, etc.). You can drag them from the <b>block palette</b> and put them together in the <b>workspace</b>. Each block performs a specific action on the character object such as "move" the character object forward.
                     </p>
                     <p>
                         The sequence of blocks you created is called a <b>"script"</b>.  Clicking the script to make it run---executing each block in sequence.  <span className={styles.yellowMark}>Clicking a script is a useful way to experiment or test a specific part of the program.</span>
@@ -169,15 +170,7 @@ export const studyTasks1 = {
         },
         {
             id: 'copy-completion-code',
-            title: (
-                <div className={styles.contentContainer}>
-                    <p className={styles.contentTitle}>Congratulations! You have completed Part 1.</p>
-                    <p style={{ fontSize: '1.1rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p>
-                </div>
-            ),
-            content: (
-                <div></div>
-            ),
+            title: (<p className={styles.contentTitle}>Congratulations! You have completed Part 1.</p>),
             completionCode: 'jumpstart',
             recordCompletion: true
         }

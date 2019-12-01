@@ -136,15 +136,15 @@ export const studyTasks2 = {
                 <div className={styles.contentContainer}>
                     <p>
                         <img src={basicSlide} className={styles.contentImage} style={{ width: '220px', float: 'right' }} />
-                        Program the the blue square to slide through all checkpoints. The result should look like the animation on the right. You will add to the script that starts with <b> when I receive "Square Go"</b> block.
+                        Program the blue square to slide through all checkpoints. The result should look like the animation on the right. You will add to the script that starts with <b> when I receive "Square Go"</b> block.
                         Each checkpoint is placed at one of the corners of square grid whose each side is 100 steps long.
                         <span className={styles.yellowMark}>A basic slide is <b>a 100-step move in a given direction</b>.</span>
                     </p>
                     <p><StepLabel step="Step 1" />
-                        One "slide right" to the first checkpoint is completed for you as an example!
                         <img src={basicSlideRight} className={styles.contentImage} style={{ width: '100px', float: 'left' }} />
+                        One "slide right" to the first checkpoint is completed for you as an example! 
                         The "wait" block is used before "change x by 100" block so that the square takes a little pause before the move.
-                        You will need a wait block like the example before each move, otherwise the movement will be too fast for your eyes to see.
+                        For now, you will need a <b>wait</b> block like the example before each move, otherwise the movement will be too fast for your eyes to see.
                         Click <GreenFlagButton /> to see how this basic slide right looks like.
                     </p>
 
@@ -168,12 +168,12 @@ export const studyTasks2 = {
                 <div className={styles.contentContainer}>
                     <img src={slidingSquareOutput1} className={styles.contentImage} style={{ width: '220px', float: 'right' }} />
                     <p>
-                        Now that you get it to work we can start making it look better. The square movement was too dramatic appearing at one checkpoint to another. Just like how we use the repeat block to help animate a jump movement in Part 1, we can do the same here to animate slower and smoother slides.
+                        Now that you get it to work we can start making it look better. The square movement was too dramatic appearing at one checkpoint to another. Just like how we use the <b>repeat</b> block to help animate a jump movement in Part 1, we can do the same here to animate the slides.
                     </p>
                     <div>
                         <p>
                             <StepLabel step="Step 1" /> <b>Animate slide right</b><br />
-                            Change all the program parts that move the square to the right to repeat the change x by 20 block for 5 times as shown below.
+                            Change all program parts that move the square to the right to <span className={styles.yellowMark}>repeat the change x by 20 block for 5 times </span> as shown below.
                         </p>
                         <BeforeAfter before={basicSlideRight} after={slowerSlideRight} w1='120px' w2='120px' />
                     </div>
@@ -200,7 +200,7 @@ export const studyTasks2 = {
                         <b>Nor was the code easy to modify!</b> You probably felt that it was too repetitive having to modify parts that had been replicated. For example, when tweaking slide right to be slower, you had to make the same change to not just one but all of its duplicate parts.
                     </p>
                     <p>
-                        If you recall, in Part 1 you already had a brief experience creating a custom block "jump". <b>For the remaining cards, you will learn to use custom block to make your program easier to understand and modify by extracting a custom block from a recurring program part.</b>
+                        If you recall, in Part 1 you already had a brief experience creating a custom block "jump". <b>For the remaining cards, you will learn to use custom block to make your program easier to understand and modify by extracting a custom block from recurring program parts.</b>
                     </p>
                 </div>
             )
@@ -405,15 +405,6 @@ export const studyTasks2 = {
         },
         {
             id: 'copy-completion-code',
-            title: (
-                <div className={styles.contentContainer}>
-                    <p className={styles.contentTitle}>Congratulations! You have completed Part 2.</p>
-                    <p style={{ fontSize: '1.1rem', margin: '1rem' }}>Please copy and paste the completion code below to the main survey.</p>
-                </div>
-            ),
-            content: (
-                <div></div>
-            ),
             completionCode: 'myblocks',
             recordCompletion: true
         }

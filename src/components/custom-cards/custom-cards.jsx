@@ -26,6 +26,8 @@ import Reference from './reference.jsx';
 
 import { DUPLICATE_CODE_SMELL_HINT_TYPE } from '../../lib/hints/constants.js'
 import featureTogglingImg from '../../lib/libraries/custom-decks/custom-block-deck/feature-toggle.png';
+import saveFeature from '../../lib/libraries/custom-decks/study-tasks/save-feature.png';
+import contentStyles from '../../lib/libraries/custom-decks/deck-content-styles.css';
 
 import hintIcon from "../../components/hint-overlay/light-bulb-icon.svg";
 const enableCloseCard = false;
@@ -345,17 +347,35 @@ class ImageStep extends React.Component {
                 <div className={styles.stepTitle}>
                     {title}
                     {!completionCode && <ScrollableContainer height='250px' stepId={stepId}>{content}</ScrollableContainer>}
+                    {completionCode &&
+                        <ScrollableContainer height='250px' stepId={stepId}>{
+                            <div className={styles.contentContainer} style={{ marginLeft: '1rem' }}>
+                                <p>You will need to upload your work file and enter the completion code into the main survey!<br />
+                                    Before you close this browser tab, make sure to: <br />
+                                </p>
+                                <div style={{textAlign:'left', margin:'1rem'}}>
+                                    1. Download your completed work file to your computer. <br />
+                                    <img src={saveFeature} style={{ width: '10rem', marginTop:'0.5rem' }} /><br />
+                                </div>
+                                <div style={{textAlign:'left', margin:'0.3rem'}}>
+                                    2. Copy the completion code below.
+                                <div style={{ width: 'fit-content', borderStyle: 'solid', padding: '0.3rem', borderColor: 'lightgray', borderRadius: '1rem', marginTop:'0.5rem' }} >
+                                        <CopyToClipboard text={completionCode}>
+                                            <div style={{ display: 'flex', flexDirection: 'row' }} onClick={() => { this.setState({ copied: true }) }}>
+                                                <p style={{ color: 'red', marginRight: '1rem', fontWeight: 'bold', fontSize: '1rem' }}>{completionCode}</p>
+                                                <p style={{ textAlign: 'center', color: 'blue', cursor: 'pointer' }}>
+                                                    Click here to copy {this.state.copied && <span style={{ color: "grey" }}>(COPIED!)</span>}
+                                                </p>
+                                            </div>
+                                        </CopyToClipboard>
+                                    </div>
+                                </div>
+                            </div>
+                        }</ScrollableContainer>
+                        // <div>
+                        // </div>
+                    }
                 </div>
-                {completionCode && <div>
-                    <div style={{ color: 'red', marginBottom: '30px', fontWeight: 'bold', fontSize: '1.25rem' }}>{completionCode}</div>
-                    <CopyToClipboard text={completionCode}>
-                        <div className={styles.copyCompletionCodeButton} onClick={() => { this.setState({ copied: true }) }}>
-                            Copy the Completion Code {this.state.copied && <span style={{ color: "white" }}>(COPIED!)</span>
-                            }</div>
-                    </CopyToClipboard>
-                </div>
-                }
-                {completionCode && this.state.copied && <p style={{ fontSize: '1rem' }}>After pasting the completion code to the main survey, <br />you may close this Scratch editor</p>}
                 {image && (<div className={styles.stepImageContainer}>
                     <img
                         className={styles.stepImage}
@@ -603,15 +623,15 @@ class CustomCards extends React.Component {
         } = this.props;
 
 
-        if (trmo==='hnrf') {
+        if (trmo === 'hnrf') {
             this.steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'automated')
         } else {
             this.steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'manual')
         }
 
         // activateDeck
-        saveDataToMongo('completion', 'trmo', trmo==='hnrf' ? 'experimental' : 'control');
-        saveDataToMongo('interact', 'trmo', trmo==='hnrf' ? 'experimental' : 'control');
+        saveDataToMongo('completion', 'trmo', trmo === 'hnrf' ? 'experimental' : 'control');
+        saveDataToMongo('interact', 'trmo', trmo === 'hnrf' ? 'experimental' : 'control');
         findIP.then(ip => {
             saveDataToMongo('completion', 'ip', ip);
             saveDataToMongo('interact', 'ip', ip);
@@ -701,7 +721,7 @@ class CustomCards extends React.Component {
 
         let steps = null;
 
-        if (trmo==='hnrf') {
+        if (trmo === 'hnrf') {
             steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'automated')
         } else {
             steps = content[activeDeckId].steps.filter(c => c.onlyVisibleToGroup === undefined || c.onlyVisibleToGroup === 'manual')

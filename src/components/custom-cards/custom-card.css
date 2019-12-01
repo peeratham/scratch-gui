@@ -344,9 +344,9 @@
     transition: all 0.25s ease; 
     box-shadow: 0 0 0 4px #9eecd6;
     border-radius: 0.75rem;
-    max-width: 300px;
+    max-width: 120px;
     font-weight: bold;
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 

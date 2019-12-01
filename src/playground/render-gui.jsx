@@ -99,14 +99,14 @@ export default appTarget => {
                     'http://localhost:8080'
                 }
                 customCardsVisible={true}
-                trmo={'rfg'}
+                trmo={'hnrf'}
                 customDeckId={
                     // 'scratch-basics'
                     // 'color-shade-generator'
                     // 'particle-radiator'
                     // 'refactor-slides'
-                    // 'jumping-square'
-                    'sliding-square'
+                    'jumping-square'
+                    // 'sliding-square'
                 }
                 // projectId={
                 //     // scratch-basics

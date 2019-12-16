@@ -142,18 +142,16 @@ export const studyTasks2 = {
                     </p>
                     <p><StepLabel step="Step 1" />
                         <img src={basicSlideRight} className={styles.contentImage} style={{ width: '100px', float: 'left' }} />
-                        One "slide right" to the first checkpoint is completed for you as an example! 
-                        The "wait" block is used before "change x by 100" block so that the square takes a little pause before the move.
-                        For now, you will need a <b>wait</b> block like the example before each move, otherwise the movement will be too fast for your eyes to see.
-                        Click <GreenFlagButton /> to see how this basic slide right looks like.
+                        <span className={styles.yellowMark}>A "slide right" to the first checkpoint is completed for you as an example! </span>
+                        The "wait" block is used before "change x by 100" block so that the square takes a little pause before the move (<span className={styles.yellowMark}>a <b>wait</b> block is required <b>before each move</b>, otherwise the square will move too fast for your eyes to see and for a checkpoint to detect </span>). Click <GreenFlagButton /> to see how this basic slide right looks like.
                     </p>
 
                     <p>
-                        <StepLabel step="Step 2" />Your turn! Move the square upward to the second checkpoint which is 100 steps above the first one. Following what we did for the first checkpoint but use
-                        <img src={changeYByBlock} className={styles.imgInline} style={{ width: '110px' }} /> the <b>block that changes the character object's y</b> instead.
+                        <StepLabel step="Step 2" />Your turn! Move the square upward to the second checkpoint which is 100 steps above the first one. Following a similar approach used to complete the first checkpoint, you will add a <b>wait</b> block first.  For sliding up, use 
+                        <img src={changeYByBlock} className={styles.imgInline} style={{ width: '110px', paddingLeft:'0.1rem' }} /> the <b>block that changes the character object's y</b>. 
                     </p>
                     <p>
-                        <StepLabel step="Step 3" />Complete the remaining two checkpoints! Click <CheckButtonImg /> when you are done.
+                        <StepLabel step="Step 3" />Complete the remaining two checkpoints. Click <CheckButtonImg /> when you are done.
                     </p>
                 </div>
             ),

@@ -198,7 +198,7 @@ const workspaceContainsScript = ({ workspace, expected, shouldExcludeShadow = tr
     return !!found;
 }
 
-const checkStepCompletion = ({ vm, isStarted, onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer, workspace }) => () => {
+const checkStepCompletion = ({ vm, isStarted, onCompleteStep, expected, currentInstructionId, customCheck, onShowReminderMessage, endStepTimer, workspace, onFailedAttempt, attemptCount }) => () => {
     vm.stopAll();
     if (!isStarted) {
         vm.start();
@@ -231,6 +231,14 @@ const checkStepCompletion = ({ vm, isStarted, onCompleteStep, expected, currentI
     }
 
     isComplete ? onCompleteStep(currentInstructionId) : onShowReminderMessage("Please complete all steps in this card and check again.");
+
+    //if multiple failures record program state
+    if (attemptCount && attemptCount > 0 && attemptCount%3===0) {
+        const xmlState = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
+        saveDataToMongo('state', currentInstructionId+"_"+attemptCount, xmlState);
+    }
+
+    onFailedAttempt(currentInstructionId);
 }
 
 const populateWorkspace = (setupCode) => {
@@ -353,13 +361,13 @@ class ImageStep extends React.Component {
                                 <p>You will need to upload your work file and enter the completion code into the main survey!<br />
                                     Before you close this browser tab, make sure to: <br />
                                 </p>
-                                <div style={{textAlign:'left', margin:'1rem'}}>
+                                <div style={{ textAlign: 'left', margin: '1rem' }}>
                                     1. Download your completed work file to your computer. <br />
-                                    <img src={saveFeature} style={{ width: '10rem', marginTop:'0.5rem' }} /><br />
+                                    <img src={saveFeature} style={{ width: '10rem', marginTop: '0.5rem' }} /><br />
                                 </div>
-                                <div style={{textAlign:'left', margin:'0.3rem'}}>
+                                <div style={{ textAlign: 'left', margin: '0.3rem' }}>
                                     2. Copy the completion code below.
-                                <div style={{ width: 'fit-content', borderStyle: 'solid', padding: '0.3rem', borderColor: 'lightgray', borderRadius: '1rem', marginTop:'0.5rem' }} >
+                                <div style={{ width: 'fit-content', borderStyle: 'solid', padding: '0.3rem', borderColor: 'lightgray', borderRadius: '1rem', marginTop: '0.5rem' }} >
                                         <CopyToClipboard text={completionCode}>
                                             <div style={{ display: 'flex', flexDirection: 'row' }} onClick={() => { this.setState({ copied: true }) }}>
                                                 <p style={{ color: 'red', marginRight: '1rem', fontWeight: 'bold', fontSize: '1rem' }}>{completionCode}</p>
@@ -535,7 +543,8 @@ class CustomCards extends React.Component {
                 'instructions',
             // 'reference',
             shouldShowReminder: false,
-            reminderMessage: null
+            reminderMessage: null,
+            attempts: {}
         }
         this.setUpdateCodeStatus = this.setUpdateCodeStatus.bind(this);
         this.onViewSelected = this.onViewSelected.bind(this);
@@ -545,6 +554,13 @@ class CustomCards extends React.Component {
         this.startDeckTimer = this.startDeckTimer.bind(this);
         this.endDeckTimer = this.endDeckTimer.bind(this);
         this.onEnableQualityHintFeature = this.onEnableQualityHintFeature.bind(this);
+        this.onFailedAttempt = this.onFailedAttempt.bind(this);
+    }
+
+    onFailedAttempt(cardId) {
+        this.setState({
+            attempts: Object.assign({}, this.state.attempts, { [cardId]: (this.state.attempts[cardId] || 0) + 1 })
+        })
     }
 
     setUpdateCodeStatus(alreadySetup) {
@@ -796,7 +812,9 @@ class CustomCards extends React.Component {
                                                 onShowReminderMessage: this.onShowReminderMessage,
                                                 currentInstructionId: steps[step].id,
                                                 endStepTimer: this.endStepTimer,
-                                                workspace: this.state.workspace
+                                                workspace: this.state.workspace,
+                                                onFailedAttempt: this.onFailedAttempt,
+                                                attemptCount: this.state.attempts[steps[step].id],
                                             })}>Check</div>
                                     </Floater>
                                 }

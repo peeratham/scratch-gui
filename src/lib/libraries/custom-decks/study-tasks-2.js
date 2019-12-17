@@ -136,7 +136,9 @@ export const studyTasks2 = {
                 <div className={styles.contentContainer}>
                     <p>
                         <img src={basicSlide} className={styles.contentImage} style={{ width: '220px', float: 'right' }} />
-                        Program the blue square to slide through all checkpoints. The result should look like the animation on the right. You will add to the script that starts with <b> when I receive "Square Go"</b> block.
+                        Program the blue square to slide through all checkpoints. The result should look like the animation on the right. 
+                        <span className={styles.yellowMark}>You will modify the script that starts with <b> when I receive "Square Go"</b> block.</span>
+                        <span className={styles.redMark}>You should NOT modify the other existing scripts we provided.</span>
                         Each checkpoint is placed at one of the corners of square grid whose each side is 100 steps long.
                         <span className={styles.yellowMark}>A basic slide is <b>a 100-step move in a given direction</b>.</span>
                     </p>
